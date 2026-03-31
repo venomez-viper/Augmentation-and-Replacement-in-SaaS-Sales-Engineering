@@ -1,0 +1,15 @@
+{
+  "score": 0.0562,
+  "signals": {
+    "component_count": 0.0,
+    "file_count_hint": 0.0,
+    "domain_complexity": 0.0,
+    "condition_count": 0.375,
+    "historical_failure": 0.0,
+    "dependency_depth": 0.0
+  },
+  "recommendation": "code_agent",
+  "reason": "Complexity 0.06 < threshold 0.20",
+  "threshold": 0.2,
+  "historical_failures": 0
+}

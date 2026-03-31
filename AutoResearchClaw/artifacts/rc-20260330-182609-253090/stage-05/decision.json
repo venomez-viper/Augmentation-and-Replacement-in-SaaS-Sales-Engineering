@@ -1,0 +1,11 @@
+{
+  "stage_id": "05-literature_screen",
+  "run_id": "rc-20260330-182609-253090",
+  "status": "failed",
+  "decision": "retry",
+  "output_artifacts": [],
+  "evidence_refs": [],
+  "error": "ACP prompt timed out after 1800s",
+  "ts": "2026-03-30T18:59:04+00:00",
+  "next_stage": 6
+}

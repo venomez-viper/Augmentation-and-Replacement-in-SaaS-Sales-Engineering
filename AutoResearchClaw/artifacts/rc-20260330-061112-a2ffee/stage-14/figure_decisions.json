@@ -1,0 +1,107 @@
+{
+  "decisions": [
+    {
+      "section": "Method",
+      "figure_type": "pipeline_overview",
+      "backend": "image",
+      "description": "End-to-end research pipeline showing three parallel hypothesis tracks: (H1) LLM-based task taxonomy classification with Cohen's Kappa validation, (H2) blind-rated adversarial vs. standard POC evaluation with segment split, and (H3) longitudinal LinkedIn/Indeed headcount tracking. Arrows show how H1 outputs feed into H2 and H3 interpretations. Deal-segment stratification (SMB/mid-market vs. enterprise) is highlighted as the cross-cutting analytical dimension.",
+      "priority": 1
+    },
+    {
+      "section": "Results",
+      "figure_type": "bar_comparison",
+      "backend": "code",
+      "description": "Grouped bar chart comparing role_survival_index across all six experimental conditions (what_proposed=0.021, what_variant=0.145, simplified_version=0.165, what_baseline_1=0.461, what_baseline_2=0.535, without_key_component=0.706). Bars ordered left-to-right by ascending mean value. Error bars show primary_metric_std per condition. Horizontal reference line at 0.5 marking the viability threshold. Color-coded by condition type: proposed/variant in one hue, baselines in another, ablation in a third.",
+      "priority": 1
+    },
+    {
+      "section": "Results",
+      "figure_type": "ablation_chart",
+      "backend": "code",
+      "description": "Horizontal bar chart showing the contribution of the key component via ablation: without_key_component (0.706) vs. what_proposed (0.021), with the delta (0.685) annotated explicitly. A secondary panel shows seed-level variance per condition using dot plots: what_proposed seeds {42:0.0207, 123:0.0193, 456:0.022} vs. without_key_component seeds {42:0.5625, 123:0.7862, 456:0.7701}, illustrating the high seed sensitivity of the ablated condition versus the stability of the proposed condition.",
+      "priority": 1
+    },
+    {
+      "section": "Method",
+      "figure_type": "concept_illustration",
+      "backend": "image",
+      "description": "Conceptual diagram illustrating the deal-segment bifurcation hypothesis (H3): a timeline from 2025 to 2030 showing two diverging trajectories — SMB/mid-market presales headcount declining (driven by PLG and AI automation) while enterprise presales headcount holds flat then grows with XAI-fluent skill premium. The hourglass shape emerges at the enterprise level atop a shrinking total workforce. Key dates annotated: Q4 2026 (contrarian prediction check point), Q4 2027 (innovator bifurcation checkpoint).",
+      "priority": 1
+    },
+    {
+      "section": "Results",
+      "figure_type": "heatmap",
+      "backend": "code",
+      "description": "Heatmap of primary_metric values across conditions (rows) and seeds (columns: 42, 123, 456). Cell values labeled. Color scale from red (low survival, ~0.02) to green (high survival, ~0.79). Highlights the zero-variance anomaly in simplified_version (uniform row) and the high cross-seed variance in without_key_component (high row variance). Intended to make seed sensitivity and the simplified_version anomaly visually immediate.",
+      "priority": 2
+    },
+    {
+      "section": "Method",
+      "figure_type": "method_flowchart",
+      "backend": "image",
+      "description": "Flowchart for Hypothesis 1 methodology: job posting corpus (300+ postings) → task extraction → 80-100 task taxonomy → structured rubric scoring (automation feasibility, buyer-context dependency, judgment intensity, deal-segment conditionality) → LLM classification (3 prompt variants, GPT-4o / Claude Sonnet) → human baseline ratings (8-10 senior practitioners) → Cohen's Kappa computation stratified by deal segment → pass/fail threshold check (Kappa ≥ 0.70 overall; SMB automation risk ≥25% above enterprise).",
+      "priority": 2
+    },
+    {
+      "section": "Results",
+      "figure_type": "scatter_plot",
+      "backend": "code",
+      "description": "Scatter plot with primary_metric_mean on the x-axis and primary_metric_std on the y-axis, one point per condition. Points labeled with condition name. Reveals the inverse relationship between survival score and variance: what_proposed clusters at (0.021, low std), without_key_component at (0.706, high std=0.1019), simplified_version at (0.165, 0.0). A shaded quadrant highlights the desirable high-survival / low-variance region. Intended to support the argument that high survival scores in this experiment are unreliable due to seed sensitivity.",
+      "priority": 2
+    }
+  ],
+  "code_figures": [
+    {
+      "section": "Results",
+      "figure_type": "bar_comparison",
+      "backend": "code",
+      "description": "Grouped bar chart comparing role_survival_index across all six experimental conditions (what_proposed=0.021, what_variant=0.145, simplified_version=0.165, what_baseline_1=0.461, what_baseline_2=0.535, without_key_component=0.706). Bars ordered left-to-right by ascending mean value. Error bars show primary_metric_std per condition. Horizontal reference line at 0.5 marking the viability threshold. Color-coded by condition type: proposed/variant in one hue, baselines in another, ablation in a third.",
+      "priority": 1
+    },
+    {
+      "section": "Results",
+      "figure_type": "ablation_chart",
+      "backend": "code",
+      "description": "Horizontal bar chart showing the contribution of the key component via ablation: without_key_component (0.706) vs. what_proposed (0.021), with the delta (0.685) annotated explicitly. A secondary panel shows seed-level variance per condition using dot plots: what_proposed seeds {42:0.0207, 123:0.0193, 456:0.022} vs. without_key_component seeds {42:0.5625, 123:0.7862, 456:0.7701}, illustrating the high seed sensitivity of the ablated condition versus the stability of the proposed condition.",
+      "priority": 1
+    },
+    {
+      "section": "Results",
+      "figure_type": "heatmap",
+      "backend": "code",
+      "description": "Heatmap of primary_metric values across conditions (rows) and seeds (columns: 42, 123, 456). Cell values labeled. Color scale from red (low survival, ~0.02) to green (high survival, ~0.79). Highlights the zero-variance anomaly in simplified_version (uniform row) and the high cross-seed variance in without_key_component (high row variance). Intended to make seed sensitivity and the simplified_version anomaly visually immediate.",
+      "priority": 2
+    },
+    {
+      "section": "Results",
+      "figure_type": "scatter_plot",
+      "backend": "code",
+      "description": "Scatter plot with primary_metric_mean on the x-axis and primary_metric_std on the y-axis, one point per condition. Points labeled with condition name. Reveals the inverse relationship between survival score and variance: what_proposed clusters at (0.021, low std), without_key_component at (0.706, high std=0.1019), simplified_version at (0.165, 0.0). A shaded quadrant highlights the desirable high-survival / low-variance region. Intended to support the argument that high survival scores in this experiment are unreliable due to seed sensitivity.",
+      "priority": 2
+    }
+  ],
+  "image_figures": [
+    {
+      "section": "Method",
+      "figure_type": "pipeline_overview",
+      "backend": "image",
+      "description": "End-to-end research pipeline showing three parallel hypothesis tracks: (H1) LLM-based task taxonomy classification with Cohen's Kappa validation, (H2) blind-rated adversarial vs. standard POC evaluation with segment split, and (H3) longitudinal LinkedIn/Indeed headcount tracking. Arrows show how H1 outputs feed into H2 and H3 interpretations. Deal-segment stratification (SMB/mid-market vs. enterprise) is highlighted as the cross-cutting analytical dimension.",
+      "priority": 1
+    },
+    {
+      "section": "Method",
+      "figure_type": "concept_illustration",
+      "backend": "image",
+      "description": "Conceptual diagram illustrating the deal-segment bifurcation hypothesis (H3): a timeline from 2025 to 2030 showing two diverging trajectories — SMB/mid-market presales headcount declining (driven by PLG and AI automation) while enterprise presales headcount holds flat then grows with XAI-fluent skill premium. The hourglass shape emerges at the enterprise level atop a shrinking total workforce. Key dates annotated: Q4 2026 (contrarian prediction check point), Q4 2027 (innovator bifurcation checkpoint).",
+      "priority": 1
+    },
+    {
+      "section": "Method",
+      "figure_type": "method_flowchart",
+      "backend": "image",
+      "description": "Flowchart for Hypothesis 1 methodology: job posting corpus (300+ postings) → task extraction → 80-100 task taxonomy → structured rubric scoring (automation feasibility, buyer-context dependency, judgment intensity, deal-segment conditionality) → LLM classification (3 prompt variants, GPT-4o / Claude Sonnet) → human baseline ratings (8-10 senior practitioners) → Cohen's Kappa computation stratified by deal segment → pass/fail threshold check (Kappa ≥ 0.70 overall; SMB automation risk ≥25% above enterprise).",
+      "priority": 2
+    }
+  ],
+  "total": 7
+}

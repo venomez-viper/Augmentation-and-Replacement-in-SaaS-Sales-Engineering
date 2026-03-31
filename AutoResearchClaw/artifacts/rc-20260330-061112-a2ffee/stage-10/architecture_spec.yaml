@@ -1,0 +1,740 @@
+files:
+  - name: config.py
+    generation_order: 1
+    dependencies: []
+    purpose: Experiment configuration and hyperparameters for SaaS presales engineer evolution analysis
+    classes:
+      - name: Config
+        fields:
+          - random_seeds: [42, 123, 456]
+          - n_years_forecast: 10
+          - base_year: 2024
+          - n_simulations: 1000
+          - market_growth_rate: 0.15
+          - ai_adoption_rate: 0.25
+          - presales_headcount_2024: 250000
+          - skill_decay_rate: 0.08
+          - reskilling_rate: 0.35
+          - primary_metric: "role_survival_index"
+          - secondary_metric: "market_value_score"
+          - output_dir: "results"
+          - results_file: "results.json"
+          - time_budget_hours: 4
+          - conditions:
+              - "what_proposed"
+              - "what_variant"
+              - "what_baseline_1"
+              - "what_baseline_2"
+              - "without_key_component"
+              - "simplified_version"
+
+  - name: data.py
+    generation_order: 2
+    dependencies: [config.py]
+    purpose: Generate and load synthetic datasets representing SaaS presales market dynamics and AI disruption signals
+    functions:
+      - name: generate_primary_dataset
+        signature: (config: Config, seed: int) -> pd.DataFrame
+        pseudocode: |
+          1. np.random.seed(seed)
+          2. years = range(2015, 2015 + config.n_years_forecast + 10)
+          3. For each year generate:
+             - saas_market_size: exponential growth 250B -> ~1T by 2034 (CAGR 15%)
+             - presales_headcount: starts 250k, grows then declines after 2027
+             - ai_capability_index: sigmoid curve 0->1 over 2020-2030
+             - avg_deal_complexity: increases as simpler deals auto-handled [0,1]
+             - avg_salary_usd: 80k-180k range with regional variance
+             - automation_threat_score: [0,1] based on task decomposition
+             - new_role_emergence_rate: fraction of roles evolving per year
+          4. Add Gaussian noise: sigma=0.05 * signal for realism
+          5. Return DataFrame shape [n_years, 8]
+
+      - name: generate_secondary_dataset
+        signature: (config: Config, seed: int) -> pd.DataFrame
+        pseudocode: |
+          1. np.random.seed(seed + 1000)
+          2. Generate skills data for presales engineers:
+             - technical_depth_score: [0,1] how deep tech knowledge required
+             - business_acumen_score: [0,1] consultative selling weight
+             - ai_literacy_score: [0,1] ability to demo/explain AI products
+             - orchestration_skill: [0,1] managing AI tools in sales cycles
+             - empathy_creativity: [0,1] uniquely human skills index
+          3. For each year 2015-2034 project skill demand weights
+          4. Compute weighted_role_value = dot(skill_scores, demand_weights)
+          5. Return DataFrame shape [n_years, 7]
+
+      - name: compute_role_survival_index
+        signature: (primary_df: pd.DataFrame, secondary_df: pd.DataFrame) -> np.ndarray
+        pseudocode: |
+          1. automation_risk = primary_df['automation_threat_score'].values  # shape [T]
+          2. skill_adaptability = secondary_df['weighted_role_value'].values  # shape [T]
+          3. market_demand = primary_df['saas_market_size'].values / primary_df['saas_market_size'].max()
+          4. rsi = (1 - automation_risk) * skill_adaptability * market_demand  # elementwise [T]
+          5. rsi = np.clip(rsi, 0, 1)
+          6. return rsi  # shape [T]
+
+      - name: get_datasets
+        signature: (config: Config, seed: int) -> tuple[pd.DataFrame, pd.DataFrame, np.ndarray]
+        pseudocode: |
+          1. primary_df = generate_primary_dataset(config, seed)
+          2. secondary_df = generate_secondary_dataset(config, seed)
+          3. rsi = compute_role_survival_index(primary_df, secondary_df)
+          4. return primary_df, secondary_df, rsi
+
+  - name: methods.py
+    generation_order: 3
+    dependencies: [config.py, data.py]
+    purpose: All analysis method implementations — each condition as a distinct strategy class
+    classes:
+      - name: BaseAnalysisMethod
+        purpose: Abstract base for all forecasting and analysis strategies
+        fields:
+          - config: Config
+          - name: str
+          - results: dict
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. self.config = config
+              2. self.name = "base"
+              3. self.results = {}
+              4. self.forecast_years = list(range(config.base_year, config.base_year + config.n_years_forecast))
+              5. self.rsi_history = []
+              6. self.market_value_history = []
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. Store references: self.primary_df, self.secondary_df, self.rsi
+              2. Compute baseline statistics:
+                 - self.mean_rsi = float(np.mean(rsi))
+                 - self.std_rsi = float(np.std(rsi))
+              3. Fit internal model (override in subclasses)
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. Generate forecast for horizon years
+              2. Return dict with keys: years, rsi_forecast, market_value_forecast, confidence_intervals
+              3. (Override in subclasses with specific algorithms)
+          - name: compute_market_value_score
+            signature: (primary_df, secondary_df) -> float
+            pseudocode: |
+              1. headcount = primary_df['presales_headcount'].values[-1]
+              2. avg_salary = primary_df['avg_salary_usd'].values[-1]
+              3. total_market_value = headcount * avg_salary / 1e9  # in billions
+              4. role_value_weight = secondary_df['weighted_role_value'].values[-1]
+              5. return float(total_market_value * role_value_weight)
+          - name: run
+            signature: (primary_df, secondary_df, rsi) -> dict
+            pseudocode: |
+              1. self.fit(primary_df, secondary_df, rsi)
+              2. forecast = self.forecast(config.n_years_forecast)
+              3. mvs = self.compute_market_value_score(primary_df, secondary_df)
+              4. self.results = {
+                   'primary_metric': forecast['rsi_forecast'][-1],
+                   'secondary_metric': mvs,
+                   'forecast': forecast,
+                   'method': self.name
+                 }
+              5. return self.results
+
+      - name: WhatProposedMethod(BaseAnalysisMethod)
+        differentiator: >
+          AI-Augmented Role Evolution model: uses sigmoid-weighted AI disruption curve
+          combined with skill-gap Bayesian update to forecast presales role transformation.
+          KEY: models role bifurcation — surviving roles become higher-value AI orchestrators.
+        overrides: [fit, forecast]
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. super().__init__(config)
+              2. self.name = "what_proposed"
+              3. self.ai_disruption_alpha = 5.0   # sigmoid steepness
+              4. self.ai_disruption_midpoint = 2027  # inflection year
+              5. self.bifurcation_threshold = 0.6  # RSI below = displacement risk
+              6. self.orchestrator_premium = 1.45  # salary multiplier for surviving roles
+              7. self.bayesian_prior = 0.5  # prior P(role survives)
+          - name: _sigmoid_ai_curve
+            signature: (year: float) -> float
+            pseudocode: |
+              1. x = self.ai_disruption_alpha * (year - self.ai_disruption_midpoint)
+              2. return 1.0 / (1.0 + np.exp(-x))  # sigmoid in [0,1]
+          - name: _bayesian_rsi_update
+            signature: (prior: float, ai_capability: float, skill_level: float) -> float
+            pseudocode: |
+              1. # P(survive | AI_capability, skill_level)
+              2. likelihood_survive = skill_level * (1 - 0.8 * ai_capability)
+              3. likelihood_not_survive = (1 - skill_level) * ai_capability
+              4. posterior = (likelihood_survive * prior) / (
+                   likelihood_survive * prior + likelihood_not_survive * (1 - prior)
+                 )
+              5. return float(np.clip(posterior, 0.01, 0.99))
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. super().fit(primary_df, secondary_df, rsi)
+              2. # Fit sigmoid AI disruption curve to historical data
+              3. years_numeric = np.array([int(y) for y in primary_df.index])  # shape [T]
+              4. self.ai_curve = np.array([self._sigmoid_ai_curve(y) for y in years_numeric])  # [T]
+              5. # Bayesian RSI estimation per year
+              6. ai_cap = primary_df['ai_capability_index'].values  # [T]
+              7. skill_vals = secondary_df['weighted_role_value'].values  # [T]
+              8. self.bayesian_rsi = np.array([
+                   self._bayesian_rsi_update(self.bayesian_prior, ai_cap[i], skill_vals[i])
+                   for i in range(len(ai_cap))
+                 ])  # shape [T]
+              9. # Compute role bifurcation split
+              10. self.displaced_fraction = float(np.mean(self.bayesian_rsi < self.bifurcation_threshold))
+              11. self.surviving_fraction = 1.0 - self.displaced_fraction
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. last_year = int(self.primary_df.index[-1])
+              2. forecast_years = list(range(last_year + 1, last_year + 1 + horizon))
+              3. rsi_forecast = []
+              4. ci_lower, ci_upper = [], []
+              5. for yr in forecast_years:
+                 a. ai_cap_proj = self._sigmoid_ai_curve(yr)  # increasing AI capability
+                 b. skill_proj = max(0.1, self.mean_rsi - 0.03 * (yr - last_year))  # gradual skill decay
+                 c. rsi_yr = self._bayesian_rsi_update(self.bayesian_prior, ai_cap_proj, skill_proj)
+                 d. # Apply orchestrator premium to surviving fraction
+                 e. effective_rsi = rsi_yr * self.surviving_fraction * self.orchestrator_premium + rsi_yr * self.displaced_fraction * 0.2
+                 f. effective_rsi = float(np.clip(effective_rsi, 0, 1))
+                 g. rsi_forecast.append(effective_rsi)
+                 h. ci_lower.append(max(0, effective_rsi - 1.96 * self.std_rsi))
+                 i. ci_upper.append(min(1, effective_rsi + 1.96 * self.std_rsi))
+              6. market_value_forecast = [
+                   self.compute_market_value_score(self.primary_df, self.secondary_df) * (1 + 0.1 * i)
+                   for i in range(horizon)
+                 ]
+              7. return {
+                   'years': forecast_years,
+                   'rsi_forecast': rsi_forecast,
+                   'market_value_forecast': market_value_forecast,
+                   'ci_lower': ci_lower,
+                   'ci_upper': ci_upper,
+                   'bifurcation_point': self.ai_disruption_midpoint,
+                   'surviving_fraction': self.surviving_fraction
+                 }
+
+      - name: WhatVariantMethod(BaseAnalysisMethod)
+        differentiator: >
+          Skill Transition Matrix model: uses Markov chain over discrete role states
+          (Traditional, Hybrid, AI-Orchestrator, Displaced) to forecast population flow.
+          KEY: tracks COHORT transitions rather than aggregate index — reveals which
+          engineer profiles survive and in what new form.
+        overrides: [fit, forecast]
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. super().__init__(config)
+              2. self.name = "what_variant"
+              3. # Role states: 0=Traditional, 1=Hybrid, 2=AI_Orchestrator, 3=Displaced
+              4. self.n_states = 4
+              5. self.state_labels = ['Traditional', 'Hybrid', 'AI_Orchestrator', 'Displaced']
+              6. self.transition_matrix = np.zeros((4, 4))  # shape [4,4]
+              7. self.initial_distribution = np.array([0.7, 0.2, 0.05, 0.05])  # shape [4]
+          - name: _build_transition_matrix
+            signature: (ai_capability: float, market_growth: float) -> np.ndarray
+            pseudocode: |
+              1. # Transition probs depend on AI adoption and market growth
+              2. # Higher AI -> more Traditional->Displaced and Traditional->Hybrid
+              3. p_trad_to_hybrid = 0.15 + 0.20 * ai_capability
+              4. p_trad_to_displaced = 0.05 + 0.25 * ai_capability
+              5. p_trad_stay = 1 - p_trad_to_hybrid - p_trad_to_displaced
+              6. p_hybrid_to_orchestrator = 0.10 + 0.30 * market_growth
+              7. p_hybrid_stay = 1 - p_hybrid_to_orchestrator - 0.05
+              8. T = np.array([
+                   [p_trad_stay,        p_trad_to_hybrid, 0.0,                    p_trad_to_displaced],
+                   [0.0,                p_hybrid_stay,    p_hybrid_to_orchestrator, 0.05],
+                   [0.0,                0.05,             0.90,                    0.05],
+                   [0.0,                0.0,              0.0,                     1.0]
+                 ])  # shape [4,4] — rows=from, cols=to
+              9. # Row-normalize to ensure valid probabilities
+              10. T = T / T.sum(axis=1, keepdims=True)
+              11. return T  # shape [4,4]
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. super().fit(primary_df, secondary_df, rsi)
+              2. ai_cap_mean = float(primary_df['ai_capability_index'].mean())
+              3. mkt_growth = float(primary_df['saas_market_size'].pct_change().mean())
+              4. self.transition_matrix = self._build_transition_matrix(ai_cap_mean, mkt_growth)
+              5. # Simulate Markov chain over historical data to validate
+              6. dist = self.initial_distribution.copy()  # shape [4]
+              7. self.historical_distributions = [dist.copy()]
+              8. for _ in range(len(primary_df) - 1):
+                 a. dist = dist @ self.transition_matrix  # [4] @ [4,4] -> [4]
+                 b. self.historical_distributions.append(dist.copy())
+              9. self.historical_distributions = np.array(self.historical_distributions)  # [T, 4]
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. dist = self.historical_distributions[-1].copy()  # [4] — last known state
+              2. forecast_dists = []
+              3. last_year = int(self.primary_df.index[-1])
+              4. forecast_years = list(range(last_year + 1, last_year + 1 + horizon))
+              5. for i in range(horizon):
+                 a. # Increase AI capability linearly over horizon
+                 b. ai_cap_proj = min(1.0, 0.5 + 0.05 * i)
+                 c. mkt_growth = max(0.05, 0.15 - 0.01 * i)
+                 d. T = self._build_transition_matrix(ai_cap_proj, mkt_growth)
+                 e. dist = dist @ T  # [4] @ [4,4] -> [4]
+                 f. forecast_dists.append(dist.copy())
+              6. forecast_dists = np.array(forecast_dists)  # [horizon, 4]
+              7. # RSI = weighted sum: AI_Orchestrator gets 1.0, Hybrid 0.6, Traditional 0.3, Displaced 0.0
+              8. weights = np.array([0.3, 0.6, 1.0, 0.0])  # shape [4]
+              9. rsi_forecast = (forecast_dists * weights).sum(axis=1).tolist()  # [horizon]
+              10. market_value_forecast = [
+                    self.compute_market_value_score(self.primary_df, self.secondary_df) * (
+                      1 + float(forecast_dists[i, 2]) * 0.5  # orchestrators add market premium
+                    ) for i in range(horizon)
+                  ]
+              11. return {
+                    'years': forecast_years,
+                    'rsi_forecast': rsi_forecast,
+                    'market_value_forecast': market_value_forecast,
+                    'ci_lower': [max(0, r - 0.1) for r in rsi_forecast],
+                    'ci_upper': [min(1, r + 0.1) for r in rsi_forecast],
+                    'state_distributions': forecast_dists.tolist(),
+                    'state_labels': self.state_labels
+                  }
+
+      - name: WhatBaseline1Method(BaseAnalysisMethod)
+        differentiator: >
+          Linear Trend Extrapolation baseline: fits OLS regression on historical RSI
+          and projects forward. Simplest possible forecast — no AI disruption modeling,
+          no role bifurcation, pure historical trend continuation.
+        overrides: [fit, forecast]
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. super().__init__(config)
+              2. self.name = "what_baseline_1"
+              3. self.slope = 0.0
+              4. self.intercept = 0.0
+              5. self.r_squared = 0.0
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. super().fit(primary_df, secondary_df, rsi)
+              2. T = len(rsi)
+              3. x = np.arange(T, dtype=float)  # shape [T]
+              4. y = rsi  # shape [T]
+              5. # OLS: slope = cov(x,y)/var(x), intercept = mean(y) - slope*mean(x)
+              6. x_mean, y_mean = float(np.mean(x)), float(np.mean(y))
+              7. self.slope = float(np.sum((x - x_mean) * (y - y_mean)) / np.sum((x - x_mean)**2))
+              8. self.intercept = y_mean - self.slope * x_mean
+              9. y_pred = self.slope * x + self.intercept
+              10. ss_res = float(np.sum((y - y_pred)**2))
+              11. ss_tot = float(np.sum((y - y_mean)**2))
+              12. self.r_squared = 1.0 - ss_res / (ss_tot + 1e-9)
+              13. self.last_x = float(T - 1)
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. last_year = int(self.primary_df.index[-1])
+              2. forecast_years = list(range(last_year + 1, last_year + 1 + horizon))
+              3. rsi_forecast = []
+              4. for i in range(1, horizon + 1):
+                 a. x_proj = self.last_x + i
+                 b. rsi_proj = float(np.clip(self.slope * x_proj + self.intercept, 0, 1))
+                 c. rsi_forecast.append(rsi_proj)
+              5. residual_std = self.std_rsi * np.sqrt(1 + 1/len(self.rsi))
+              6. ci_lower = [max(0, r - 1.96 * residual_std) for r in rsi_forecast]
+              7. ci_upper = [min(1, r + 1.96 * residual_std) for r in rsi_forecast]
+              8. market_value_forecast = [
+                   self.compute_market_value_score(self.primary_df, self.secondary_df)
+                 ] * horizon  # flat assumption
+              9. return {
+                   'years': forecast_years,
+                   'rsi_forecast': rsi_forecast,
+                   'market_value_forecast': market_value_forecast,
+                   'ci_lower': ci_lower,
+                   'ci_upper': ci_upper,
+                   'r_squared': self.r_squared
+                 }
+
+      - name: WhatBaseline2Method(BaseAnalysisMethod)
+        differentiator: >
+          ARIMA-style Exponential Smoothing baseline: uses Holt-Winters double
+          exponential smoothing (level + trend) on RSI time series. No structural
+          AI-disruption model — purely statistical time-series extrapolation.
+        overrides: [fit, forecast]
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. super().__init__(config)
+              2. self.name = "what_baseline_2"
+              3. self.alpha = 0.3   # level smoothing
+              4. self.beta = 0.1    # trend smoothing
+              5. self.level = 0.0
+              6. self.trend = 0.0
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. super().fit(primary_df, secondary_df, rsi)
+              2. T = len(rsi)
+              3. # Initialize level and trend from first two observations
+              4. self.level = float(rsi[0])
+              5. self.trend = float(rsi[1] - rsi[0]) if T > 1 else 0.0
+              6. # Run Holt's double exponential smoothing
+              7. self.smoothed = [self.level]
+              8. for t in range(1, T):
+                 a. prev_level = self.level
+                 b. self.level = self.alpha * rsi[t] + (1 - self.alpha) * (self.level + self.trend)
+                 c. self.trend = self.beta * (self.level - prev_level) + (1 - self.beta) * self.trend
+                 d. self.smoothed.append(float(self.level + self.trend))
+              9. self.smoothed = np.array(self.smoothed)  # shape [T]
+              10. # Compute residual std for confidence intervals
+              11. self.residual_std = float(np.std(rsi - self.smoothed))
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. last_year = int(self.primary_df.index[-1])
+              2. forecast_years = list(range(last_year + 1, last_year + 1 + horizon))
+              3. rsi_forecast = []
+              4. level, trend = self.level, self.trend
+              5. for h in range(1, horizon + 1):
+                 a. rsi_h = float(np.clip(level + h * trend, 0, 1))
+                 b. rsi_forecast.append(rsi_h)
+              6. ci_lower = [max(0, r - 1.96 * self.residual_std * np.sqrt(h))
+                             for h, r in enumerate(rsi_forecast, 1)]
+              7. ci_upper = [min(1, r + 1.96 * self.residual_std * np.sqrt(h))
+                             for h, r in enumerate(rsi_forecast, 1)]
+              8. market_value_forecast = [
+                   self.compute_market_value_score(self.primary_df, self.secondary_df) * (1 + 0.05 * i)
+                   for i in range(horizon)
+                 ]
+              9. return {
+                   'years': forecast_years,
+                   'rsi_forecast': rsi_forecast,
+                   'market_value_forecast': market_value_forecast,
+                   'ci_lower': ci_lower,
+                   'ci_upper': ci_upper,
+                   'final_level': float(level),
+                   'final_trend': float(trend)
+                 }
+
+      - name: WithoutKeyComponentMethod(BaseAnalysisMethod)
+        differentiator: >
+          Ablation — removes the AI disruption sigmoid/Bayesian layer from WhatProposed.
+          Uses the same role bifurcation concept but with STATIC transition probabilities
+          instead of AI-capability-driven dynamic ones. Tests whether AI-adaptive
+          modeling adds forecasting value over fixed assumptions.
+        overrides: [fit, forecast]
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. super().__init__(config)
+              2. self.name = "without_key_component"
+              3. self.static_displaced_fraction = 0.35  # fixed, not AI-adaptive
+              4. self.static_surviving_fraction = 0.65
+              5. self.orchestrator_premium = 1.45  # same as proposed
+              6. # NOTE: NO sigmoid AI curve, NO Bayesian update — this is the ablation
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. super().fit(primary_df, secondary_df, rsi)
+              2. # Use static fractions — no dynamic computation from AI capability
+              3. self.base_rsi = float(np.mean(rsi[-5:]))  # last 5 years avg
+              4. self.rsi_trend = float((rsi[-1] - rsi[-5]) / 5) if len(rsi) >= 5 else 0.0
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. last_year = int(self.primary_df.index[-1])
+              2. forecast_years = list(range(last_year + 1, last_year + 1 + horizon))
+              3. rsi_forecast = []
+              4. for i in range(horizon):
+                 a. # Static bifurcation, fixed fractions — no AI curve
+                 b. base = self.base_rsi + self.rsi_trend * i
+                 c. effective_rsi = (
+                      base * self.static_surviving_fraction * self.orchestrator_premium
+                      + base * self.static_displaced_fraction * 0.2
+                    )
+                 d. rsi_forecast.append(float(np.clip(effective_rsi, 0, 1)))
+              5. ci_lower = [max(0, r - self.std_rsi) for r in rsi_forecast]
+              6. ci_upper = [min(1, r + self.std_rsi) for r in rsi_forecast]
+              7. market_value_forecast = [
+                   self.compute_market_value_score(self.primary_df, self.secondary_df)
+                 ] * horizon
+              8. return {
+                   'years': forecast_years,
+                   'rsi_forecast': rsi_forecast,
+                   'market_value_forecast': market_value_forecast,
+                   'ci_lower': ci_lower,
+                   'ci_upper': ci_upper,
+                   'note': 'Static fractions only, no AI capability modeling'
+                 }
+
+      - name: SimplifiedVersionMethod(BaseAnalysisMethod)
+        differentiator: >
+          Ablation — simplified version of WhatVariant's Markov chain model.
+          Collapses 4 role states to 2 (Surviving, Displaced) and uses a single
+          fixed transition probability per year. Tests whether fine-grained state
+          modeling (4 states) improves over binary survive/displace framing.
+        overrides: [fit, forecast]
+        methods:
+          - name: __init__
+            pseudocode: |
+              1. super().__init__(config)
+              2. self.name = "simplified_version"
+              3. # 2-state Markov: 0=Surviving, 1=Displaced
+              4. self.p_survive_to_displace = 0.08  # annual displacement rate
+              5. self.p_displace_to_survive = 0.02  # rare re-entry
+              6. self.initial_surviving = 0.95
+          - name: _two_state_transition
+            signature: () -> np.ndarray
+            pseudocode: |
+              1. T = np.array([
+                   [1 - self.p_survive_to_displace, self.p_survive_to_displace],
+                   [self.p_displace_to_survive,     1 - self.p_displace_to_survive]
+                 ])  # shape [2,2]
+              2. return T
+          - name: fit
+            signature: (primary_df, secondary_df, rsi) -> None
+            pseudocode: |
+              1. super().fit(primary_df, secondary_df, rsi)
+              2. T_mat = self._two_state_transition()  # [2,2]
+              3. dist = np.array([self.initial_surviving, 1 - self.initial_surviving])  # [2]
+              4. self.historical_dists = [dist.copy()]
+              5. for _ in range(len(primary_df) - 1):
+                 a. dist = dist @ T_mat  # [2] @ [2,2] -> [2]
+                 b. self.historical_dists.append(dist.copy())
+              6. self.historical_dists = np.array(self.historical_dists)  # [T, 2]
+          - name: forecast
+            signature: (horizon: int) -> dict
+            pseudocode: |
+              1. dist = self.historical_dists[-1].copy()  # [2]
+              2. T_mat = self._two_state_transition()  # [2,2]
+              3. last_year = int(self.primary_df.index[-1])
+              4. forecast_years = list(range(last_year + 1, last_year + 1 + horizon))
+              5. rsi_forecast = []
+              6. for i in range(horizon):
+                 a. dist = dist @ T_mat  # [2] @ [2,2] -> [2]
+                 b. # RSI = fraction surviving * 0.7 (simplified, no orchestrator premium)
+                 c. rsi_h = float(np.clip(dist[0] * 0.7, 0, 1))
+                 d. rsi_forecast.append(rsi_h)
+              7. ci_lower = [max(0, r - 0.08) for r in rsi_forecast]
+              8. ci_upper = [min(1, r + 0.08) for r in rsi_forecast]
+              9. market_value_forecast = [
+                   self.compute_market_value_score(self.primary_df, self.secondary_df)
+                 ] * horizon
+              10. return {
+                    'years': forecast_years,
+                    'rsi_forecast': rsi_forecast,
+                    'market_value_forecast': market_value_forecast,
+                    'ci_lower': ci_lower,
+                    'ci_upper': ci_upper,
+                    'note': '2-state Markov only, no multi-tier role modeling'
+                  }
+
+  - name: evaluate.py
+    generation_order: 4
+    dependencies: [config.py, data.py, methods.py]
+    purpose: Evaluation metrics, statistical comparison, and results aggregation
+    functions:
+      - name: compute_forecast_accuracy
+        signature: (rsi_true: np.ndarray, rsi_pred: list[float]) -> dict
+        pseudocode: |
+          1. n = min(len(rsi_true), len(rsi_pred))
+          2. true_arr = np.array(rsi_true[:n])   # shape [n]
+          3. pred_arr = np.array(rsi_pred[:n])   # shape [n]
+          4. mae = float(np.mean(np.abs(true_arr - pred_arr)))
+          5. rmse = float(np.sqrt(np.mean((true_arr - pred_arr)**2)))
+          6. # AUC of RSI curve using trapezoid rule (numpy 2.x compatible)
+          7. auc_true = float(np.trapezoid(true_arr))
+          8. auc_pred = float(np.trapezoid(pred_arr))
+          9. auc_diff = abs(auc_true - auc_pred) / (abs(auc_true) + 1e-9)
+          10. return {'mae': mae, 'rmse': rmse, 'auc_relative_diff': auc_diff}
+
+      - name: aggregate_seed_results
+        signature: (seed_results: list[dict]) -> dict
+        pseudocode: |
+          1. primary_vals = [r['primary_metric'] for r in seed_results]   # list[float]
+          2. secondary_vals = [r['secondary_metric'] for r in seed_results]  # list[float]
+          3. return {
+               'primary_metric_mean': float(np.mean(primary_vals)),
+               'primary_metric_std': float(np.std(primary_vals)),
+               'secondary_metric_mean': float(np.mean(secondary_vals)),
+               'secondary_metric_std': float(np.std(secondary_vals)),
+               'n_seeds': len(seed_results)
+             }
+
+      - name: compare_conditions
+        signature: (all_results: dict[str, dict]) -> dict
+        pseudocode: |
+          1. summary = {}
+          2. for condition_name, agg in all_results.items():
+             a. summary[condition_name] = {
+                  'primary_metric': agg['primary_metric_mean'],
+                  'primary_std': agg['primary_metric_std'],
+                  'secondary_metric': agg['secondary_metric_mean'],
+                  'rank': None  # filled below
+                }
+          3. # Rank by primary_metric descending
+          4. ranked = sorted(summary.keys(), key=lambda k: summary[k]['primary_metric'], reverse=True)
+          5. for rank_i, cname in enumerate(ranked, 1):
+             a. summary[cname]['rank'] = rank_i
+          6. summary['best_condition'] = ranked[0]
+          7. return summary
+
+      - name: save_results
+        signature: (results: dict, config: Config) -> None
+        pseudocode: |
+          1. import json, os
+          2. os.makedirs(config.output_dir, exist_ok=True)
+          3. out_path = os.path.join(config.output_dir, config.results_file)
+          4. with open(out_path, 'w') as f:
+             a. json.dump(results, f, indent=2, default=str)
+          5. print(f"Results saved to {out_path}")
+
+      - name: print_condition_report
+        signature: (condition_name: str, agg: dict) -> None
+        pseudocode: |
+          1. print(f"  Condition: {condition_name}")
+          2. print(f"    primary_metric (role_survival_index): {agg['primary_metric_mean']:.4f} ± {agg['primary_metric_std']:.4f}")
+          3. print(f"    secondary_metric (market_value_score): {agg['secondary_metric_mean']:.4f} ± {agg['secondary_metric_std']:.4f}")
+
+  - name: main.py
+    generation_order: 5
+    dependencies: [config.py, data.py, methods.py, evaluate.py]
+    purpose: Entry point — runs ALL conditions sequentially across all seeds, reports results
+    contract:
+      prints_metric_def: true
+      prints_registered_conditions: true
+      runs_all_conditions: true
+      per_seed_reporting: true
+      time_budget_guard: true
+    functions:
+      - name: main
+        pseudocode: |
+          1. import time, json
+          2. from config import Config
+          3. from data import get_datasets
+          4. from methods import (WhatProposedMethod, WhatVariantMethod,
+                                  WhatBaseline1Method, WhatBaseline2Method,
+                                  WithoutKeyComponentMethod, SimplifiedVersionMethod)
+          5. from evaluate import (aggregate_seed_results, compare_conditions,
+                                   save_results, print_condition_report)
+
+          6. config = Config()
+          7. start_time = time.time()
+          8. time_limit_seconds = config.time_budget_hours * 3600
+
+          9. # --- METRIC DEFINITION ---
+          10. print("METRIC_DEF: primary_metric=role_survival_index | range=[0,1] | higher_is_better=True")
+          11. print("METRIC_DEF: secondary_metric=market_value_score | units=weighted_billions | higher_is_better=True")
+
+          12. # --- REGISTERED CONDITIONS ---
+          13. conditions = [
+                ("what_proposed",         WhatProposedMethod),
+                ("what_variant",          WhatVariantMethod),
+                ("what_baseline_1",       WhatBaseline1Method),
+                ("what_baseline_2",       WhatBaseline2Method),
+                ("without_key_component", WithoutKeyComponentMethod),
+                ("simplified_version",    SimplifiedVersionMethod),
+              ]
+          14. print(f"REGISTERED_CONDITIONS: {[c[0] for c in conditions]}")
+
+          15. all_results = {}
+
+          16. # --- MAIN LOOP: conditions x seeds ---
+          17. for condition_name, ConditionClass in conditions:
+              a. # TIME BUDGET GUARD
+              b. elapsed = time.time() - start_time
+              c. if elapsed > time_limit_seconds:
+                    print(f"TIME_BUDGET_EXCEEDED after {elapsed:.1f}s — stopping.")
+                    break
+              d. print(f"\n{'='*60}")
+              e. print(f"Running condition: {condition_name}")
+              f. seed_results = []
+
+              g. for seed in config.random_seeds:
+                 i.   # TIME BUDGET GUARD (inner)
+                 ii.  elapsed = time.time() - start_time
+                 iii. if elapsed > time_limit_seconds:
+                         print(f"  TIME_BUDGET_EXCEEDED (inner) — skipping remaining seeds.")
+                         break
+                 iv.  # Per-seed isolation: fresh data and model
+                 v.   primary_df, secondary_df, rsi = get_datasets(config, seed)
+                 vi.  method = ConditionClass(config)
+                 vii. result = method.run(primary_df, secondary_df, rsi)
+                 viii.seed_results.append(result)
+                 ix.  # PER-SEED REPORTING
+                 x.   print(f"  seed={seed} | primary_metric={result['primary_metric']:.4f} | secondary_metric={result['secondary_metric']:.4f}")
+
+              h. if seed_results:
+                    agg = aggregate_seed_results(seed_results)
+                    all_results[condition_name] = agg
+                    print_condition_report(condition_name, agg)
+
+          18. # --- SUMMARY COMPARISON ---
+          19. print(f"\n{'='*60}")
+          20. print("SUMMARY — Comparison across all conditions:")
+          21. summary = compare_conditions(all_results)
+          22. for cname in sorted(all_results.keys()):
+              a. r = summary[cname]
+              b. print(f"  [{r['rank']}] {cname}: primary={r['primary_metric']:.4f}, secondary={r['secondary_metric']:.4f}")
+          23. print(f"\nBEST_CONDITION: {summary.get('best_condition', 'N/A')}")
+
+          24. # --- SAVE RESULTS ---
+          25. final_output = {
+                'config': {
+                  'topic': config.topic if hasattr(config, 'topic') else 'SaaS presales evolution',
+                  'seeds': config.random_seeds,
+                  'n_years_forecast': config.n_years_forecast,
+                },
+                'conditions': all_results,
+                'summary': summary
+              }
+          26. save_results(final_output, config)
+
+          27. total_elapsed = time.time() - start_time
+          28. print(f"\nTotal elapsed: {total_elapsed:.1f}s")
+
+          29. if __name__ == "__main__":
+                main()
+
+verification_criteria:
+  - All 6 condition classes have DIFFERENT fit/forecast implementations with distinct algorithmic logic
+  - RSI values always clipped to [0,1] before reporting
+  - Time budget guard checked at both outer (condition) and inner (seed) loops
+  - Per-seed random state isolation via seed parameter passed to get_datasets and np.random.seed
+  - np.trapezoid used (not np.trapz) for numpy 2.x compatibility
+  - No torch dependency — pure numpy/scipy/pandas domain analysis
+  - results.json written to config.output_dir after all conditions complete
+
+conditions:
+  - name: what_proposed
+    class: WhatProposedMethod
+    description: >
+      AI-Augmented Role Evolution — sigmoid AI disruption curve + Bayesian RSI update
+      + role bifurcation into AI-orchestrators vs. displaced. Most structurally rich model.
+
+  - name: what_variant
+    class: WhatVariantMethod
+    description: >
+      Skill Transition Matrix — 4-state Markov chain (Traditional→Hybrid→AI_Orchestrator→Displaced)
+      with AI-capability-driven transition probabilities. Tracks cohort flow.
+
+  - name: what_baseline_1
+    class: WhatBaseline1Method
+    description: >
+      Linear Trend Extrapolation — OLS regression on historical RSI, no structural AI modeling.
+
+  - name: what_baseline_2
+    class: WhatBaseline2Method
+    description: >
+      Holt's Double Exponential Smoothing — level+trend smoothing, purely statistical.
+
+  - name: without_key_component
+    class: WithoutKeyComponentMethod
+    description: >
+      Ablation of WhatProposed: removes sigmoid AI curve and Bayesian update,
+      uses static role fractions instead. Tests value of adaptive AI modeling.
+
+  - name: simplified_version
+    class: SimplifiedVersionMethod
+    description: >
+      Ablation of WhatVariant: collapses 4-state Markov to 2-state (Surviving/Displaced),
+      fixed transition probabilities. Tests value of fine-grained role state modeling.

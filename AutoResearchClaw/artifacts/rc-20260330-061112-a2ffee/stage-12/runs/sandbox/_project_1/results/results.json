@@ -1,0 +1,133 @@
+{
+  "hyperparameters": {
+    "random_seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_years_forecast": 10,
+    "base_year": 2024,
+    "n_simulations": 1000,
+    "market_growth_rate": 0.15,
+    "ai_adoption_rate": 0.25,
+    "presales_headcount_2024": 250000,
+    "skill_decay_rate": 0.08,
+    "reskilling_rate": 0.35,
+    "noise_sigma_fraction": 0.05,
+    "ai_disruption_alpha": 5.0,
+    "ai_disruption_midpoint": 2027,
+    "bifurcation_threshold": 0.6,
+    "orchestrator_premium": 1.45,
+    "bayesian_prior": 0.5,
+    "markov_n_states": 4,
+    "holt_alpha": 0.3,
+    "holt_beta": 0.1,
+    "static_displaced_fraction": 0.35,
+    "p_survive_to_displace": 0.08,
+    "p_displace_to_survive": 0.02
+  },
+  "config": {
+    "topic": "what is the future of SAAS presales engineers what will they evolve and market patterns analysis and forecast also impact by AI",
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "n_years_forecast": 10
+  },
+  "conditions": {
+    "what_proposed": {
+      "primary_metric_mean": 0.020652173913043474,
+      "primary_metric_std": 0.0011093703545213675,
+      "secondary_metric_mean": 19.104892206390783,
+      "secondary_metric_std": 1.4033316565041145,
+      "primary_metric_min": 0.01929347826086956,
+      "primary_metric_max": 0.02201086956521739,
+      "n_seeds": 3
+    },
+    "what_variant": {
+      "primary_metric_mean": 0.14472108168058884,
+      "primary_metric_std": 0.00018203980258918323,
+      "secondary_metric_mean": 19.104892206390783,
+      "secondary_metric_std": 1.4033316565041145,
+      "primary_metric_min": 0.14454461749497333,
+      "primary_metric_max": 0.14497164993075642,
+      "n_seeds": 3
+    },
+    "what_baseline_1": {
+      "primary_metric_mean": 0.4608659321483552,
+      "primary_metric_std": 0.010882059566608435,
+      "secondary_metric_mean": 19.104892206390783,
+      "secondary_metric_std": 1.4033316565041145,
+      "primary_metric_min": 0.4468969340733886,
+      "primary_metric_max": 0.47344320779527016,
+      "n_seeds": 3
+    },
+    "what_baseline_2": {
+      "primary_metric_mean": 0.5345680413262102,
+      "primary_metric_std": 0.024991211235266788,
+      "secondary_metric_mean": 19.104892206390783,
+      "secondary_metric_std": 1.4033316565041145,
+      "primary_metric_min": 0.49924896888073167,
+      "primary_metric_max": 0.5533515436079871,
+      "n_seeds": 3
+    },
+    "without_key_component": {
+      "primary_metric_mean": 0.7063029978684163,
+      "primary_metric_std": 0.10186433490042753,
+      "secondary_metric_mean": 19.104892206390783,
+      "secondary_metric_std": 1.4033316565041145,
+      "primary_metric_min": 0.5625464849588137,
+      "primary_metric_max": 0.786247407936503,
+      "n_seeds": 3
+    },
+    "simplified_version": {
+      "primary_metric_mean": 0.16472817566054285,
+      "primary_metric_std": 0.0,
+      "secondary_metric_mean": 19.104892206390783,
+      "secondary_metric_std": 1.4033316565041145,
+      "primary_metric_min": 0.16472817566054285,
+      "primary_metric_max": 0.16472817566054285,
+      "n_seeds": 3
+    }
+  },
+  "summary": {
+    "what_proposed": {
+      "primary_metric": 0.020652173913043474,
+      "primary_std": 0.0011093703545213675,
+      "secondary_metric": 19.104892206390783,
+      "rank": 6
+    },
+    "what_variant": {
+      "primary_metric": 0.14472108168058884,
+      "primary_std": 0.00018203980258918323,
+      "secondary_metric": 19.104892206390783,
+      "rank": 5
+    },
+    "what_baseline_1": {
+      "primary_metric": 0.4608659321483552,
+      "primary_std": 0.010882059566608435,
+      "secondary_metric": 19.104892206390783,
+      "rank": 3
+    },
+    "what_baseline_2": {
+      "primary_metric": 0.5345680413262102,
+      "primary_std": 0.024991211235266788,
+      "secondary_metric": 19.104892206390783,
+      "rank": 2
+    },
+    "without_key_component": {
+      "primary_metric": 0.7063029978684163,
+      "primary_std": 0.10186433490042753,
+      "secondary_metric": 19.104892206390783,
+      "rank": 1
+    },
+    "simplified_version": {
+      "primary_metric": 0.16472817566054285,
+      "primary_std": 0.0,
+      "secondary_metric": 19.104892206390783,
+      "rank": 4
+    },
+    "best_condition": "without_key_component"
+  }
+}

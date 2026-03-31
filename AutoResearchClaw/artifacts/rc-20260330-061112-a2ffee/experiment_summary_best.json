@@ -1,0 +1,569 @@
+{
+  "metrics_summary": {
+    "primary_metric": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "primary_metric_mean": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "primary_metric_std": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "count": 1
+    },
+    "secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "simplified_version/123/primary_metric": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "simplified_version/123/secondary_metric": {
+      "min": 18.7938,
+      "max": 18.7938,
+      "mean": 18.7938,
+      "count": 1
+    },
+    "simplified_version/42/primary_metric": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "simplified_version/42/secondary_metric": {
+      "min": 17.563,
+      "max": 17.563,
+      "mean": 17.563,
+      "count": 1
+    },
+    "simplified_version/456/primary_metric": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "simplified_version/456/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "simplified_version/primary_metric": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "simplified_version/primary_metric_mean": {
+      "min": 0.1647,
+      "max": 0.1647,
+      "mean": 0.1647,
+      "count": 1
+    },
+    "simplified_version/primary_metric_std": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "count": 1
+    },
+    "simplified_version/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_baseline_1/123/primary_metric": {
+      "min": 0.4734,
+      "max": 0.4734,
+      "mean": 0.4734,
+      "count": 1
+    },
+    "what_baseline_1/123/secondary_metric": {
+      "min": 18.7938,
+      "max": 18.7938,
+      "mean": 18.7938,
+      "count": 1
+    },
+    "what_baseline_1/42/primary_metric": {
+      "min": 0.4469,
+      "max": 0.4469,
+      "mean": 0.4469,
+      "count": 1
+    },
+    "what_baseline_1/42/secondary_metric": {
+      "min": 17.563,
+      "max": 17.563,
+      "mean": 17.563,
+      "count": 1
+    },
+    "what_baseline_1/456/primary_metric": {
+      "min": 0.4623,
+      "max": 0.4623,
+      "mean": 0.4623,
+      "count": 1
+    },
+    "what_baseline_1/456/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_baseline_1/primary_metric": {
+      "min": 0.4623,
+      "max": 0.4623,
+      "mean": 0.4623,
+      "count": 1
+    },
+    "what_baseline_1/primary_metric_mean": {
+      "min": 0.4609,
+      "max": 0.4609,
+      "mean": 0.4609,
+      "count": 1
+    },
+    "what_baseline_1/primary_metric_std": {
+      "min": 0.0109,
+      "max": 0.0109,
+      "mean": 0.0109,
+      "count": 1
+    },
+    "what_baseline_1/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_baseline_2/123/primary_metric": {
+      "min": 0.5511,
+      "max": 0.5511,
+      "mean": 0.5511,
+      "count": 1
+    },
+    "what_baseline_2/123/secondary_metric": {
+      "min": 18.7938,
+      "max": 18.7938,
+      "mean": 18.7938,
+      "count": 1
+    },
+    "what_baseline_2/42/primary_metric": {
+      "min": 0.4992,
+      "max": 0.4992,
+      "mean": 0.4992,
+      "count": 1
+    },
+    "what_baseline_2/42/secondary_metric": {
+      "min": 17.563,
+      "max": 17.563,
+      "mean": 17.563,
+      "count": 1
+    },
+    "what_baseline_2/456/primary_metric": {
+      "min": 0.5534,
+      "max": 0.5534,
+      "mean": 0.5534,
+      "count": 1
+    },
+    "what_baseline_2/456/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_baseline_2/primary_metric": {
+      "min": 0.5534,
+      "max": 0.5534,
+      "mean": 0.5534,
+      "count": 1
+    },
+    "what_baseline_2/primary_metric_mean": {
+      "min": 0.5346,
+      "max": 0.5346,
+      "mean": 0.5346,
+      "count": 1
+    },
+    "what_baseline_2/primary_metric_std": {
+      "min": 0.025,
+      "max": 0.025,
+      "mean": 0.025,
+      "count": 1
+    },
+    "what_baseline_2/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_proposed/123/primary_metric": {
+      "min": 0.0193,
+      "max": 0.0193,
+      "mean": 0.0193,
+      "count": 1
+    },
+    "what_proposed/123/secondary_metric": {
+      "min": 18.7938,
+      "max": 18.7938,
+      "mean": 18.7938,
+      "count": 1
+    },
+    "what_proposed/42/primary_metric": {
+      "min": 0.0207,
+      "max": 0.0207,
+      "mean": 0.0207,
+      "count": 1
+    },
+    "what_proposed/42/secondary_metric": {
+      "min": 17.563,
+      "max": 17.563,
+      "mean": 17.563,
+      "count": 1
+    },
+    "what_proposed/456/primary_metric": {
+      "min": 0.022,
+      "max": 0.022,
+      "mean": 0.022,
+      "count": 1
+    },
+    "what_proposed/456/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_proposed/primary_metric": {
+      "min": 0.022,
+      "max": 0.022,
+      "mean": 0.022,
+      "count": 1
+    },
+    "what_proposed/primary_metric_mean": {
+      "min": 0.0207,
+      "max": 0.0207,
+      "mean": 0.0207,
+      "count": 1
+    },
+    "what_proposed/primary_metric_std": {
+      "min": 0.0011,
+      "max": 0.0011,
+      "mean": 0.0011,
+      "count": 1
+    },
+    "what_proposed/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_variant/123/primary_metric": {
+      "min": 0.1445,
+      "max": 0.1445,
+      "mean": 0.1445,
+      "count": 1
+    },
+    "what_variant/123/secondary_metric": {
+      "min": 18.7938,
+      "max": 18.7938,
+      "mean": 18.7938,
+      "count": 1
+    },
+    "what_variant/42/primary_metric": {
+      "min": 0.1446,
+      "max": 0.1446,
+      "mean": 0.1446,
+      "count": 1
+    },
+    "what_variant/42/secondary_metric": {
+      "min": 17.563,
+      "max": 17.563,
+      "mean": 17.563,
+      "count": 1
+    },
+    "what_variant/456/primary_metric": {
+      "min": 0.145,
+      "max": 0.145,
+      "mean": 0.145,
+      "count": 1
+    },
+    "what_variant/456/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "what_variant/primary_metric": {
+      "min": 0.145,
+      "max": 0.145,
+      "mean": 0.145,
+      "count": 1
+    },
+    "what_variant/primary_metric_mean": {
+      "min": 0.1447,
+      "max": 0.1447,
+      "mean": 0.1447,
+      "count": 1
+    },
+    "what_variant/primary_metric_std": {
+      "min": 0.0002,
+      "max": 0.0002,
+      "mean": 0.0002,
+      "count": 1
+    },
+    "what_variant/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "without_key_component/123/primary_metric": {
+      "min": 0.7862,
+      "max": 0.7862,
+      "mean": 0.7862,
+      "count": 1
+    },
+    "without_key_component/123/secondary_metric": {
+      "min": 18.7938,
+      "max": 18.7938,
+      "mean": 18.7938,
+      "count": 1
+    },
+    "without_key_component/42/primary_metric": {
+      "min": 0.5625,
+      "max": 0.5625,
+      "mean": 0.5625,
+      "count": 1
+    },
+    "without_key_component/42/secondary_metric": {
+      "min": 17.563,
+      "max": 17.563,
+      "mean": 17.563,
+      "count": 1
+    },
+    "without_key_component/456/primary_metric": {
+      "min": 0.7701,
+      "max": 0.7701,
+      "mean": 0.7701,
+      "count": 1
+    },
+    "without_key_component/456/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    },
+    "without_key_component/primary_metric": {
+      "min": 0.7701,
+      "max": 0.7701,
+      "mean": 0.7701,
+      "count": 1
+    },
+    "without_key_component/primary_metric_mean": {
+      "min": 0.7063,
+      "max": 0.7063,
+      "mean": 0.7063,
+      "count": 1
+    },
+    "without_key_component/primary_metric_std": {
+      "min": 0.1019,
+      "max": 0.1019,
+      "mean": 0.1019,
+      "count": 1
+    },
+    "without_key_component/secondary_metric": {
+      "min": 20.9579,
+      "max": 20.9579,
+      "mean": 20.9579,
+      "count": 1
+    }
+  },
+  "total_runs": 1,
+  "best_run": {
+    "run_id": "run-1",
+    "task_id": "sandbox-main",
+    "status": "completed",
+    "metrics": {
+      "what_proposed/42/primary_metric": 0.0207,
+      "what_proposed/primary_metric": 0.022,
+      "primary_metric": 0.1647,
+      "what_proposed/42/secondary_metric": 17.563,
+      "what_proposed/secondary_metric": 20.9579,
+      "secondary_metric": 20.9579,
+      "what_proposed/123/primary_metric": 0.0193,
+      "what_proposed/123/secondary_metric": 18.7938,
+      "what_proposed/456/primary_metric": 0.022,
+      "what_proposed/456/secondary_metric": 20.9579,
+      "what_proposed/primary_metric_mean": 0.0207,
+      "primary_metric_mean": 0.1647,
+      "what_proposed/primary_metric_std": 0.0011,
+      "primary_metric_std": 0.0,
+      "what_variant/42/primary_metric": 0.1446,
+      "what_variant/primary_metric": 0.145,
+      "what_variant/42/secondary_metric": 17.563,
+      "what_variant/secondary_metric": 20.9579,
+      "what_variant/123/primary_metric": 0.1445,
+      "what_variant/123/secondary_metric": 18.7938,
+      "what_variant/456/primary_metric": 0.145,
+      "what_variant/456/secondary_metric": 20.9579,
+      "what_variant/primary_metric_mean": 0.1447,
+      "what_variant/primary_metric_std": 0.0002,
+      "what_baseline_1/42/primary_metric": 0.4469,
+      "what_baseline_1/primary_metric": 0.4623,
+      "what_baseline_1/42/secondary_metric": 17.563,
+      "what_baseline_1/secondary_metric": 20.9579,
+      "what_baseline_1/123/primary_metric": 0.4734,
+      "what_baseline_1/123/secondary_metric": 18.7938,
+      "what_baseline_1/456/primary_metric": 0.4623,
+      "what_baseline_1/456/secondary_metric": 20.9579,
+      "what_baseline_1/primary_metric_mean": 0.4609,
+      "what_baseline_1/primary_metric_std": 0.0109,
+      "what_baseline_2/42/primary_metric": 0.4992,
+      "what_baseline_2/primary_metric": 0.5534,
+      "what_baseline_2/42/secondary_metric": 17.563,
+      "what_baseline_2/secondary_metric": 20.9579,
+      "what_baseline_2/123/primary_metric": 0.5511,
+      "what_baseline_2/123/secondary_metric": 18.7938,
+      "what_baseline_2/456/primary_metric": 0.5534,
+      "what_baseline_2/456/secondary_metric": 20.9579,
+      "what_baseline_2/primary_metric_mean": 0.5346,
+      "what_baseline_2/primary_metric_std": 0.025,
+      "without_key_component/42/primary_metric": 0.5625,
+      "without_key_component/primary_metric": 0.7701,
+      "without_key_component/42/secondary_metric": 17.563,
+      "without_key_component/secondary_metric": 20.9579,
+      "without_key_component/123/primary_metric": 0.7862,
+      "without_key_component/123/secondary_metric": 18.7938,
+      "without_key_component/456/primary_metric": 0.7701,
+      "without_key_component/456/secondary_metric": 20.9579,
+      "without_key_component/primary_metric_mean": 0.7063,
+      "without_key_component/primary_metric_std": 0.1019,
+      "simplified_version/42/primary_metric": 0.1647,
+      "simplified_version/primary_metric": 0.1647,
+      "simplified_version/42/secondary_metric": 17.563,
+      "simplified_version/secondary_metric": 20.9579,
+      "simplified_version/123/primary_metric": 0.1647,
+      "simplified_version/123/secondary_metric": 18.7938,
+      "simplified_version/456/primary_metric": 0.1647,
+      "simplified_version/456/secondary_metric": 20.9579,
+      "simplified_version/primary_metric_mean": 0.1647,
+      "simplified_version/primary_metric_std": 0.0
+    },
+    "elapsed_sec": 1.0620000000017171,
+    "stdout": "METRIC_DEF: primary_metric=role_survival_index | range=[0,1] | higher_is_better=True\nMETRIC_DEF: secondary_metric=market_value_score | units=weighted_billions | higher_is_better=True\nREGISTERED_CONDITIONS: ['what_proposed', 'what_variant', 'what_baseline_1', 'what_baseline_2', 'without_key_component', 'simplified_version']\nTIME_ESTIMATE: 14.3s (pilot=0.795s x 18 runs)\n\n============================================================\nRunning condition: what_proposed\n  condition=what_proposed seed=42 primary_metric: 0.0207 | secondary_metric: 17.5630\n  condition=what_proposed seed=123 primary_metric: 0.0193 | secondary_metric: 18.7938\n  condition=what_proposed seed=456 primary_metric: 0.0220 | secondary_metric: 20.9579\n  Condition: what_proposed\n    primary_metric (role_survival_index): 0.0207 \u00b1 0.0011\n    secondary_metric (market_value_score): 19.1049 \u00b1 1.4033\ncondition=what_proposed primary_metric_mean: 0.0207 primary_metric_std: 0.0011\n\n============================================================\nRunning condition: what_variant\n  condition=what_variant seed=42 primary_metric: 0.1446 | secondary_metric: 17.5630\n  condition=what_variant seed=123 primary_metric: 0.1445 | secondary_metric: 18.7938\n  condition=what_variant seed=456 primary_metric: 0.1450 | secondary_metric: 20.9579\n  Condition: what_variant\n    primary_metric (role_survival_index): 0.1447 \u00b1 0.0002\n    secondary_metric (market_value_score): 19.1049 \u00b1 1.4033\ncondition=what_variant primary_metric_mean: 0.1447 primary_metric_std: 0.0002\n\n============================================================\nRunning condition: what_baseline_1\n  condition=what_baseline_1 seed=42 primary_metric: 0.4469 | secondary_metric: 17.5630\n  condition=what_baseline_1 seed=123 primary_metric: 0.4734 | secondary_metric: 18.7938\n  condition=what_baseline_1 seed=456 primary_metric: 0.4623 | secondary_metric: 20.9579\n  Condition: what_baseline_1\n    primary_metric (role_survival_index): 0.4609 \u00b1 0.0109\n    secondary_metric (market_value_score): 19.1049 \u00b1 1.4033\ncondition=what_baseline_1 primary_metric_mean: 0.4609 primary_metric_std: 0.0109\n\n============================================================\nRunning condition: what_baseline_2\n  condition=what_baseline_2 seed=42 primary_metric: 0.4992 | secondary_metric: 17.5630\n  condition=what_baseline_2 seed=123 primary_metric: 0.5511 | secondary_metric: 18.7938\n  condition=what_baseline_2 seed=456 primary_metric: 0.5534 | secondary_metric: 20.9579\n  Condition: what_baseline_2\n    primary_metric (role_survival_index): 0.5346 \u00b1 0.0250\n    secondary_metric (market_value_score): 19.1049 \u00b1 1.4033\ncondition=what_baseline_2 primary_metric_mean: 0.5346 primary_metric_std: 0.0250\n\n============================================================\nRunning condition: without_key_component\n  condition=without_key_component seed=42 primary_metric: 0.5625 | secondary_metric: 17.5630\n  condition=without_key_component seed=123 primary_metric: 0.7862 | secondary_metric: 18.7938\n  condition=without_key_component seed=456 primary_metric: 0.7701 | secondary_metric: 20.9579\n  Condition: without_key_component\n    primary_metric (role_survival_index): 0.7063 \u00b1 0.1019\n    secondary_metric (market_value_score): 19.1049 \u00b1 1.4033\ncondition=without_key_component primary_metric_mean: 0.7063 primary_metric_std: 0.1019\n\n============================================================\nRunning condition: simplified_version\n  condition=simplified_version seed=42 primary_metric: 0.1647 | secondary_metric: 17.5630\n  condition=simplified_version seed=123 primary_metric: 0.1647 | secondary_metric: 18.7938\n  condition=simplified_version seed=456 primary_metric: 0.1647 | secondary_metric: 20.9579\n  Condition: simplified_version\n    primary_metric (role_survival_index): 0.1647 \u00b1 0.0000\n    secondary_metric (market_value_score): 19.1049 \u00b1 1.4033\ncondition=simplified_version primary_metric_mean: 0.1647 primary_metric_std: 0.0000\n\n============================================================\nSUMMARY \u2014 Comparison across all conditions:\n  [4] simplified_version: primary=0.1647, secondary=19.1049\n  [3] what_baseline_1: primary=0.4609, secondary=19.1049\n  [2] what_baseline_2: primary=0.5346, secondary=19.1049\n  [6] what_proposed: primary=0.0207, secondary=19.1049\n  [5] what_variant: primary=0.1447, secondary=19.1049\n  [1] without_key_component: primary=0.7063, secondary=19.1049\n\nBEST_CONDITION: without_key_component\nResults saved to results\\results.json\n\nTotal elapsed: 0.8s\n",
+    "stderr": "",
+    "timed_out": false,
+    "completed_at": "2026-03-30T06:49:59+00:00"
+  },
+  "latex_table": "\\begin{table}[h]\n\\centering\n\\caption{Experiment Results}\n\\begin{tabular}{lrrrr}\n\\hline\nMetric & Min & Max & Mean & N \\\\\n\\hline\nprimary_metric & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nprimary_metric_mean & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nprimary_metric_std & 0.0000 & 0.0000 & 0.0000 & 1 \\\\\nsecondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nsimplified_version/123/primary_metric & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nsimplified_version/123/secondary_metric & 18.7938 & 18.7938 & 18.7938 & 1 \\\\\nsimplified_version/42/primary_metric & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nsimplified_version/42/secondary_metric & 17.5630 & 17.5630 & 17.5630 & 1 \\\\\nsimplified_version/456/primary_metric & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nsimplified_version/456/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nsimplified_version/primary_metric & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nsimplified_version/primary_metric_mean & 0.1647 & 0.1647 & 0.1647 & 1 \\\\\nsimplified_version/primary_metric_std & 0.0000 & 0.0000 & 0.0000 & 1 \\\\\nsimplified_version/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_baseline_1/123/primary_metric & 0.4734 & 0.4734 & 0.4734 & 1 \\\\\nwhat_baseline_1/123/secondary_metric & 18.7938 & 18.7938 & 18.7938 & 1 \\\\\nwhat_baseline_1/42/primary_metric & 0.4469 & 0.4469 & 0.4469 & 1 \\\\\nwhat_baseline_1/42/secondary_metric & 17.5630 & 17.5630 & 17.5630 & 1 \\\\\nwhat_baseline_1/456/primary_metric & 0.4623 & 0.4623 & 0.4623 & 1 \\\\\nwhat_baseline_1/456/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_baseline_1/primary_metric & 0.4623 & 0.4623 & 0.4623 & 1 \\\\\nwhat_baseline_1/primary_metric_mean & 0.4609 & 0.4609 & 0.4609 & 1 \\\\\nwhat_baseline_1/primary_metric_std & 0.0109 & 0.0109 & 0.0109 & 1 \\\\\nwhat_baseline_1/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_baseline_2/123/primary_metric & 0.5511 & 0.5511 & 0.5511 & 1 \\\\\nwhat_baseline_2/123/secondary_metric & 18.7938 & 18.7938 & 18.7938 & 1 \\\\\nwhat_baseline_2/42/primary_metric & 0.4992 & 0.4992 & 0.4992 & 1 \\\\\nwhat_baseline_2/42/secondary_metric & 17.5630 & 17.5630 & 17.5630 & 1 \\\\\nwhat_baseline_2/456/primary_metric & 0.5534 & 0.5534 & 0.5534 & 1 \\\\\nwhat_baseline_2/456/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_baseline_2/primary_metric & 0.5534 & 0.5534 & 0.5534 & 1 \\\\\nwhat_baseline_2/primary_metric_mean & 0.5346 & 0.5346 & 0.5346 & 1 \\\\\nwhat_baseline_2/primary_metric_std & 0.0250 & 0.0250 & 0.0250 & 1 \\\\\nwhat_baseline_2/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_proposed/123/primary_metric & 0.0193 & 0.0193 & 0.0193 & 1 \\\\\nwhat_proposed/123/secondary_metric & 18.7938 & 18.7938 & 18.7938 & 1 \\\\\nwhat_proposed/42/primary_metric & 0.0207 & 0.0207 & 0.0207 & 1 \\\\\nwhat_proposed/42/secondary_metric & 17.5630 & 17.5630 & 17.5630 & 1 \\\\\nwhat_proposed/456/primary_metric & 0.0220 & 0.0220 & 0.0220 & 1 \\\\\nwhat_proposed/456/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_proposed/primary_metric & 0.0220 & 0.0220 & 0.0220 & 1 \\\\\nwhat_proposed/primary_metric_mean & 0.0207 & 0.0207 & 0.0207 & 1 \\\\\nwhat_proposed/primary_metric_std & 0.0011 & 0.0011 & 0.0011 & 1 \\\\\nwhat_proposed/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_variant/123/primary_metric & 0.1445 & 0.1445 & 0.1445 & 1 \\\\\nwhat_variant/123/secondary_metric & 18.7938 & 18.7938 & 18.7938 & 1 \\\\\nwhat_variant/42/primary_metric & 0.1446 & 0.1446 & 0.1446 & 1 \\\\\nwhat_variant/42/secondary_metric & 17.5630 & 17.5630 & 17.5630 & 1 \\\\\nwhat_variant/456/primary_metric & 0.1450 & 0.1450 & 0.1450 & 1 \\\\\nwhat_variant/456/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwhat_variant/primary_metric & 0.1450 & 0.1450 & 0.1450 & 1 \\\\\nwhat_variant/primary_metric_mean & 0.1447 & 0.1447 & 0.1447 & 1 \\\\\nwhat_variant/primary_metric_std & 0.0002 & 0.0002 & 0.0002 & 1 \\\\\nwhat_variant/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwithout_key_component/123/primary_metric & 0.7862 & 0.7862 & 0.7862 & 1 \\\\\nwithout_key_component/123/secondary_metric & 18.7938 & 18.7938 & 18.7938 & 1 \\\\\nwithout_key_component/42/primary_metric & 0.5625 & 0.5625 & 0.5625 & 1 \\\\\nwithout_key_component/42/secondary_metric & 17.5630 & 17.5630 & 17.5630 & 1 \\\\\nwithout_key_component/456/primary_metric & 0.7701 & 0.7701 & 0.7701 & 1 \\\\\nwithout_key_component/456/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\nwithout_key_component/primary_metric & 0.7701 & 0.7701 & 0.7701 & 1 \\\\\nwithout_key_component/primary_metric_mean & 0.7063 & 0.7063 & 0.7063 & 1 \\\\\nwithout_key_component/primary_metric_std & 0.1019 & 0.1019 & 0.1019 & 1 \\\\\nwithout_key_component/secondary_metric & 20.9579 & 20.9579 & 20.9579 & 1 \\\\\n\\hline\n\\end{tabular}\n\\end{table}",
+  "generated": "2026-03-30T23:12:19+00:00",
+  "condition_summaries": {
+    "what_proposed": {
+      "metrics": {
+        "primary_metric": 0.022,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.0207,
+        "primary_metric_std": 0.0011
+      }
+    },
+    "what_variant": {
+      "metrics": {
+        "primary_metric": 0.145,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.1447,
+        "primary_metric_std": 0.0002
+      }
+    },
+    "what_baseline_1": {
+      "metrics": {
+        "primary_metric": 0.4623,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.4609,
+        "primary_metric_std": 0.0109
+      }
+    },
+    "what_baseline_2": {
+      "metrics": {
+        "primary_metric": 0.5534,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.5346,
+        "primary_metric_std": 0.025
+      }
+    },
+    "without_key_component": {
+      "metrics": {
+        "primary_metric": 0.7701,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.7063,
+        "primary_metric_std": 0.1019
+      }
+    },
+    "simplified_version": {
+      "metrics": {
+        "primary_metric": 0.1647,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.1647,
+        "primary_metric_std": 0.0
+      }
+    }
+  },
+  "condition_metrics": {
+    "what_proposed": {
+      "metrics": {
+        "primary_metric": 0.022,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.0207,
+        "primary_metric_std": 0.0011
+      }
+    },
+    "what_variant": {
+      "metrics": {
+        "primary_metric": 0.145,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.1447,
+        "primary_metric_std": 0.0002
+      }
+    },
+    "what_baseline_1": {
+      "metrics": {
+        "primary_metric": 0.4623,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.4609,
+        "primary_metric_std": 0.0109
+      }
+    },
+    "what_baseline_2": {
+      "metrics": {
+        "primary_metric": 0.5534,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.5346,
+        "primary_metric_std": 0.025
+      }
+    },
+    "without_key_component": {
+      "metrics": {
+        "primary_metric": 0.7701,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.7063,
+        "primary_metric_std": 0.1019
+      }
+    },
+    "simplified_version": {
+      "metrics": {
+        "primary_metric": 0.1647,
+        "secondary_metric": 20.9579,
+        "primary_metric_mean": 0.1647,
+        "primary_metric_std": 0.0
+      }
+    }
+  },
+  "total_conditions": 6,
+  "total_metric_keys": 64
+}

@@ -1,0 +1,64 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Davis and Sinha(2021)]{davis2021varieties}
+Gerald~F. Davis and Aseem Sinha.
+\newblock Varieties of uberization: How technology and institutions change the organization(s) of late capitalism.
+\newblock \emph{Organization Theory}, 2021.
+\newblock \doi{10.1177/2631787721995198}.
+\newblock URL \url{https://doi.org/10.1177/2631787721995198}.
+
+\bibitem[Groene and Zakharov(2024)]{groene2024introduction}
+Nicole Groene and Sergii Zakharov.
+\newblock Introduction of ai-based sales forecasting: how to drive digital transformation in food and beverage outlets.
+\newblock \emph{Discover Artificial Intelligence}, 2024.
+\newblock \doi{10.1007/s44163-023-00097-x}.
+\newblock URL \url{https://doi.org/10.1007/s44163-023-00097-x}.
+
+\bibitem[Jöhnk et~al.(2020)Jöhnk, Weißert, and Wyrtki]{johnk2020ready}
+Jan Jöhnk, Malte Weißert, and Katrin Wyrtki.
+\newblock Ready or not, ai comes— an interview study of organizational ai readiness factors.
+\newblock \emph{Business & Information Systems Engineering}, 2020.
+\newblock \doi{10.1007/s12599-020-00676-7}.
+\newblock URL \url{https://doi.org/10.1007/s12599-020-00676-7}.
+
+\bibitem[Martínez‐Plumed et~al.(2020)Martínez‐Plumed, Gómez, and Hernández‐Orallo]{martinezplumed2020futures}
+Fernando Martínez‐Plumed, Emília Gómez, and José Hernández‐Orallo.
+\newblock Futures of artificial intelligence through technology readiness levels.
+\newblock \emph{Telematics and Informatics}, 2020.
+\newblock \doi{10.1016/j.tele.2020.101525}.
+\newblock URL \url{https://doi.org/10.1016/j.tele.2020.101525}.
+
+\bibitem[Rajpurohit(2025)]{rajpurohit2025inbound}
+Mahendar Rajpurohit.
+\newblock The inbound expansion model: Driving profitable growth through data-driven upselling and cross-selling.
+\newblock \emph{International Journal For Multidisciplinary Research}, 2025.
+\newblock \doi{10.36948/ijfmr.2025.v07i06.59587}.
+\newblock URL \url{https://doi.org/10.36948/ijfmr.2025.v07i06.59587}.
+
+\bibitem[Santana and Cobo(2020)]{santana2020future}
+Mónica Santana and Manuel~J. Cobo.
+\newblock What is the future of work? a science mapping analysis.
+\newblock \emph{European Management Journal}, 2020.
+\newblock \doi{10.1016/j.emj.2020.04.010}.
+\newblock URL \url{https://doi.org/10.1016/j.emj.2020.04.010}.
+
+\bibitem[Virtanen et~al.(2020)Virtanen, Gommers, Oliphant, Haberland, Reddy, Cournapeau, Burovski, Peterson, Weckesser, Bright, van~der Walt, Brett, Wilson, Millman, Mayorov, Nelson, Jones, Kern, Larson, Carey, İlhan Polat, Feng, Moore, VanderPlas, Laxalde, Perktold, Cimrman, Henriksen, Quintero, Harris, Archibald, Ribeiro, Pedregosa, van Mulbregt, Contributors, Vijaykumar, Bardelli, Rothberg, Hilboll, Kloeckner, Scopatz, Lee, Rokem, Woods, Fulton, Masson, Häggström, Fitzgerald, Nicholson, Hagen, Pasechnik, Olivetti, Martin, Wieser, Silva, Lenders, Wilhelm, Young, Price, Ingold, Allen, Lee, Audren, Probst, Dietrich, Silterra, Webber, Slavič, Nothman, Buchner, Kulick, Schönberger, de~Miranda~Cardoso, Reimer, Harrington, Rodríguez, Nunez-Iglesias, Kuczynski, Tritz, Thoma, Newville, Kümmerer, Bolingbroke, Tartre, Pak, Smith, Nowaczyk, Shebanov, Pavlyk, Brodtkorb, Lee, McGibbon, Feldbauer, Lewis, Tygier, Sievert, Vigna, Peterson, More, and Pudlik]{virtanen2020scipy}
+Pauli Virtanen, Ralf Gommers, Travis~E. Oliphant, Matt Haberland, Tyler Reddy, David Cournapeau, Evgeni Burovski, Pearu Peterson, Warren Weckesser, Jonathan Bright, Stéfan~J. van~der Walt, Matthew Brett, Joshua Wilson, K.~Jarrod Millman, Nikolay Mayorov, Andrew R.~J. Nelson, Eric Jones, Robert Kern, Eric Larson, C~J Carey, İlhan Polat, Yu~Feng, Eric~W. Moore, Jake VanderPlas, Denis Laxalde, Josef Perktold, Robert Cimrman, Ian Henriksen, E.~A. Quintero, Charles~R. Harris, Anne~M. Archibald, Antônio~H. Ribeiro, Fabian Pedregosa, Paul van Mulbregt, SciPy~1.0 Contributors, Aditya Vijaykumar, Alessandro~Pietro Bardelli, Alex Rothberg, Andreas Hilboll, Andreas Kloeckner, Anthony Scopatz, Antony Lee, Ariel Rokem, C.~Nathan Woods, Chad Fulton, Charles Masson, Christian Häggström, Clark Fitzgerald, David~A. Nicholson, David~R. Hagen, Dmitrii~V. Pasechnik, Emanuele Olivetti, Eric Martin, Eric Wieser, Fabrice Silva, Felix Lenders, Florian Wilhelm, G.~Young, Gavin~A. Price, Gert-Ludwig Ingold, Gregory~E. Allen, Gregory~R. Lee, Hervé Audren, Irvin Probst, Jörg~P. Dietrich, Jacob Silterra, James~T Webber, Janko Slavič, Joel Nothman, Johannes Buchner, Johannes Kulick, Johannes~L. Schönberger, José~Vinícius de~Miranda~Cardoso, Joscha Reimer, Joseph Harrington, Juan Luis~Cano Rodríguez, Juan Nunez-Iglesias, Justin Kuczynski, Kevin Tritz, Martin Thoma, Matthew Newville, Matthias Kümmerer, Maximilian Bolingbroke, Michael Tartre, Mikhail Pak, Nathaniel~J. Smith, Nikolai Nowaczyk, Nikolay Shebanov, Oleksandr Pavlyk, Per~A. Brodtkorb, Perry Lee, Robert~T. McGibbon, Roman Feldbauer, Sam Lewis, Sam Tygier, Scott Sievert, Sebastiano Vigna, Stefan Peterson, Surhud More, and Tadeusz Pudlik.
+\newblock Scipy 1.0: fundamental algorithms for scientific computing in python.
+\newblock \emph{Nature Methods}, 2020.
+\newblock \doi{10.1038/s41592-019-0686-2}.
+\newblock URL \url{https://doi.org/10.1038/s41592-019-0686-2}.
+
+\bibitem[Wiser et~al.(2021)Wiser, Rand, Seel, Beiter, Baker, Lantz, and Gilman]{wiser2021expert}
+Ryan Wiser, Joseph Rand, Joachim Seel, Philipp Beiter, Erin Baker, Eric Lantz, and Patrick Gilman.
+\newblock Expert elicitation survey predicts 37% to 49% declines in wind energy costs by 2050.
+\newblock \emph{Nature Energy}, 2021.
+\newblock \doi{10.1038/s41560-021-00810-z}.
+\newblock URL \url{https://doi.org/10.1038/s41560-021-00810-z}.
+
+\end{thebibliography}

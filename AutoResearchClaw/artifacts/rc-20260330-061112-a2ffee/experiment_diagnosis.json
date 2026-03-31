@@ -1,0 +1,27 @@
+{
+  "diagnosis": {
+    "deficiencies": [],
+    "repairable": true,
+    "reason": "",
+    "summary": "0 deficiency(ies) found. 6/0 conditions completed. Repairable: True.",
+    "conditions_completed": [
+      "simplified_version",
+      "what_baseline_1",
+      "what_baseline_2",
+      "what_proposed",
+      "what_variant",
+      "without_key_component"
+    ],
+    "conditions_failed": [],
+    "total_planned": 0,
+    "completion_rate": 6.0
+  },
+  "quality_assessment": {
+    "mode": "full_paper",
+    "sufficient": true,
+    "repair_possible": true,
+    "deficiency_types": []
+  },
+  "repair_needed": false,
+  "generated": "2026-03-30T23:16:15+00:00"
+}

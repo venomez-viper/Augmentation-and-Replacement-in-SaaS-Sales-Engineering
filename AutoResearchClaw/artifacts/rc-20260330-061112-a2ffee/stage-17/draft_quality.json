@@ -1,0 +1,111 @@
+{
+  "section_analysis": [
+    {
+      "heading": "APEX: SaaS Presales Engineers Will Not Disappear — They Will Bifurcate",
+      "word_count": 1,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "Abstract",
+      "word_count": 212,
+      "canonical": "abstract",
+      "target": [
+        180,
+        220
+      ],
+      "status": "ok",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "1. Introduction",
+      "word_count": 733,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "2. Related Work",
+      "word_count": 565,
+      "canonical": ""
+    },
+    {
+      "heading": "3. Method: The APEX Framework",
+      "word_count": 1777,
+      "canonical": ""
+    },
+    {
+      "heading": "4. Experimental Setup",
+      "word_count": 1417,
+      "canonical": ""
+    },
+    {
+      "heading": "5. Results",
+      "word_count": 1753,
+      "canonical": ""
+    },
+    {
+      "heading": "6. Discussion",
+      "word_count": 613,
+      "canonical": ""
+    },
+    {
+      "heading": "7. Limitations",
+      "word_count": 438,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "8. Conclusion",
+      "word_count": 158,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "3. Method: The APEX Framework",
+      "word_count": 1777,
+      "canonical": ""
+    },
+    {
+      "heading": "4. Experimental Setup",
+      "word_count": 1417,
+      "canonical": ""
+    },
+    {
+      "heading": "5. Results",
+      "word_count": 1753,
+      "canonical": ""
+    },
+    {
+      "heading": "6. Discussion",
+      "word_count": 1169,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "7. Limitations",
+      "word_count": 365,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    },
+    {
+      "heading": "8. Conclusion",
+      "word_count": 173,
+      "canonical": "",
+      "bullet_density": 0.0,
+      "bullet_status": "ok"
+    }
+  ],
+  "overall_warnings": [
+    "Only 7 unique citations found (target: >=15 for a full paper)"
+  ],
+  "revision_directives": [
+    "Add more references — a top-venue paper typically cites 25-40 works. Currently only 7 unique citations."
+  ]
+}

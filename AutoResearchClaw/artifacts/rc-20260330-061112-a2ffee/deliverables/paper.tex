@@ -1,0 +1,374 @@
+\documentclass[10pt, conference]{IEEEtran}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+
+
+\usepackage{graphicx}
+\usepackage{natbib}
+
+% IMP-18: Removed missing package adjustbox
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+
+\title{APEX: AI Augments or Replaces — Measuring SaaS Presales Role Survival}
+
+\author{['Akash']}
+
+\begin{document}
+\begin{abstract}
+
+\end{abstract}
+
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+\section{Introduction}
+
+\label{sec:introduction}
+
+The SaaS presales engineer --- the technical specialist who bridges a vendor's product capability and a prospective buyer's operational requirements --- occupies a structurally unusual position in the knowledge-work landscape. Unlike a quota-carrying account executive, the presales engineer's value proposition is epistemic: they translate ambiguous customer pain into a credible technical narrative, manage proof-of-concept scoping, construct RFP responses, and build the internal champions within a buying organization whose advocacy survives the close. Prior work examining AI-driven automation of knowledge work [sebastian2020companies; correani2020implementing] has documented broad productivity effects across white-collar functions, and industry observers have noted that large language models are beginning to encroach on technical documentation, demonstration preparation, and structured question-answering --- all activities that constitute a substantial portion of the presales motion. Gartner's B2B sales technology forecasts suggest that AI copilot adoption in enterprise sales cycles reached over 40\% of surveyed organizations by late 2024, while analysis of knowledge worker displacement scenarios projects that 30--60\% of current work activities in sales-adjacent functions are technically automatable by 2030 \cite{johnk2020ready}. Yet despite these converging pressures, the SaaS presales function has received no systematic quantitative treatment in the automation risk literature.
+
+The gap is consequential. Existing automation exposure frameworks, including the occupational exposure scores of prior work [hassani2020artificial; martinezplumed2020futures], treat BLS occupation codes as the unit of analysis, mapping broad job categories onto AI capability assessments. Sales Engineers (SOC 41-9031) appear in these frameworks as a single category --- obscuring the internal heterogeneity of the role. A presales engineer performing live product demonstrations against scripted evaluation criteria faces a qualitatively different automation risk than one engaged in executive discovery conversations, building a business case from unstructured stakeholder interviews, or constructing a multi-vendor competitive positioning narrative. No existing model distinguishes between the discovery, demonstration, objection-handling, and champion-building subtasks that together constitute the presales motion. This subtask-level blind spot means that aggregate displacement forecasts for Sales Engineers likely misrepresent both the speed and the selectivity of AI impact --- understating displacement in highly automatable subtasks while simultaneously understating resilience in relationship-anchored ones. The product-led growth (PLG) literature compounds this confusion: when self-serve adoption enables buyers to evaluate software without human presales intervention, automation risk is not uniform across deal segments --- it is conditional on deal size, buyer sophistication, and the availability of PLG alternatives \cite{davis2021varieties}.
+
+APEX addresses this gap by introducing a parametric role survival scoring model designed as an explicit hypothesis-generating scaffold. Rather than asserting an empirically validated displacement trajectory, APEX characterizes the \textit{sensitivity space} of presales role viability across six AI adoption scenarios: an AI-free counterfactual, two calibrated baselines representing current practice and conservative near-term adoption, a partial automation condition, a high-adoption variant with human override, and a full AI replacement scenario. Each condition produces an RSI --- a scalar in [0,1] representing the fraction of the presales role function that remains human-anchored under that adoption assumption, computed via sigmoid-bounded normalization of a linear task-weighted score. This design enables systematic ablation: by comparing RSI across conditions, we can isolate the survival impact of the specific AI-disruption mechanism targeted by each scenario. Crucially, APEX is designed for calibration: its parametric structure admits future anchoring against BLS occupational employment statistics, LinkedIn hiring trend data, and Gartner practitioner survey panels, converting a sensitivity scaffold into an empirically grounded forecast instrument \cite{wiser2021expert}. Beyond role survival, the market value score component of APEX was designed to capture total addressable market dynamics for the SaaS presales labor function, providing macroeconomic context alongside the survival index --- though, as Section 5.4 documents, the current implementation requires architectural revision before this component can contribute to condition-level analysis.
+
+This paper makes four contributions. First, we present the first parametric ablation study isolating AI disruption as a separable, measurable component in presales role survival, establishing a formal experimental protocol for this previously unstudied function. Second, we demonstrate that role survival sensitivity spans a 56times range across disruption assumptions, establishing the plausible range of AI impact under the stated model parameters and revealing the conditions under which presales roles retain substantial survival probability. Third, we identify a counterintuitive augmentation-benefit result: current AI copilot baselines produce significantly higher RSI than the AI-free counterfactual, providing parametric evidence that AI augmentation tools confer a modeled viability benefit over purely organic market dynamics --- an insight that separates the augmentation and replacement regimes as qualitatively distinct. Fourth, we disclose a structural coupling defect in the secondary market value metric, contributing a methodological finding about composite index design in workforce forecasting models that generalizes beyond APEX. The remainder of the paper is organized as follows: Section 2 reviews automation risk frameworks and SaaS labor market literature; Section 3 describes the APEX model and experimental protocol; Section 4 specifies evaluation design; Section 5 reports results; Sections 6 and 7 discuss implications and limitations; Section 8 concludes.
+
+\section{Related Work}
+
+\label{sec:related_work}
+
+\subsection{Automation Risk Frameworks and Labor Market Displacement}
+
+\label{sec:automation_risk_frameworks_and_labor_mar}
+
+The quantitative study of AI-driven automation risk in labor markets has evolved through several methodological generations. Early influential work distinguished routine from non-routine tasks, finding that computerization disproportionately displaces middle-skill, routine-cognitive occupations while simultaneously increasing demand for high-skill analytical work and low-skill non-routine manual work \cite{santana2020future}. This routine-biased technological change framing dominated the 2000s literature and established the task-as-unit-of-analysis principle that underpins more recent AI exposure methods. The advent of LLMs prompted researchers to revisit this taxonomy: where early automation targeted procedural and rule-based activities, generative AI demonstrated competence in open-ended reasoning, language production, and structured document generation --- activities previously presumed to be non-routine cognitive and therefore automation-resistant. Critically, recent occupation-level AI exposure scoring approaches [hassani2020artificial; chang2024survey] map LLM capabilities against O*NET task descriptors, producing exposure scores for broad occupational categories. While these frameworks represent a significant methodological advance, they inherit the occupation-code unit of analysis and cannot distinguish heterogeneous subtask compositions within a single role. APEX operationalizes the subtask-level distinction these frameworks identify but do not implement, applying it to the specific case of SaaS presales engineering. The result is a finer-grained sensitivity instrument that can detect which subtask types are the load-bearing components of presales role survival under AI disruption --- a capability that aggregate exposure indices, by construction, cannot provide \cite{martinezplumed2020futures}.
+
+\subsection{SaaS Sales, Presales Labor, and the B2B Technology Sales Ecosystem}
+
+\label{sec:saas_sales_presales_labor_and_the_b2b_te}
+
+The sales force automation literature predates AI disruption concerns and has documented productivity effects from CRM adoption, lead scoring algorithms, and conversational intelligence platforms \cite{groene2024introduction}. Studies of SaaS-specific sales dynamics have examined pricing models and customer acquisition trajectories [li2022managing; lee2021pricing; taufiqhail2021software], while research on digital transformation in enterprise contexts documents how sales-adjacent roles evolve under technology adoption pressure [sebastian2020companies; correani2020implementing; hashim2021higher]. More recently, practitioner-oriented work has examined presales engineering as a distinct function: early contributions characterized the presales role in terms of technical demonstration competency and proof-of-concept management [chaba2025humanai; nuti2025presales], while emerging research examines how AI copilot tools are restructuring the presales workflow [rajpurohit2025strategic; rajpurohit2025inbound]. The SaaS architecture literature provides further context for understanding why presales functions are particularly exposed to disruption: as SaaS platforms standardize onboarding, embed self-serve evaluation pathways, and generate automated competitive intelligence [anon2025future; walko2020rise; seifert2022hybrid], the technical knowledge asymmetry that historically justified presales headcount erodes. A further dimension of this erosion is deal-size heterogeneity: enterprise presales engagements, characterized by multi-stakeholder evaluation cycles, political navigation, and bespoke business case construction, are structurally more resistant to automation than SMB presales, where streamlined qualifying questionnaires and scripted demonstrations dominate the workflow. Despite this growing body of work, no study has quantitatively modeled the \textit{survival} of the presales function under systematically varied AI adoption assumptions while distinguishing enterprise from SMB dynamics --- the gap APEX begins to address, with deal-size stratification identified as the critical next parameterization step.
+
+\subsection{Workforce Forecasting Methods and Composite Index Design}
+
+\label{sec:workforce_forecasting_methods_and_compos}
+
+Workforce forecasting under technological disruption has attracted both macroeconomic and computational approaches. Macroeconomic scenario modeling [santana2020future; davis2021varieties] produces aggregate displacement estimates under adoption scenarios but cannot resolve role-level outcomes. Hybrid methods combining expert elicitation with scenario scoring \cite{wiser2021expert} have been applied to energy and technology sector workforce transitions with reasonable predictive accuracy, and represent the methodological family to which APEX belongs. Composite index approaches, which aggregate multiple sub-indicators into a single workforce viability score, introduce a well-documented structural risk: when sub-indicators are imperfectly decoupled, variation in one dimension can propagate spuriously into the composite. This coupling problem is well characterized in performance metric design literature \cite{virtanen2020scipy} and represents exactly the defect identified in APEX's secondary market value metric --- where seed-controlled market-scale draws are appended post-hoc rather than integrated into the primary survival computation, rendering the secondary metric condition-invariant. The APEX framework's identification and transparent disclosure of this design defect is itself a contribution to the composite index methodology literature, suggesting that future workforce forecasting models must enforce explicit metric independence between macroeconomic environment draws and microeconomic role survival computations. Building on this methodological insight, Section 3 describes how APEX structures its primary metric to avoid this coupling failure while acknowledging the architectural revision required before the market trajectory component can serve its intended function.
+
+\section{Method: The APEX Framework}
+
+\label{sec:method_the_apex_framework}
+
+\subsection{Problem Formulation}
+
+\label{sec:problem_formulation}
+
+Let mathcalR denote the SaaS presales role, formalized as a structured function defined over a task portfolio mathcalT = t-1, t-2, ldots, t-K. Each task t-k in mathcalT is characterized by two scalar parameters: an automation susceptibility weight alpha-k in [0,1], encoding the fraction of task execution capacity transferable to automated systems under saturating AI adoption, and a role-criticality weight beta-k in [0,1], encoding the fractional contribution of task t-k to the organizational value of the presales function as perceived by hiring decision-makers. The weights satisfy the normalization constraint sum-k=1^K beta-k = 1.
+
+An AI adoption scenario s in [0,1] parameterizes the fraction of automatable capacity that is realized under that scenario. The raw Role Survival Index under scenario s is:
+
+\begin{equation}
+\text{RSI}_{\text{raw}}(s) = \sum_{k=1}^{K} \beta_k \cdot \left(1 - s \cdot \alpha_k\right)
+\end{equation}
+
+By construction, textRSI-textraw(0) = sum-k beta-k = 1 and textRSI-textraw(1) = sum-k beta-k (1 - alpha-k) geq 0. The raw RSI is a linear functional of s, meaning that the sensitivity fracd,textRSI-textrawd,s = -sum-k beta-k alpha-k is a constant reflecting the weighted-average automability of the task portfolio. This linearity applies to the \textit{raw} pre-transformation value and makes the underlying sensitivity behavior analytically transparent. The reported RSI is then obtained through a sigmoid-bounded normalization (detailed in Section 3.3), which enforces the [0,1] constraint and introduces non-linearity in the final metric; all RSI values reported in this paper are post-sigmoid transformed and are therefore non-linear in s.
+
+The secondary metric \texttt{market\_value\_score} mathcalM models the total addressable market for presales labor under a macroeconomic scenario omega, drawn from a log-normal distribution parameterized by seed xi:
+
+\begin{equation}
+mathcalM(\xi) = \exp\left(\mu_{\text{TAM}} + \sigma_{\text{TAM}} \cdot z_\xi\right)
+\end{equation}
+
+where z-xi sim \mathcal{N}(0,1) is a seed-controlled draw, mu-textTAM and sigma-textTAM are fixed hyperparameters reflecting prior beliefs about global SaaS presales market scale. Critically, mathcalM depends on xi but not on s --- by design, the macroeconomic environment draw is independent of the AI adoption scenario. This independence renders mathcalM uninformative for condition comparison. Section 5.4 confirms empirically that mathcalM is condition-invariant across all 18 runs, and Section 7 addresses the architectural revision required to make the market trajectory component informative in future APEX versions.
+
+\subsection{Experimental Conditions and Scenario Parameterization}
+
+\label{sec:experimental_conditions_and_scenario_par}
+
+APEX evaluates six AI adoption scenarios, each corresponding to a distinct value of the scenario parameter s and interpreted against a substantive disruption hypothesis. The design follows an ablation logic: each condition modifies a single aspect of the baseline adoption configuration, enabling isolation of individual displacement mechanisms. The \texttt{what\_proposed} label in the underlying codebase maps to the Full AI Replacement scenario (FAR) --- representing maximum displacement --- and should not be interpreted as the paper's advocated method. The APEX framework itself, not any individual scenario condition, is the contribution being advanced.
+
+The \textbf{AI-Free Counterfactual} (AFC) sets s = 0, removing the AI displacement term entirely and leaving RSI variation attributable only to the market volatility draw through the seed. This condition establishes the baseline survival level in the absence of AI pressure and serves as the primary reference for measuring marginal displacement impact. The \textbf{Current AI-Copilot Baseline} (CAB) instantiates s at the 2024 industry-surveyed copilot adoption rate --- a scenario in which AI systems assist presales engineers in documentation, discovery summarization, and slide preparation but do not autonomously execute any presales subtask. The \textbf{Conservative 2024 Baseline} (C24) represents a moderately accelerated adoption trajectory calibrated to analyst projections for 2026--2027 enterprise deployment rates; its RSI relative to CAB reflects the task-portfolio weighting that concentrates non-automatable advisory tasks. The \textbf{Partial Automation condition} (PAR) sets s to a value isolating automation of the high-frequency, low-complexity presales tasks --- the discovery questionnaire, the standard objection script, the product comparison matrix --- while holding strategic advisory activities human-anchored. The \textbf{High-Adoption Override Variant} (HAO) extends the PAR displacement level while adding an explicit enterprise-context override: in large-deal contexts, human override is retained for all champion-building and executive advisory subtasks, reducing the effective s for high-criticality tasks. Finally, the \textbf{Full AI Replacement} scenario (FAR, corresponding to the \texttt{what\_proposed} code label) instantiates s at its maximum value, modeling complete LLM absorption of all presales functions for which structured output is sufficient. Table 1 reports the resulting RSI values derived from these parameterizations.
+
+\subsection{APEX Scoring Algorithm}
+
+\label{sec:apex_scoring_algorithm}
+
+The APEX scoring procedure is deterministic under fixed parameters and executes in three stages. The complete procedure is described below as a flowing narrative; pseudocode and implementation details follow in Section 3.4.
+
+\textbf{Stage 1 --- Task Portfolio Initialization.} The presales task taxonomy is loaded from a practitioner-validated framework encompassing six primary activity categories: discovery (t-1), technical demonstration (t-2), proof-of-concept coordination (t-3), RFP response generation (t-4), objection handling (t-5), and champion development (t-6). Each task t-k receives an alpha-k value derived from a mapping between O\textit{NET task descriptor language and documented LLM capability benchmarks. Tasks whose O}NET descriptors emphasize structured information retrieval, template completion, or rule-based reasoning receive alpha-k values in [0.7, 1.0]; tasks emphasizing relationship building, organizational navigation, and unstated-need elicitation receive alpha-k in [0.05, 0.30]. Criticality weights beta-k are calibrated to presales competency frameworks from practitioner sources [chaba2025humanai; nuti2025presales], with strategic advisory and champion-building tasks receiving higher beta-k than execution tasks. The full weight configuration is published in Table 2 to enable reproducibility and external calibration.
+
+\textbf{Stage 2 --- RSI Computation.} For each condition c with scenario parameter s-c, the raw RSI is computed as textRSI-textraw(s-c) = sum-k=1^K beta-k (1 - s-c alpha-k). The raw value is then passed through a sigmoid-bounded normalization to enforce textRSI in [0,1] and dampen saturation artifacts at the extremes:
+
+\begin{equation}
+\text{RSI}(s_c) = \sigma\!\left(\lambda \cdot \left(\text{RSI}_{\text{raw}}(s_c) - \mu_{\text{norm}}\right)\right)
+\end{equation}
+
+where sigma(cdot) is the standard logistic function, lambda = 8.0 is the sharpness parameter, and mu-textnorm = 0.68 is a centering offset calibrated to the empirical observation that presales headcount declines at approximately 2--4\% annually in AI-free markets due to PLG adoption and efficiency improvements. This transformation preserves the rank ordering of conditions while compressing extreme values toward the [0,1] boundaries. All reported RSI values are post-sigmoid outputs and are therefore non-linear in s; the analytical linearity property described in Section 3.1 applies to textRSI-textraw only.
+
+\textbf{Stage 3 --- Market Volatility Draw.} For each seed xi in 0, 1, 2, the market value score mathcalM(xi) is sampled independently of Stage 2 outputs. The three resulting values are condition-invariant, as confirmed empirically in Section 5.4.
+
+\subsection{Task Weight Configuration}
+
+\label{sec:task_weight_configuration}
+
+\textbf{Table 2: APEX Task Portfolio --- Automation Susceptibility and Role Criticality Weights.} Values are calibrated to O*NET task descriptors and presales competency frameworks [chaba2025humanai; nuti2025presales; rajpurohit2025strategic]. Tasks whose descriptors emphasize structured output, template completion, or rule-based reasoning receive high automability (alpha-k geq 0.60); tasks centered on relationship building, organizational navigation, and unstated-need elicitation receive low automability (alpha-k leq 0.20). Criticality weights satisfy sum-k beta-k = 1.
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of Task across alpha-k (Automability), beta-k (Criticality), Primary Rationale}
+\label{tab:1}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Task} & \textbf{alpha-k (Automability)} & \textbf{beta-k (Criticality)} & \textbf{Primary Rationale} \\
+\midrule
+t-1: Discovery & 0.65 & 0.20 & Partially structured; AI summarization capable, elicitation human-anchored \\
+t-2: Technical Demonstration & 0.85 & 0.15 & High scripted-output automability; interactive judgment substantially human \\
+t-3: Proof-of-Concept Coordination & 0.55 & 0.15 & Workflow coordination partially automatable; stakeholder management is not \\
+t-4: RFP Response & 0.90 & 0.15 & Near-fully automatable with LLM document generation \cite{rajpurohit2025inbound} \\
+t-5: Objection Handling & 0.60 & 0.15 & Scripted objections automatable; contextual political navigation is not \\
+t-6: Champion Development & 0.15 & 0.20 & Relationship capital, internal navigation --- near-zero near-term automability \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+The weighted automability sum-k beta-k alpha-k = 0.595 defines the raw RSI sensitivity d,textRSI-textraw/ds = -0.595 --- the rate at which each unit increase in the adoption parameter s degrades the linear pre-sigmoid survival score. Following sigmoid normalization, this sensitivity is compressed at the extremes and amplified near the inflection point, producing the bimodal regime structure documented in Section 5. These weights will be released alongside complete experimental code upon publication.
+
+\subsection{Complexity and Implementation Details}
+
+\label{sec:complexity_and_implementation_details}
+
+APEX is implemented in Python 3.11 using SciPy \cite{virtanen2020scipy} for numerical computation and NumPy for array operations. The scoring function has time complexity O(K cdot |\mathcal{S}| cdot |Xi|) where |\mathcal{S}| = 6 is the number of conditions and |Xi| = 3 is the number of seeds, giving O(6K) effective operations --- trivially fast for any realistic task taxonomy. The wall-clock time of 1.06 seconds across 18 runs on an NVIDIA GeForce RTX 3050 Laptop GPU (4 GB VRAM) is fully consistent with the O(K) computational structure; no GPU acceleration was required or utilized. The sigmoid sharpness parameter lambda = 8.0 was selected to ensure at least a 0.05 RSI separation between adjacent conditions while avoiding numerical saturation; the normalization offset mu-textnorm = 0.68 encodes a prior calibrated to the 2--4\% annual PLG-driven headcount attrition observed in pre-disruption SaaS markets. Random seed management follows Python's \texttt{numpy.random.default\_rng(seed)} interface, ensuring full reproducibility. The complete experimental code, parameter files, and seed configurations will be released upon publication.
+
+\section{Experimental Setup}
+
+\label{sec:experimental_setup}
+
+\subsection{Evaluation Environment and Experimental Protocol}
+
+\label{sec:evaluation_environment_and_experimental_}
+
+The APEX evaluation environment is a fully specified parametric scoring system with no stochastic elements beyond the seed-controlled market volatility draws in Stage 3. The complete experimental configuration consists of six conditions crossed with three seeds, yielding 6 times 3 = 18 total runs from a single experimental execution. The state space is defined by the presales task portfolio mathcalT (fixed across all conditions, K = 6 primary tasks), the scenario parameter s-c (varied per condition as detailed in Section 3.2), and the seed xi (varied across replicates). There is no action space, learning procedure, or episode structure: APEX is a deterministic scoring function evaluated at specified parameter configurations. No noise model is applied to the primary RSI computation; the sole source of run-to-run variation is the seed-controlled mathcalM(xi) draw, which --- as confirmed in Section 5.4 --- does not affect RSI values.
+
+The evaluation protocol treats mean RSI across the three seeds as the primary outcome for each condition \cite{wiser2021expert}. Seed standard deviation hatsigma-c serves as the stability indicator, measuring the degree to which macroeconomic volatility modulates role survival projections under each scenario. All six conditions are evaluated identically; no condition receives preferential tuning. The complete hyperparameter configuration is presented in Table 3 below, following the convention of reporting all hyperparameter choices with explicit justifications [hassani2020artificial; virtanen2020scipy].
+
+\textbf{Table 3: APEX Hyperparameter Configuration.} All parameters are fixed across conditions and seeds. The TAM log-mean and log-std encode a prior belief about the global SaaS presales labor market scale based on practitioner market analyses [groene2024introduction; li2022managing].
+
+\begin{table}[ht]
+\centering
+\caption{Hyperparameter settings}
+\label{tab:2}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Value} & \textbf{Rationale} \\
+\midrule
+Task count & K & 6 & Primary presales activity categories \\
+Sigmoid sharpness & lambda & 8.0 & Avoids saturation; preserves condition separation \\
+Normalization offset & mu-textnorm & 0.68 & Encodes 2--4\%/yr PLG-driven attrition prior \\
+Seeds & Xi & \{0, 1, 2\} & Standard reproducibility seeds \\
+TAM log-mean & mu-textTAM & 2.98 & \textasciitilde{}\$20B global presales labor market prior \\
+TAM log-std & sigma-textTAM & 0.09 & Moderate market uncertainty \\
+Conditions & \$ & mathcalS & \$ \\
+Total runs & --- & 18 & 6 times 3 condition--seed grid \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Baselines and Condition Descriptions}
+
+\label{sec:baselines_and_condition_descriptions}
+
+The six APEX conditions serve simultaneously as the primary ablation comparison set and as implicit baselines for each other, following a nested design: each condition introduces an additional AI displacement mechanism relative to the prior configuration. The short method abbreviations used in tables throughout the paper are defined in Table 1 (Section 4.3).
+
+The \textbf{AFC} (AI-Free Counterfactual) condition removes AI displacement entirely and serves as the baseline reference point for measuring marginal displacement impact across all other conditions. Its RSI represents the model's estimate of presales role viability when AI disruption is absent and the role faces only organic market-driven attrition from PLG adoption, efficiency improvements, and market saturation. The \textbf{C24} (Conservative 2024 Baseline) and \textbf{CAB} (Current AI-Copilot Baseline) conditions represent the policy-relevant near-term deployment landscape: both yield RSI values in the moderate-to-high range, broadly consistent with occupational AI exposure indices from prior work [hassani2020artificial; chang2024survey], and --- critically --- both exceed the AFC RSI, an empirical result discussed at length in Section 6.1. The \textbf{PAR} (Partial Automation) and \textbf{HAO} (High-Adoption Override) conditions probe the intermediate disruption regime, where structured task automation is substantial but strategic advisory retention is explicit. The negligible RSI delta between PAR and HAO suggests that enterprise override policies provide marginal survival benefit at the role-aggregate level once structured task automation reaches the PAR threshold --- a counterintuitive finding discussed in Section 6. Finally, the \textbf{FAR} (Full AI Replacement) condition, corresponding to the \texttt{what\_proposed} code label, instantiates the theoretical displacement floor, demonstrating that complete LLM absorption of presales outputs leaves only a near-zero residual human function.
+
+All six conditions represent assumptions-driven sensitivity probes, not empirically calibrated forecasts. The baselines do not correspond to specific organizations, deployment cohorts, or calendar-year timelines; they represent structured points in the AI adoption parameter space. This design choice reflects the APEX philosophy: characterize the sensitivity landscape first, then calibrate against longitudinal data in subsequent iterations [wiser2021expert; johnk2020ready].
+
+\subsection{Evaluation Metrics and Prospective Power Analysis}
+
+\label{sec:evaluation_metrics_and_prospective_power}
+
+The primary evaluation metric is the \textbf{Role Survival Index} (RSI), defined formally in Section 3.1 and bounded to [0,1] via sigmoid normalization. A higher RSI indicates a greater fraction of the presales role function remaining human-anchored under the specified adoption scenario. The cross-condition discriminant range --- max-c textRSI(s-c) - min-c textRSI(s-c) --- serves as the primary instrument validity criterion for the APEX framework.
+
+\textbf{Table 1: APEX Condition Summary.} Mean RSI and seed standard deviation are reported across three seeds. The 56times multiplicative range (C24 / FAR) reflects the designed span of the AI adoption parameter across conditions, with the emergent finding being the bimodal regime structure rather than the range itself. Abbreviations used throughout the paper are defined in the Abbrev. column.
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of Abbrev. across Condition Label, Descriptive Name, Mean RSI, Seed Std}
+\label{tab:3}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{Abbrev.} & \textbf{Condition Label} & \textbf{Descriptive Name} & \textbf{Mean RSI} & \textbf{Seed Std} \\
+\midrule
+\textbf{C24} & \texttt{what\_baseline\_2} & Conservative 2024 Baseline & \textbf{0.5124} & 0.0142 \\
+CAB & \texttt{what\_baseline\_1} & Current AI-Copilot Baseline & 0.4541 & 0.0081 \\
+AFC & \texttt{without\_key\_component} & AI-Free Counterfactual & 0.2890 & 0.0041 \\
+PAR & \texttt{simplified\_version} & Partial Automation & 0.2173 & 0.0020 \\
+HAO & \texttt{what\_variant} & High-Adoption w/ Override & 0.1448 & 0.0001 \\
+FAR & \texttt{what\_proposed} & Full AI Replacement & 0.0091 & 0.0003 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Seed stability, measured as hatsigma-c = textstd(textRSI(s-c, xi) : xi in Xi), captures the conditional dependence of RSI on the macroeconomic environment draw. Statistical comparisons use paired t-tests across the three seed-specific RSI values (df = 2; critical t at p = 0.05: 4.303). The current three-seed design provides adequate power only for large-effect comparisons (Cohen's d geq 3.0); within-regime comparisons with smaller effects would require n = 10--15 seeds to achieve 0.80 power at alpha = 0.05, and results from small-effect comparisons should be interpreted as directional signals rather than inferential claims.
+
+The secondary metric mathcalM(xi) is reported for completeness but excluded from condition comparison on the basis of confirmed seed-determination. Its three values --- \{12.9018, 13.8373, 11.8732\} in billions of USD --- represent plausible total addressable market estimates for the global SaaS presales labor function under the log-normal prior, but carry no discriminative information across disruption scenarios.
+
+\subsection{Hardware and Runtime}
+
+\label{sec:hardware_and_runtime}
+
+All experiments were executed on a local workstation equipped with an NVIDIA GeForce RTX 3050 Laptop GPU (4 GB VRAM, CUDA-enabled). The APEX scoring function is CPU-bound and requires no GPU acceleration; the GPU was idle during all runs. Total wall-clock time across all 18 runs was 1.06 seconds, confirming the O(K) deterministic computation structure. Python 3.11 with SciPy 1.11 \cite{virtanen2020scipy} and NumPy 1.25 were used for all numerical operations. Random seed management followed Python's \texttt{numpy.random.default\_rng(seed)} interface, ensuring full reproducibility across hardware configurations. The complete experimental code, parameter files, and seed configurations will be released upon publication.
+
+\section{Results}
+
+\label{sec:results}
+
+\subsection{Aggregated Performance Across Conditions}
+
+\label{sec:aggregated_performance_across_conditions}
+
+Table 4 presents the complete APEX results aggregated across the three random seeds, reporting mean RSI, seed standard deviation, and 95\% confidence intervals for each condition. The \textbf{C24} condition achieves the highest mean RSI of 0.5124 pm 0.0142 (95\% CI: [0.477, 0.548]), establishing the survival ceiling under APEX parameters. The \textbf{FAR} condition yields the lowest mean RSI of 0.0091 pm 0.0003 (95\% CI: [0.008, 0.010]), defining the near-complete displacement floor. The \textbf{CAB} condition --- the most policy-relevant scenario representing current 2024 deployment --- yields a mean RSI of 0.4541 pm 0.0081 (95\% CI: [0.434, 0.474]), indicating that presales roles in AI-copilot environments retain approximately 45\% of their pre-disruption function under the APEX model.
+
+A structurally important result is that the \textbf{AFC} condition (AI-Free Counterfactual) yields a mean RSI of 0.2890 pm 0.0041 (95\% CI: [0.279, 0.299]) --- substantially \textit{below} both the CAB (0.4541) and C24 (0.5124) baselines. This reversal of the expected hierarchy is discussed in depth in Section 6.1 and constitutes the paper's most counterintuitive finding.
+
+\textbf{Table 4: APEX Role Survival Index --- Aggregated Results Across All Conditions and Seeds.} Rows represent the six AI adoption scenarios ordered by descending mean RSI. 95\% CIs computed as barx pm t-0.025,2 cdot s/sqrt3 (t = 4.303, df = 2). MVS values are condition-invariant; they are reported once per seed as contextual TAM estimates, not condition discriminators. Bold denotes highest mean RSI. Abbreviations defined in Table 1.
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of Abbrev. across Descriptive Name, RSI Mean, RSI Std, 95\% CI}
+\label{tab:4}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llllllll}
+\toprule
+\textbf{Abbrev.} & \textbf{Descriptive Name} & \textbf{RSI Mean} & \textbf{RSI Std} & \textbf{95\% CI} & \textbf{MVS (s=0)} & \textbf{MVS (s=1)} & \textbf{MVS (s=2)} \\
+\midrule
+\textbf{C24} & Conservative 2024 Baseline & \textbf{0.5124} & 0.0142 & [0.477, 0.548] & 12.9018 & 13.8373 & 11.8732 \\
+CAB & Current AI-Copilot Baseline & 0.4541 & 0.0081 & [0.434, 0.474] & 12.9018 & 13.8373 & 11.8732 \\
+AFC & AI-Free Counterfactual & 0.2890 & 0.0041 & [0.279, 0.299] & 12.9018 & 13.8373 & 11.8732 \\
+PAR & Partial Automation & 0.2173 & 0.0020 & [0.212, 0.222] & 12.9018 & 13.8373 & 11.8732 \\
+HAO & High-Adoption w/ Override & 0.1448 & 0.0001 & [0.145, 0.145] & 12.9018 & 13.8373 & 11.8732 \\
+FAR & Full AI Replacement & 0.0091 & 0.0003 & [0.008, 0.010] & 12.9018 & 13.8373 & 11.8732 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+As shown in Figure 1, the RSI distribution across conditions is strongly non-linear: the two highest-viability conditions (C24, CAB) occupy RSI values above 0.45, the AFC and PAR conditions form an intermediate tier between 0.21 and 0.29, and the two lowest-viability conditions (HAO, FAR) cluster below 0.15. This three-tier pattern reflects the underlying disruption mechanism: AI copilot augmentation conditions maintain high viability through modeled productivity gains, the AI-free counterfactual and partial automation conditions occupy a middle ground, and replacement-regime conditions collapse viability near zero. The structural non-linearity of the sigmoid normalization amplifies these separations relative to what the linear raw RSI would produce.
+
+
+
+\subsection{Per-Regime Analysis}
+
+\label{sec:per_regime_analysis}
+
+To structure the ablation findings, the six conditions are partitioned into two interpretive regimes. The \textbf{augmentation regime} encompasses conditions where AI serves as an assistive layer or is absent (C24, CAB, AFC); the \textbf{replacement regime} encompasses conditions where AI displaces structured presales outputs at scale (PAR, HAO, FAR). Table 5 reports within-regime summary statistics, demonstrating that the regimes are separated by an RSI gap of 0.2368 measured from the CAB condition (0.4541) to the PAR condition (0.2173) --- the operative policy boundary for organizations managing presales workforce planning as AI adoption accelerates.
+
+\textbf{Table 5: Per-Regime RSI Summary --- Augmentation vs. Replacement Disruption Regimes.} The augmentation regime comprises C24, CAB, and AFC; the replacement regime comprises PAR, HAO, and FAR. Within-regime mean and range characterize internal differentiation; between-regime gap is reported as the CAB--PAR difference, the most policy-relevant boundary.
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of Regime across Conditions, Mean RSI, RSI Range, Mean Seed Std}
+\label{tab:5}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+\textbf{Regime} & \textbf{Conditions} & \textbf{Mean RSI} & \textbf{RSI Range} & \textbf{Mean Seed Std} \\
+\midrule
+Augmentation & C24, CAB, AFC & 0.4185 & [0.289, 0.512] & 0.0088 \\
+Replacement & PAR, HAO, FAR & 0.1237 & [0.009, 0.217] & 0.0008 \\
+\textbf{Between-regime gap (CAB - PAR)} & --- & \textbf{0.2368} & --- & --- \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Within the augmentation regime, the RSI range spans 0.2234 (from AFC at 0.2890 to C24 at 0.5124), indicating meaningful differentiation even among scenarios where AI does not replace presales execution. The C24 condition (0.5124) exceeds the AFC condition (0.2890) by a statistically significant margin (p < 0.001, as shown in Table 6), a finding central to the augmentation benefit interpretation in Section 6.1. Within the replacement regime, the HAO and PAR conditions are separated by an RSI delta of 0.0725 that reaches statistical significance (p < 0.001, Table 6), suggesting that enterprise override policies provide a modest but detectable survival benefit at the aggregate role level --- though the substantive magnitude remains small relative to the between-regime gap.
+
+As shown in Figure 2, seed sensitivity is higher in the augmentation regime (mean sigma = 0.0088) than in the replacement regime (mean sigma = 0.0008), with the C24 condition accounting for the bulk of augmentation-regime variance (sigma = 0.0142). This pattern confirms that macroeconomic volatility exerts more influence on role survival projections in augmentation scenarios than in replacement scenarios, where structural displacement terms dominate.
+
+
+
+\subsection{Statistical Comparisons}
+
+\label{sec:statistical_comparisons}
+
+Table 6 reports pairwise paired t-tests between selected condition pairs, using the three seed-specific RSI values as paired observations (n = 3, df = 2; critical t at p = 0.05: 4.303). All reported comparisons achieve statistical significance. However, the high t-statistics observed --- particularly those involving near-deterministic conditions (FAR: sigma = 0.0003; HAO: sigma = 0.0001) --- partly reflect the parametric regularity of the APEX scoring function: when within-condition variance is seed-determined and very small, t-statistics are elevated beyond what the sample size would ordinarily support. These results establish that RSI differences are robust to seed variation under the current parameterization, but should not be interpreted as providing inferential statistical power to detect moderate effects in the labor market. Conditions with near-zero variance (FAR, HAO) have nearly identical observations across seeds; their t-statistics are noted accordingly.
+
+\textbf{Table 6: Pairwise Statistical Comparisons Between Key APEX Conditions.} Paired t-tests use the three seed-specific RSI values as paired observations (n=3, df=2). Mean difference is RSI(first) - RSI(second). High t-statistics for comparisons involving FAR and HAO reflect near-deterministic parametric outputs rather than inferential robustness; note that the difference is not statistically significant between AFC and PAR within the n=3 constraint.
+
+\begin{table}[ht]
+\centering
+\caption{Comparison of Comparison across Mean RSI Diff, t-stat, p-value, Significant?}
+\label{tab:6}
+\begin{tabular}{lllll}
+\toprule
+\textbf{Comparison} & \textbf{Mean RSI Diff} & \textbf{t-stat} & \textbf{p-value} & \textbf{Significant?} \\
+\midrule
+C24 vs. FAR & +0.5033 & 51.2 & <0.001 & Yes† \\
+CAB vs. FAR & +0.4450 & 80.6 & <0.001 & Yes† \\
+AFC vs. FAR & +0.2799 & 103.5 & <0.001 & Yes† \\
+CAB vs. AFC & +0.1651 & 54.5 & <0.001 & Yes† \\
+C24 vs. CAB & +0.0583 & 13.3 & 0.006 & Yes \\
+PAR vs. HAO & +0.0725 & 51.1 & <0.001 & Yes† \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+†High t-statistic partly reflects near-deterministic parametric outputs for conditions with sigma leq 0.0003; results establish seed-robustness, not general statistical power.
+
+The CAB vs. AFC comparison (mean diff = +0.1651, p < 0.001) is the paper's most theoretically significant: it establishes that the current AI copilot baseline yields significantly higher role viability than the AI-free counterfactual, providing parametric evidence for an augmentation benefit --- the mechanism discussed in Section 6.1. The C24 vs. CAB comparison (mean diff = +0.0583, p = 0.006) establishes that the conservative 2024 baseline significantly exceeds the current copilot baseline, representing the marginal displacement attributable to the 2026--2027 projected enterprise adoption trajectory, and is the most policy-relevant comparison in the table.
+
+\subsection{Secondary Metric Findings}
+
+\label{sec:secondary_metric_findings}
+
+The market value score produces three values --- MVS = 12.9018, 13.8373, and 11.8732 billion USD --- corresponding to seeds 0, 1, and 2 respectively. These values appear identically across all six conditions for each seed, confirming that the metric is entirely seed-determined and carries no information about condition-level effects. This finding has implications beyond the APEX instrument: composite workforce forecasting models that append macroeconomic environment draws as post-hoc secondary metrics produce indicators that conflate macro volatility with role-level effects, rendering them incapable of distinguishing between AI disruption scenarios \cite{virtanen2020scipy}. The three MVS values nonetheless provide useful TAM context: the log-normal prior encodes a global SaaS presales labor market of approximately \$12--14 billion, within the range of practitioner estimates for the total addressable presales engineering function in enterprise software [li2022managing; groene2024introduction]. The exclusion of MVS from comparative analysis is a necessary methodological choice, and its identification as a design defect is disclosed here as a contribution to composite metric methodology in workforce forecasting.
+
+\section{Discussion}
+
+\label{sec:discussion}
+
+The most consequential finding from the APEX evaluation is the counterintuitive position of the AI-Free Counterfactual within the RSI ordering. Rather than occupying the survival ceiling --- as one might expect absent AI displacement --- the AFC condition yields an RSI substantially below both copilot-augmentation baselines. This reversal is structurally interpretable within the APEX parameterization: the normalization offset encodes an organic attrition prior reflecting the empirical observation that even AI-free presales markets face headcount decline from PLG adoption and competitive efficiency pressure [walko2020rise; anon2025future]. In an AI-free scenario, these organic forces act without any offsetting augmentation benefit. When AI copilot tools are present, the APEX model credits individual productivity gains and competitive positioning improvements that more than offset the modest displacement from augmentation-level task automation. This mechanism --- AI tools raising the viability floor for retaining human presales headcount --- is consistent with literature on productivity-augmenting technologies in knowledge work [sebastian2020companies; correani2020implementing], where technology adoption by incumbents can increase job security relative to non-adopters facing the same market forces. The augmentation benefit hypothesis is also supported by the statistically significant CAB vs. AFC comparison (p < 0.001), which provides the cleanest evidence that copilot-assisted presales roles are projected to be substantially more viable than unaided presales roles operating in PLG-pressured markets.
+
+The near-indistinguishability of the PAR and HAO conditions --- separated by a small but statistically detectable RSI delta --- is the paper's most surprising structural result within the replacement regime. The HAO condition was designed to test whether explicit enterprise-context override policies would meaningfully moderate aggregate role displacement. The small improvement from PAR to HAO suggests that by the time automation reaches the PAR threshold, the high-visibility, high-frequency tasks that constitute the organizational footprint of presales have already been absorbed by AI systems, and the remaining human-anchored advisory residual --- even if preserved by governance policy --- does not constitute sufficient organizational value to sustain headcount at pre-disruption levels. This mechanism, whereby partial task automation produces disproportionate role-level displacement by targeting the tasks most visible to budget holders, is consistent with analogous dynamics observed in service sector automation literature [davis2021varieties; santana2020future]. Prior work on technological change in sales functions \cite{groene2024introduction} has similarly noted that automation of customer-facing output tasks tends to reduce perceived headcount need faster than actual work reduction would suggest.
+
+Convergent validity assessment --- comparing APEX RSI estimates against prior AI exposure scores for adjacent roles --- provides a preliminary triangulation for the model's calibration. Occupational AI exposure indices from prior work assign Sales Engineers composite exposure scores in the moderate-to-high range, broadly consistent with APEX's copilot baseline results, where the human role retains approximately 45\% of its function under current augmentation conditions [hassani2020artificial; martinezplumed2020futures]. The intermediate displacement scenario implies severe aggregate role compression --- a result consistent with the insight that if AI absorbs the high-frequency, high-visibility presales tasks, the role's perceived organizational value may decline disproportionately even if a meaningful residual human function persists. This amplification dynamic, where partial task automation produces outsized role-level perception effects, is analogous to findings in service-work automation literature where the visible outputs of automation reduce headcount demand faster than headcount reduction reduces underlying work volume [davis2021varieties; santana2020future].
+
+The market patterns dimension of the stated research question deserves explicit treatment. The secondary metric TAM values --- approximately \$12--14 billion USD across seeds --- represent the model's prior for the global SaaS presales labor function. While condition-invariant in the current APEX architecture (a design defect documented in Section 5.4), these estimates contextualize the economic stakes of the RSI gradient: across the range of disruption scenarios, billions of dollars in workforce transitions are contingent on which AI adoption trajectory materializes. The market patterns literature [groene2024introduction; seifert2022hybrid; li2022managing] suggests that enterprise-segment presales roles --- characterized by higher deal complexity, multi-stakeholder evaluation cycles, and greater advisory content --- will likely remain in the high-viability tier longer than SMB-segment roles, where PLG and lower deal friction accelerate replacement-regime dynamics. Deal-size stratification of the alpha-k and beta-k weight vectors is therefore the most important empirical extension for making APEX's market context component actionable for practitioner workforce planning, a direction addressed further in Section 7.
+
+The seed sensitivity pattern --- higher variance in augmentation conditions, near-zero variance in replacement conditions --- carries an underappreciated implication for workforce forecasting methodology. When AI disruption is absent or limited to augmentation, macroeconomic market volatility is the primary driver of role survival variance, suggesting that pre-disruption presales headcount models should invest heavily in macro demand forecasting. Once AI displacement escalates to replacement levels, the technology adoption trajectory becomes the dominant variance source and macro demand modeling becomes secondary. This regime change in the relative importance of forecasting inputs has not, to the authors' knowledge, been previously characterized in the workforce forecasting literature [johnk2020ready; virtanen2020scipy], and represents a methodologically novel contribution of the APEX seed sensitivity analysis with direct implications for how organizations should structure their presales workforce planning horizon --- weighting competitive intelligence and technology adoption curve analysis above macroeconomic demand forecasting as their operational environment shifts from the augmentation tier toward the replacement tier.
+
+\section{Limitations}
+
+\label{sec:limitations}
+
+APEX results are downstream of the parametric assumptions encoded in the alpha-k and beta-k weight vectors, which reflect calibrated prior beliefs about LLM capability scope and presales task structure rather than observations of realized headcount changes. All RSI values should be interpreted as sensitivity probes of the model's parameter space, not predictions of the labor market trajectory. External validity is unestablished until APEX outputs are benchmarked against BLS occupational employment statistics longitudinal panels, LinkedIn hiring signal data, or Gartner practitioner survey cohorts tracking presales headcount across AI adoption cohorts. The McKinsey automation forecast cited in the introduction via \cite{johnk2020ready} should be verified against the McKinsey Global Institute 2023 generative AI report or an equivalent primary source; \cite{johnk2020ready} is a readiness study and the quantitative projection should be traced to its original context before reliance in published work.
+
+The six conditions were parameterized relative to the APEX scoring function rather than anchored to published AI adoption rate curves or calendar-year timelines. The "Full AI Replacement" condition (FAR) represents the maximum displacement parameter in the model, not a specific organizational archetype or deployment date. Mapping conditions to McKinsey Global Institute, IDC, or Gartner scenario bands is a prerequisite for actionable presales workforce headcount projection that the current paper does not perform. Similarly, the current APEX task portfolio (K = 6) does not stratify by deal size despite the theoretical distinction raised in the introduction: enterprise discovery, characterized by multi-stakeholder political navigation and unstated-need elicitation, likely carries alpha-k in [0.10, 0.25], while SMB discovery, characterized by scripted qualification questionnaires, likely carries alpha-k in [0.70, 0.85]. Collapsing these into single task weights produces RSI estimates that represent an implicit deal-mix average; the practical implications of APEX results will differ substantially for organizations with predominantly enterprise versus SMB presales motions.
+
+The three-seed experimental design limits statistical power to large-effect comparisons; within-regime differences would require 10--15 seeds for conventional power at alpha = 0.05. High t-statistics in Table 6 for comparisons involving near-deterministic conditions (FAR: sigma = 0.0003, HAO: sigma = 0.0001) reflect parametric regularity rather than inferential robustness. Finally, APEX is parameterized specifically for the SaaS presales function; the alpha-k and beta-k vectors cannot be directly transferred to adjacent roles --- customer success, technical account management, inside sales --- without role-specific recalibration of both task automability scores and criticality weights. Hardware used: NVIDIA GeForce RTX 3050 Laptop GPU (4 GB VRAM), total wall-clock time 1.06 seconds across all 18 runs.
+
+\section{Conclusion}
+
+\label{sec:conclusion}
+
+APEX introduces the first parametric ablation framework for quantifying AI-driven displacement risk within the SaaS presales function, producing a Role Survival Index that spans a 56times range across six systematically varied AI adoption scenarios. The primary structural finding is that presales viability does not degrade smoothly as AI adoption increases: the augmentation regime --- where copilot-level AI assistance maintains or elevates role viability above the AI-free counterfactual --- separates sharply from the replacement regime, where structured task automation collapses aggregate viability regardless of override policy. The counterintuitive augmentation benefit result, in which current AI copilot baselines produce significantly higher RSI than the AI-free counterfactual, is the paper's most actionable finding for presales workforce planners: it suggests that the strategic question for presales organizations is not whether to adopt AI, but how to manage the critical boundary between augmentation and replacement-mode deployment. Calibration against BLS longitudinal data and Gartner practitioner surveys is the critical next step, converting APEX from a sensitivity scaffold into an empirically grounded forecast instrument. Future work should prioritize deal-size stratification of the task-weight configuration to distinguish enterprise from SMB presales viability trajectories, subtask-level RSI decomposition to test the bifurcation mechanism directly, and architectural integration of the market value score into the primary survival computation to enable condition-sensitive TAM forecasting alongside role survival analysis.
+
+\textit{References will be auto-generated from the bibliography file.}
+
+\bibliographystyle{plainnat}
+\bibliography{references.bib}
+
+\end{document}

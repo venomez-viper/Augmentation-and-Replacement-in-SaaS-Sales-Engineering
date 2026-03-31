@@ -1,0 +1,1 @@
+The model has been set to `claude-sonnet-4-6`. How can I help you?

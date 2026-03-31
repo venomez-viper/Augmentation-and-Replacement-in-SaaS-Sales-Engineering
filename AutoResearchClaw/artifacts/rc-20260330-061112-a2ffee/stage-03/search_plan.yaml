@@ -1,0 +1,33 @@
+deduplication:
+  fuzzy_threshold: 0.9
+  method: title_doi_hash
+filters:
+  language:
+  - en
+  min_year: 2020
+  peer_review_preferred: true
+generated: '2026-03-30T06:13:59+00:00'
+search_strategies:
+- max_results_per_query: 60
+  name: keyword_core
+  queries:
+  - what is the future of SAAS
+  - what future
+  - future saas
+  - saas presales
+  - presales engineers
+  sources:
+  - arxiv
+  - semantic_scholar
+  - openreview
+- depth: 1
+  name: backward_forward_citation
+  queries:
+  - what is the future of SAAS
+  - what future
+  - future saas
+  sources:
+  - semantic_scholar
+  - google_scholar
+topic: what is the future of SAAS presales engineers what will they evlove and market
+  partterns analysis and forcast also impact by AI

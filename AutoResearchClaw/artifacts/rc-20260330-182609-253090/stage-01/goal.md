@@ -1,0 +1,2 @@
+[thinking] The user ran a local command to set the model to claude-sonnet-4-6. This is a local command result, and per the instructions, I should not respond to it unless the user explicitly asks me to.
+The model has been set to `claude-sonnet-4-6`.

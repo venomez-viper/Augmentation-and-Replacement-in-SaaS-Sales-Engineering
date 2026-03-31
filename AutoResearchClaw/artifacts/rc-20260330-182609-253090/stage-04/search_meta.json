@@ -1,0 +1,14 @@
+{
+  "real_search": true,
+  "queries_used": [
+    "Your research topic here",
+    "your research",
+    "research topic",
+    "topic here",
+    "Your research topic here survey"
+  ],
+  "year_min": 2020,
+  "total_candidates": 450,
+  "bibtex_entries": 450,
+  "ts": "2026-03-30T18:28:40+00:00"
+}

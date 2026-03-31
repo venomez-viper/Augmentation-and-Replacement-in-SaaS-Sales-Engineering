@@ -1,0 +1,1 @@
+{"stage_name": "literature_screen", "stage_num": 5, "category": "literature", "severity": "error", "description": "Stage literature_screen failed: ACP prompt timed out after 1800s", "timestamp": "2026-03-30T18:59:04+00:00", "run_id": "rc-20260330-182609-253090"}

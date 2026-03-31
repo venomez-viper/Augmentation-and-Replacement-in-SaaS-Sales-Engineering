@@ -1,0 +1,53 @@
+[
+  {
+    "figure_id": "fig_main_results",
+    "chart_type": "bar_comparison",
+    "title": "Method Comparison",
+    "caption": "Comparison of primary metric across all evaluated methods. Error bars show 95% confidence intervals.",
+    "data_source": {
+      "type": "condition_comparison",
+      "metric": "primary_metric"
+    },
+    "x_label": "Method",
+    "y_label": "Primary Metric",
+    "width": "single_column",
+    "priority": 1,
+    "section": "results"
+  },
+  {
+    "figure_id": "fig_ablation",
+    "chart_type": "ablation_grouped",
+    "title": "Ablation Study",
+    "caption": "Ablation study showing the contribution of each component. Removing each component independently reveals its importance.",
+    "data_source": {
+      "type": "ablation_comparison",
+      "metric": "primary_metric"
+    },
+    "x_label": "Variant",
+    "y_label": "Primary Metric",
+    "width": "single_column",
+    "priority": 1,
+    "section": "results"
+  },
+  {
+    "figure_id": "fig_multi_metric",
+    "chart_type": "grouped_bar",
+    "title": "Multi-Metric Comparison",
+    "caption": "Performance comparison across multiple evaluation metrics.",
+    "data_source": {
+      "type": "multi_metric",
+      "metrics": [
+        "primary_metric_mean",
+        "primary_metric_std",
+        "secondary_metric",
+        "simplified_version/123/primary_metric",
+        "simplified_version/123/secondary_metric"
+      ]
+    },
+    "x_label": "Method",
+    "y_label": "Score",
+    "width": "double_column",
+    "priority": 2,
+    "section": "analysis"
+  }
+]
