@@ -1,4 +1,4 @@
-"""Tests for researchclaw.trends — Research Trend Tracker (Agent D1).
+"""Tests for researchpipeline.trends — Research Trend Tracker (Agent D1).
 
 25+ tests covering feeds, trend_analyzer, opportunity_finder,
 daily_digest, auto_topic, and literature/trends.
@@ -14,12 +14,12 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.trends.feeds import FeedManager
-from researchclaw.trends.trend_analyzer import TrendAnalyzer, _STOPWORDS
-from researchclaw.trends.opportunity_finder import OpportunityFinder
-from researchclaw.trends.daily_digest import DailyDigest
-from researchclaw.trends.auto_topic import AutoTopicGenerator
-from researchclaw.literature.trends import LiteratureTrendAnalyzer
+from researchpipeline.trends.feeds import FeedManager
+from researchpipeline.trends.trend_analyzer import TrendAnalyzer, _STOPWORDS
+from researchpipeline.trends.opportunity_finder import OpportunityFinder
+from researchpipeline.trends.daily_digest import DailyDigest
+from researchpipeline.trends.auto_topic import AutoTopicGenerator
+from researchpipeline.literature.trends import LiteratureTrendAnalyzer
 
 
 # ---------------------------------------------------------------------------

@@ -5,10 +5,10 @@ from __future__ import annotations
 import importlib
 from unittest.mock import patch
 
-from researchclaw.literature.models import Author, Paper
-from researchclaw.literature.search import search_papers
+from researchpipeline.literature.models import Author, Paper
+from researchpipeline.literature.search import search_papers
 
-cache_mod = importlib.import_module("researchclaw.literature.cache")
+cache_mod = importlib.import_module("researchpipeline.literature.cache")
 cache_key = cache_mod.cache_key
 cache_stats = cache_mod.cache_stats
 clear_cache = cache_mod.clear_cache
@@ -122,22 +122,22 @@ class TestSearchDegradation:
         )
 
         with patch(
-            "researchclaw.literature.search.search_openalex",
+            "researchpipeline.literature.search.search_openalex",
             side_effect=RuntimeError("API down"),
         ):
             with patch(
-                "researchclaw.literature.search.search_semantic_scholar",
+                "researchpipeline.literature.search.search_semantic_scholar",
                 side_effect=RuntimeError("API down"),
             ):
                 with patch(
-                    "researchclaw.literature.search.search_arxiv",
+                    "researchpipeline.literature.search.search_arxiv",
                     side_effect=RuntimeError("API down"),
                 ):
                     with patch(
-                        "researchclaw.literature.cache._DEFAULT_CACHE_DIR", tmp_path
+                        "researchpipeline.literature.cache._DEFAULT_CACHE_DIR", tmp_path
                     ):
                         with patch(
-                            "researchclaw.literature.search.time.sleep", lambda _: None
+                            "researchpipeline.literature.search.time.sleep", lambda _: None
                         ):
                             results = search_papers("test query", limit=20)
 
@@ -155,15 +155,15 @@ class TestSearchDegradation:
         )
 
         with patch(
-            "researchclaw.literature.search.search_semantic_scholar",
+            "researchpipeline.literature.search.search_semantic_scholar",
             return_value=[mock_paper],
         ):
-            with patch("researchclaw.literature.search.search_arxiv", return_value=[]):
+            with patch("researchpipeline.literature.search.search_arxiv", return_value=[]):
                 with patch(
-                    "researchclaw.literature.cache._DEFAULT_CACHE_DIR", tmp_path
+                    "researchpipeline.literature.cache._DEFAULT_CACHE_DIR", tmp_path
                 ):
                     with patch(
-                        "researchclaw.literature.search.time.sleep", lambda _: None
+                        "researchpipeline.literature.search.time.sleep", lambda _: None
                     ):
                         _ = search_papers("test", limit=20)
 

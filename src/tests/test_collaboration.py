@@ -14,10 +14,10 @@ from pathlib import Path
 
 import pytest
 
-from researchclaw.collaboration.repository import ResearchRepository
-from researchclaw.collaboration.publisher import ArtifactPublisher
-from researchclaw.collaboration.subscriber import ArtifactSubscriber
-from researchclaw.collaboration.dedup import content_hash, deduplicate_artifacts
+from researchpipeline.collaboration.repository import ResearchRepository
+from researchpipeline.collaboration.publisher import ArtifactPublisher
+from researchpipeline.collaboration.subscriber import ArtifactSubscriber
+from researchpipeline.collaboration.dedup import content_hash, deduplicate_artifacts
 
 
 # ── Fixtures ─────────────────────────────────────────────────────────

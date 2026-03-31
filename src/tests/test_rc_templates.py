@@ -1,4 +1,4 @@
-"""Unit tests for researchclaw.templates — conference templates + MD→LaTeX converter."""
+"""Unit tests for researchpipeline.templates — conference templates + MD→LaTeX converter."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import threading
 
 import pytest
 
-from researchclaw.templates.conference import (
+from researchpipeline.templates.conference import (
     CONFERENCE_REGISTRY,
     ConferenceTemplate,
     get_template,
@@ -18,7 +18,7 @@ from researchclaw.templates.conference import (
     ICML_2025,
     ICML_2026,
 )
-from researchclaw.templates.converter import (
+from researchpipeline.templates.converter import (
     markdown_to_latex,
     _parse_sections,
     _extract_title,
@@ -544,7 +544,7 @@ class TestExportConfig:
     """Tests for ExportConfig in config.py."""
 
     def test_default_values(self) -> None:
-        from researchclaw.config import ExportConfig
+        from researchpipeline.config import ExportConfig
 
         ec = ExportConfig()
         assert ec.target_conference == "neurips_2025"
@@ -552,25 +552,25 @@ class TestExportConfig:
         assert ec.bib_file == "references"
 
     def test_frozen(self) -> None:
-        from researchclaw.config import ExportConfig
+        from researchpipeline.config import ExportConfig
 
         ec = ExportConfig()
         with pytest.raises(AttributeError):
             ec.target_conference = "icml"  # type: ignore[misc]
 
     def test_rcconfig_has_export(self) -> None:
-        from researchclaw.config import RCConfig
+        from researchpipeline.config import RCConfig
 
-        cfg = RCConfig.load("config.researchclaw.example.yaml", check_paths=False)
+        cfg = RCConfig.load("config.researchpipeline.example.yaml", check_paths=False)
         assert hasattr(cfg, "export")
         assert cfg.export.target_conference == "neurips_2025"
 
     def test_rcconfig_export_from_dict(self) -> None:
-        from researchclaw.config import RCConfig
+        from researchpipeline.config import RCConfig
         import yaml
         from pathlib import Path
 
-        data = yaml.safe_load(Path("config.researchclaw.example.yaml").read_text())
+        data = yaml.safe_load(Path("config.researchpipeline.example.yaml").read_text())
         data["export"] = {
             "target_conference": "icml_2025",
             "authors": "Test Author",
@@ -591,11 +591,11 @@ class TestHitlStageValidation:
     """Test that hitl_required_stages now accepts up to stage 23."""
 
     def test_stage_23_valid(self) -> None:
-        from researchclaw.config import validate_config
+        from researchpipeline.config import validate_config
         import yaml
         from pathlib import Path
 
-        data = yaml.safe_load(Path("config.researchclaw.example.yaml").read_text())
+        data = yaml.safe_load(Path("config.researchpipeline.example.yaml").read_text())
         data.setdefault("security", {})["hitl_required_stages"] = [1, 22, 23]
         result = validate_config(data, check_paths=False)
         assert result.ok, f"Errors: {result.errors}"
@@ -618,11 +618,11 @@ class TestHitlStageValidation:
             assert len(bst_names) >= 1, f"No .bst file for {name}"
 
     def test_stage_24_invalid(self) -> None:
-        from researchclaw.config import validate_config
+        from researchpipeline.config import validate_config
         import yaml
         from pathlib import Path
 
-        data = yaml.safe_load(Path("config.researchclaw.example.yaml").read_text())
+        data = yaml.safe_load(Path("config.researchpipeline.example.yaml").read_text())
         data.setdefault("security", {})["hitl_required_stages"] = [24]
         result = validate_config(data, check_paths=False)
         assert not result.ok

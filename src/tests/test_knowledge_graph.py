@@ -15,11 +15,11 @@ from pathlib import Path
 
 import pytest
 
-from researchclaw.knowledge.graph.entities import Entity, EntityType
-from researchclaw.knowledge.graph.relations import Relation, RelationType
-from researchclaw.knowledge.graph.builder import KnowledgeGraphBuilder
-from researchclaw.knowledge.graph.query import KnowledgeGraphQuery
-from researchclaw.knowledge.graph.visualizer import (
+from researchpipeline.knowledge.graph.entities import Entity, EntityType
+from researchpipeline.knowledge.graph.relations import Relation, RelationType
+from researchpipeline.knowledge.graph.builder import KnowledgeGraphBuilder
+from researchpipeline.knowledge.graph.query import KnowledgeGraphQuery
+from researchpipeline.knowledge.graph.visualizer import (
     export_to_dot,
     export_to_json_cytoscape,
     graph_summary,

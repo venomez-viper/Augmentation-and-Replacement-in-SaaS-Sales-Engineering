@@ -1,7 +1,7 @@
 import re
 import subprocess
 from pathlib import Path
-from researchclaw.templates import get_template, markdown_to_latex
+from researchpipeline.templates import get_template, markdown_to_latex
 
 run_dir = Path("artifacts/rc-20260330-061112-a2ffee")
 stage19_dir = run_dir / "stage-19"

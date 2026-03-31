@@ -56,7 +56,7 @@ md_content = re.sub(r"\|.*\|.*\n\|(?:[-\s:]+)\|.*\n(?:\|.*\|.*\n)+", "\n\\textbf
 md_content = re.sub(r"\\alpha\\_k", "alpha-k", md_content)
 md_content = re.sub(r"\\beta\\_k\\\$", "beta-k", md_content)
 
-from researchclaw.templates import get_template, markdown_to_latex
+from researchpipeline.templates import get_template, markdown_to_latex
 tpl = get_template("generic")
 tex = markdown_to_latex(md_content, tpl, title="APEX", authors=["Akash Anipakalu Giridhar"], bib_file="references.bib")
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sentinel.sh — Watchdog for AutoResearchClaw pipeline process.
+# sentinel.sh — Watchdog for ResearchPipeline pipeline process.
 #
 # Monitors the pipeline heartbeat file and auto-restarts on crash.
 # Inspired by Sibyl's sentinel watchdog design.
@@ -113,7 +113,7 @@ has_active_children() {
 restart_pipeline() {
     log "Attempting pipeline restart (attempt $((retry_count + 1))/${MAX_RETRIES})"
 
-    $PYTHON_PATH -m researchclaw run --resume --output "$RUN_DIR" &
+    $PYTHON_PATH -m researchpipeline run --resume --output "$RUN_DIR" &
     local new_pid=$!
     echo "$new_pid" > "${RUN_DIR}/pipeline.pid"
 

@@ -7,11 +7,11 @@ from typing import Any, cast
 
 import pytest
 
-from researchclaw.adapters import AdapterBundle
-from researchclaw.config import RCConfig
-from researchclaw.pipeline import runner as rc_runner
-from researchclaw.pipeline.executor import StageResult
-from researchclaw.pipeline.stages import STAGE_SEQUENCE, Stage, StageStatus
+from researchpipeline.adapters import AdapterBundle
+from researchpipeline.config import RCConfig
+from researchpipeline.pipeline import runner as rc_runner
+from researchpipeline.pipeline.executor import StageResult
+from researchpipeline.pipeline.stages import STAGE_SEQUENCE, Stage, StageStatus
 
 
 @pytest.fixture()
@@ -552,7 +552,7 @@ def test_max_pivot_count_prevents_infinite_loop(
         adapters=adapters,
     )
     # RESEARCH_DECISION should appear at most MAX_DECISION_PIVOTS + 1 times
-    from researchclaw.pipeline.stages import MAX_DECISION_PIVOTS
+    from researchpipeline.pipeline.stages import MAX_DECISION_PIVOTS
     decision_count = sum(1 for s in seen if s == Stage.RESEARCH_DECISION)
     assert decision_count <= MAX_DECISION_PIVOTS + 1
 

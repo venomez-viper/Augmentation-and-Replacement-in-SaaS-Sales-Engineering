@@ -36,9 +36,9 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from researchclaw.llm.client import LLMClient, LLMConfig
-from researchclaw.pipeline.code_agent import CodeAgent, CodeAgentConfig
-from researchclaw.prompts import PromptManager
+from researchpipeline.llm.client import LLMClient, LLMConfig
+from researchpipeline.pipeline.code_agent import CodeAgent, CodeAgentConfig
+from researchpipeline.prompts import PromptManager
 
 # ---------------------------------------------------------------------------
 # Built-in test cases

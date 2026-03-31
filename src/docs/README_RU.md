@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../image/logo.png" width="700" alt="AutoResearchClaw Logo">
+  <img src="../image/logo.png" width="700" alt="ResearchPipeline Logo">
 </p>
 
 <h2 align="center"><b>Напишите идею. Получите статью. Полностью автономно и с самообучением.</b></h2>
@@ -9,14 +9,14 @@
 </p>
 
 <p align="center">
-  <img src="../image/framework_v2.png" width="100%" alt="AutoResearchClaw Framework">
+  <img src="../image/framework_v2.png" width="100%" alt="ResearchPipeline Framework">
 </p>
 
 <p align="center">
   <a href="../LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white" alt="Python 3.11+"></a>
   <a href="#тестирование"><img src="https://img.shields.io/badge/Tests-1634%20passed-brightgreen?logo=pytest&logoColor=white" alt="1634 Tests Passed"></a>
-  <a href="https://github.com/aiming-lab/AutoResearchClaw"><img src="https://img.shields.io/badge/GitHub-AutoResearchClaw-181717?logo=github" alt="GitHub"></a>
+  <a href="https://github.com/aiming-lab/ResearchPipeline"><img src="https://img.shields.io/badge/GitHub-ResearchPipeline-181717?logo=github" alt="GitHub"></a>
   <a href="#-интеграция-с-openclaw"><img src="https://img.shields.io/badge/OpenClaw-Compatible-ff4444?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==" alt="OpenClaw Compatible"></a>
   <a href="https://discord.gg/u4ksqW5P"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
 </p>
@@ -60,25 +60,25 @@
 ---
 
 ## 🔥 Новости
-- **[22.03.2026]** [v0.3.2](https://github.com/aiming-lab/AutoResearchClaw/releases/tag/v0.3.2) — **Кроссплатформенная поддержка + крупное обновление стабильности** — AutoResearchClaw теперь работает с любым ACP-совместимым агентом (Claude Code, Codex CLI, Copilot CLI, Gemini CLI, Kimi CLI) и поддерживает мессенджеры (Discord, Telegram, Lark, WeChat) через мост OpenClaw. Новый CLI-agent бэкенд генерации кода делегирует Stage 10 и 13 внешним CLI-агентам с контролем бюджета и управлением таймаутами. Включает систему защиты от фабрикации (VerifiedRegistry + цикл диагностики и ремонта экспериментов), 100+ исправлений багов, модульный рефакторинг executor, автоопределение `--resume`, усиление повторов LLM и исправления от сообщества.
-- **[18.03.2026]** [v0.3.1](https://github.com/aiming-lab/AutoResearchClaw/releases/tag/v0.3.1) — **OpenCode Beast Mode + Контрибьюты сообщества** — Новый режим "Beast Mode" перенаправляет сложную генерацию кода в [OpenCode](https://github.com/anomalyco/opencode) с автоматической оценкой сложности и безопасным фоллбэком. Добавлена поддержка провайдера Novita AI, улучшена потокобезопасность, повышена надежность парсинга ответов LLM, а также исправлено более 20 багов благодаря PR от сообщества и внутреннему аудиту.
-- **[17.03.2026]** [v0.3.0](https://github.com/aiming-lab/AutoResearchClaw/releases/tag/v0.3.0) — **Интеграция с MetaClaw** — AutoResearchClaw теперь поддерживает кросс-сессионное обучение через [MetaClaw](https://github.com/aiming-lab/MetaClaw): ошибки пайплайна → структурированные уроки → переиспользуемые навыки, которые внедряются во все 23 этапа. Робастность в контролируемых экспериментах выросла на **+18.3%**. Фича опциональна (`metaclaw_bridge.enabled: true`) и полностью обратно совместима. См. [Руководство по интеграции](#-интеграция-с-metaclaw).
-- **[16.03.2026]** [v0.2.0](https://github.com/aiming-lab/AutoResearchClaw/releases/tag/v0.2.0) — Три мультиагентные подсистемы (CodeAgent, BenchmarkAgent, FigureAgent), защищенная Docker-песочница с поддержкой сетевых политик, 4-этапный аудит качества статьи (поиск ИИ-галлюцинаций, оценка по 7 критериям, чек-лист NeurIPS) и более 15 исправлений багов с продакшена.
-- **[15.03.2026]** [v0.1.0](https://github.com/aiming-lab/AutoResearchClaw/releases/tag/v0.1.0) — Релиз AutoResearchClaw: полностью автономный исследовательский пайплайн из 23 этапов, который превращает одну идею в готовую для конференции статью. Без вмешательства человека.
+- **[22.03.2026]** [v0.3.2](https://github.com/aiming-lab/ResearchPipeline/releases/tag/v0.3.2) — **Кроссплатформенная поддержка + крупное обновление стабильности** — ResearchPipeline теперь работает с любым ACP-совместимым агентом (Claude Code, Codex CLI, Copilot CLI, Gemini CLI, Kimi CLI) и поддерживает мессенджеры (Discord, Telegram, Lark, WeChat) через мост OpenClaw. Новый CLI-agent бэкенд генерации кода делегирует Stage 10 и 13 внешним CLI-агентам с контролем бюджета и управлением таймаутами. Включает систему защиты от фабрикации (VerifiedRegistry + цикл диагностики и ремонта экспериментов), 100+ исправлений багов, модульный рефакторинг executor, автоопределение `--resume`, усиление повторов LLM и исправления от сообщества.
+- **[18.03.2026]** [v0.3.1](https://github.com/aiming-lab/ResearchPipeline/releases/tag/v0.3.1) — **OpenCode Beast Mode + Контрибьюты сообщества** — Новый режим "Beast Mode" перенаправляет сложную генерацию кода в [OpenCode](https://github.com/anomalyco/opencode) с автоматической оценкой сложности и безопасным фоллбэком. Добавлена поддержка провайдера Novita AI, улучшена потокобезопасность, повышена надежность парсинга ответов LLM, а также исправлено более 20 багов благодаря PR от сообщества и внутреннему аудиту.
+- **[17.03.2026]** [v0.3.0](https://github.com/aiming-lab/ResearchPipeline/releases/tag/v0.3.0) — **Интеграция с MetaClaw** — ResearchPipeline теперь поддерживает кросс-сессионное обучение через [MetaClaw](https://github.com/aiming-lab/MetaClaw): ошибки пайплайна → структурированные уроки → переиспользуемые навыки, которые внедряются во все 23 этапа. Робастность в контролируемых экспериментах выросла на **+18.3%**. Фича опциональна (`metaclaw_bridge.enabled: true`) и полностью обратно совместима. См. [Руководство по интеграции](#-интеграция-с-metaclaw).
+- **[16.03.2026]** [v0.2.0](https://github.com/aiming-lab/ResearchPipeline/releases/tag/v0.2.0) — Три мультиагентные подсистемы (CodeAgent, BenchmarkAgent, FigureAgent), защищенная Docker-песочница с поддержкой сетевых политик, 4-этапный аудит качества статьи (поиск ИИ-галлюцинаций, оценка по 7 критериям, чек-лист NeurIPS) и более 15 исправлений багов с продакшена.
+- **[15.03.2026]** [v0.1.0](https://github.com/aiming-lab/ResearchPipeline/releases/tag/v0.1.0) — Релиз ResearchPipeline: полностью автономный исследовательский пайплайн из 23 этапов, который превращает одну идею в готовую для конференции статью. Без вмешательства человека.
 
 ---
 
 ## ⚡ Одна команда. Одна статья.
 
 ```bash
-pip install -e . && researchclaw setup && researchclaw init && researchclaw run --topic "Ваша исследовательская идея" --auto-approve
+pip install -e . && researchpipeline setup && researchpipeline init && researchpipeline run --topic "Ваша исследовательская идея" --auto-approve
 ```
 
 ---
 
 ## 🤔 Что это такое?
 
-**Вы придумываете. AutoResearchClaw пишет.**
+**Вы придумываете. ResearchPipeline пишет.**
 
 Задайте тему исследования — и получите полноценную академическую статью с реальным обзором литературы из OpenAlex, Semantic Scholar и arXiv, экспериментами в песочнице с учетом вашего железа (автоопределение GPU/MPS/CPU), статистическим анализом, мультиагентным рецензированием и готовым LaTeX-кодом для конференций NeurIPS/ICML/ICLR. Никакого ручного контроля. Никакого копипаста. Никаких выдуманных ссылок.
 
@@ -102,21 +102,21 @@ pip install -e . && researchclaw setup && researchclaw init && researchclaw run 
 
 ```bash
 # 1. Клонируйте и установите
-git clone https://github.com/aiming-lab/AutoResearchClaw.git
-cd AutoResearchClaw
+git clone https://github.com/aiming-lab/ResearchPipeline.git
+cd ResearchPipeline
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e .
 
 # 2. Настройка (интерактивная — устанавливает OpenCode beast mode, проверяет Docker/LaTeX)
-researchclaw setup
+researchpipeline setup
 
 # 3. Конфигурация
-researchclaw init          # Интерактивный режим: выбор провайдера LLM, создание config.arc.yaml
-# Или вручную: cp config.researchclaw.example.yaml config.arc.yaml
+researchpipeline init          # Интерактивный режим: выбор провайдера LLM, создание config.arc.yaml
+# Или вручную: cp config.researchpipeline.example.yaml config.arc.yaml
 
 # 4. Запуск
 export OPENAI_API_KEY="sk-..."
-researchclaw run --config config.arc.yaml --topic "Ваша исследовательская идея" --auto-approve
+researchpipeline run --config config.arc.yaml --topic "Ваша исследовательская идея" --auto-approve
 ```
 
 Результаты → `artifacts/rc-YYYYMMDD-HHMMSS-<hash>/deliverables/` — готовые к компиляции LaTeX, BibTeX, код экспериментов, графики.
@@ -164,7 +164,7 @@ experiment:
 <table>
 <tr>
 
-**AutoResearchClaw полностью совместим с [OpenClaw](https://github.com/openclaw/openclaw).** Установите его в OpenClaw и запускайте автономные исследования одним сообщением — или используйте отдельно через CLI, Claude Code или любой другой ИИ-ассистент.
+**ResearchPipeline полностью совместим с [OpenClaw](https://github.com/openclaw/openclaw).** Установите его в OpenClaw и запускайте автономные исследования одним сообщением — или используйте отдельно через CLI, Claude Code или любой другой ИИ-ассистент.
 
 </tr>
 </table>
@@ -187,16 +187,16 @@ experiment:
 
 1. OpenClaw читает `RESEARCHCLAW_AGENTS.md` → принимает на себя роль исследовательского оркестратора
 2. OpenClaw читает `README.md` → понимает процесс установки и структуру пайплайна
-3. OpenClaw копирует `config.researchclaw.example.yaml` → `config.yaml`
+3. OpenClaw копирует `config.researchpipeline.example.yaml` → `config.yaml`
 4. Запрашивает ваш API-ключ (или использует переменную окружения)
-5. Выполняет `pip install -e .` + `researchclaw run --topic "..." --auto-approve`
+5. Выполняет `pip install -e .` + `researchpipeline run --topic "..." --auto-approve`
 6. Возвращает готовую статью, LaTeX, код экспериментов и список литературы
 
 </details>
 
 ### 🔌 Мост OpenClaw (Продвинутый уровень)
 
-Для более глубокой интеграции в AutoResearchClaw встроена **система адаптеров** с 6 опциональными возможностями:
+Для более глубокой интеграции в ResearchPipeline встроена **система адаптеров** с 6 опциональными возможностями:
 
 ```yaml
 # config.arc.yaml
@@ -213,7 +213,7 @@ openclaw_bridge:
 
 ### ACP (Agent Client Protocol)
 
-AutoResearchClaw может использовать **любого ACP-совместимого агента** в качестве LLM-бэкенда — API-ключи не требуются. Агент общается через [acpx](https://github.com/openclaw/acpx), поддерживая единую сессию на протяжении всех 23 этапов.
+ResearchPipeline может использовать **любого ACP-совместимого агента** в качестве LLM-бэкенда — API-ключи не требуются. Агент общается через [acpx](https://github.com/openclaw/acpx), поддерживая единую сессию на протяжении всех 23 этапов.
 
 | Агент | Команда | Примечания |
 |-------|---------|-------|
@@ -236,17 +236,17 @@ llm:
 
 ```bash
 # Просто запускайте — агент использует свои собственные учетные данные
-researchclaw run --config config.yaml --topic "Ваша идея" --auto-approve
+researchpipeline run --config config.yaml --topic "Ваша идея" --auto-approve
 ```
 
 ### 🛠️ Другие способы запуска
 
 | Способ | Как запустить |
 |--------|-----|
-| **CLI** | `researchclaw setup` → `researchclaw init` → `researchclaw run --topic "..." --auto-approve` |
-| **Python API** | `from researchclaw.pipeline import Runner; Runner(config).run()` |
+| **CLI** | `researchpipeline setup` → `researchpipeline init` → `researchpipeline run --topic "..." --auto-approve` |
+| **Python API** | `from researchpipeline.pipeline import Runner; Runner(config).run()` |
 | **Claude Code** | Читает `RESEARCHCLAW_CLAUDE.md` — просто напишите *"Run research on [topic]"* |
-| **Copilot CLI** | `researchclaw run --topic "..."` с `llm.acp.agent: "gh"` |
+| **Copilot CLI** | `researchpipeline run --topic "..."` с `llm.acp.agent: "gh"` |
 | **OpenCode** | Читает `.claude/skills/` — такой же интерфейс на естественном языке |
 | **Любой AI CLI** | Скормите `RESEARCHCLAW_AGENTS.md` в контекст → агент сам поймет, что делать |
 
@@ -306,7 +306,7 @@ researchclaw run --config config.yaml --topic "Ваша идея" --auto-approve
 | **📚 Мультиисточниковая литература** | Реальные статьи из OpenAlex, Semantic Scholar и arXiv — расширение запросов, дедупликация, защита от падений API с постепенной деградацией. |
 | **🔍 4-уровневая проверка цитат** | Проверка arXiv ID → CrossRef/DataCite DOI → совпадение заголовков в Semantic Scholar → оценка релевантности через LLM. Выдуманные ссылки удаляются автоматически. |
 | **🖥️ Адаптация под железо** | Автоопределение GPU (NVIDIA CUDA / Apple MPS / CPU) и адаптация генерации кода, импортов и масштаба экспериментов. |
-| **🦾 OpenCode Beast Mode** | Сложные эксперименты автоматически перенаправляются в [OpenCode](https://github.com/anomalyco/opencode) — генерация многофайловых проектов с кастомными архитектурами, циклами обучения и ablation studies. Устанавливается через `researchclaw setup`. |
+| **🦾 OpenCode Beast Mode** | Сложные эксперименты автоматически перенаправляются в [OpenCode](https://github.com/anomalyco/opencode) — генерация многофайловых проектов с кастомными архитектурами, циклами обучения и ablation studies. Устанавливается через `researchpipeline setup`. |
 | **🧪 Эксперименты в песочнице** | Валидация кода через AST, неизменяемая обвязка, быстрый отказ при NaN/Inf, самовосстановление, итеративное улучшение (до 10 раундов), сохранение частичных результатов. |
 | **📝 Написание уровня конференций** | Шаблоны NeurIPS/ICML/ICLR, написание по разделам (5,000-6,500 слов), защита от выдуманных фактов, контроль объема при редактуре, удаление типичных ИИ-оговорок. |
 | **📐 Переключение шаблонов** | `neurips_2025`, `iclr_2026`, `icml_2026` — Markdown → LaTeX с формулами, таблицами, графиками, перекрестными ссылками и `\cite{}`. |
@@ -316,7 +316,7 @@ researchclaw run --config config.yaml --topic "Ваша идея" --auto-approve
 
 ## 🧠 Интеграция с MetaClaw
 
-**AutoResearchClaw + [MetaClaw](https://github.com/aiming-lab/MetaClaw) = Пайплайн, который учится на каждом запуске.**
+**ResearchPipeline + [MetaClaw](https://github.com/aiming-lab/MetaClaw) = Пайплайн, который учится на каждом запуске.**
 
 MetaClaw добавляет **перенос знаний между запусками**. Если эта функция включена, пайплайн автоматически извлекает уроки из ошибок и предупреждений, превращает их в переиспользуемые навыки и внедряет во все 23 этапа при следующих запусках — чтобы больше никогда не повторять одни и те же ошибки.
 
@@ -359,7 +359,7 @@ metaclaw_bridge:
 
 ```bash
 # 3. Запускайте как обычно — MetaClaw работает прозрачно
-researchclaw run --config config.arc.yaml --topic "Ваша идея" --auto-approve
+researchpipeline run --config config.arc.yaml --topic "Ваша идея" --auto-approve
 ```
 
 После каждого запуска заглядывайте в `~/.metaclaw/skills/arc-*/SKILL.md`, чтобы посмотреть, чему научился ваш пайплайн.
@@ -436,7 +436,7 @@ experiment:
     allowed_imports: [math, random, json, csv, numpy, torch, sklearn]
     max_memory_mb: 4096
   docker:
-    image: "researchclaw/experiment:latest"
+    image: "researchpipeline/experiment:latest"
     network_policy: "setup_only"   # none | setup_only | pip_only | full
     gpu_enabled: true
     memory_limit_mb: 8192
@@ -444,8 +444,8 @@ experiment:
   ssh_remote:
     host: ""                       # Хостнейм GPU-сервера
     gpu_ids: []                    # Доступные ID видеокарт
-    remote_workdir: "/tmp/researchclaw_experiments"
-  opencode:                          # OpenCode Beast Mode (устанавливается через `researchclaw setup`)
+    remote_workdir: "/tmp/researchpipeline_experiments"
+  opencode:                          # OpenCode Beast Mode (устанавливается через `researchpipeline setup`)
     enabled: true                    # Главный рубильник (по умолчанию: true)
     auto: true                       # Автозапуск без подтверждения (по умолчанию: true)
     complexity_threshold: 0.2        # 0.0-1.0 — чем выше, тем реже триггерится (только на сложных задачах)
@@ -524,18 +524,18 @@ MIT — подробности см. в [LICENSE](../LICENSE).
 
 ## 📌 Цитирование
 
-Если AutoResearchClaw оказался вам полезен, пожалуйста, процитируйте:
+Если ResearchPipeline оказался вам полезен, пожалуйста, процитируйте:
 
 ```bibtex
-@misc{liu2026autoresearchclaw,
+@misc{liu2026researchpipeline,
   author       = {Liu, Jiaqi and Xia, Peng and Han, Siwei and Qiu, Shi and Zhang, Letian and Chen, Guiming  and Tu, Haoqin and Yang, Xinyu and and Zhou, Jiawei and Zhu, Hongtu and Li, Yun and Zhou, Yuyin and Zheng, Zeyu and Xie, Cihang and Ding, Mingyu and Yao, Huaxiu},
-  title        = {AutoResearchClaw: Fully Autonomous Research from Idea to Paper},
+  title        = {ResearchPipeline: Fully Autonomous Research from Idea to Paper},
   year         = {2026},
   organization = {GitHub},
-  url          = {https://github.com/aiming-lab/AutoResearchClaw},
+  url          = {https://github.com/aiming-lab/ResearchPipeline},
 }
 ```
 
 <p align="center">
-  <sub>Создано с 🦞 командой AutoResearchClaw</sub>
+  <sub>Создано с 🦞 командой ResearchPipeline</sub>
 </p>

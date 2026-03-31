@@ -2,7 +2,7 @@
 """End-to-end verification for Docker sandbox.
 
 Run after building the image:
-    docker build -t researchclaw/experiment:latest researchclaw/docker/
+    docker build -t researchpipeline/experiment:latest researchpipeline/docker/
     python tests/e2e_docker_sandbox.py
 """
 
@@ -16,9 +16,9 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from researchclaw.config import DockerSandboxConfig, ExperimentConfig
-from researchclaw.experiment.docker_sandbox import DockerSandbox
-from researchclaw.experiment.factory import create_sandbox
+from researchpipeline.config import DockerSandboxConfig, ExperimentConfig
+from researchpipeline.experiment.docker_sandbox import DockerSandbox
+from researchpipeline.experiment.factory import create_sandbox
 
 PASS = "\033[92mPASS\033[0m"
 FAIL = "\033[91mFAIL\033[0m"
@@ -49,11 +49,11 @@ def main() -> None:
         print("\nDocker is not available. Cannot proceed.")
         sys.exit(1)
 
-    image_ok = DockerSandbox.ensure_image("researchclaw/experiment:latest")
+    image_ok = DockerSandbox.ensure_image("researchpipeline/experiment:latest")
     check("Image exists locally", image_ok)
     if not image_ok:
         print("\nImage not found. Build it first:")
-        print("  docker build -t researchclaw/experiment:latest researchclaw/docker/")
+        print("  docker build -t researchpipeline/experiment:latest researchpipeline/docker/")
         sys.exit(1)
 
     # ── Test 1: Basic execution + metrics ──────────────────────

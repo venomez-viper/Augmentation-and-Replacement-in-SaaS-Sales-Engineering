@@ -1,4 +1,4 @@
-"""Tests for researchclaw.web.pdf_extractor — PDFExtractor."""
+"""Tests for researchpipeline.web.pdf_extractor — PDFExtractor."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.web.pdf_extractor import PDFContent, PDFExtractor
+from researchpipeline.web.pdf_extractor import PDFContent, PDFExtractor
 
 
 # ---------------------------------------------------------------------------
@@ -89,7 +89,7 @@ We evaluate on several benchmarks.
         sections = PDFExtractor._detect_sections(text)
         assert sections == []
 
-    @patch("researchclaw.web.pdf_extractor.urlopen")
+    @patch("researchpipeline.web.pdf_extractor.urlopen")
     def test_extract_from_url_failure(self, mock_urlopen):
         mock_urlopen.side_effect = Exception("404 Not Found")
         extractor = PDFExtractor()

@@ -1,4 +1,4 @@
-"""Integration tests for researchclaw.web — WebSearchAgent end-to-end."""
+"""Integration tests for researchpipeline.web — WebSearchAgent end-to-end."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.web.agent import WebSearchAgent, WebSearchAgentResult
-from researchclaw.web.crawler import CrawlResult
-from researchclaw.web.search import SearchResult, WebSearchResponse
-from researchclaw.web.scholar import ScholarPaper
+from researchpipeline.web.agent import WebSearchAgent, WebSearchAgentResult
+from researchpipeline.web.crawler import CrawlResult
+from researchpipeline.web.search import SearchResult, WebSearchResponse
+from researchpipeline.web.scholar import ScholarPaper
 
 
 # ---------------------------------------------------------------------------
@@ -148,8 +148,8 @@ class TestWebSearchAgent:
         assert len(pdfs) == 2
         assert all(u.endswith(".pdf") for u in pdfs)
 
-    @patch("researchclaw.web.search.urlopen")
-    @patch("researchclaw.web.scholar.scholarly")
+    @patch("researchpipeline.web.search.urlopen")
+    @patch("researchpipeline.web.scholar.scholarly")
     def test_search_and_extract_minimal(self, mock_scholarly, mock_urlopen):
         """End-to-end test with mocked HTTP — DuckDuckGo + mocked Scholar."""
         mock_resp = MagicMock()
@@ -171,9 +171,9 @@ class TestWebSearchAgent:
         assert result.topic == "knowledge distillation"
         assert result.elapsed_seconds > 0
 
-    @patch("researchclaw.web.search.urlopen")
-    @patch("researchclaw.web.scholar.scholarly")
-    @patch("researchclaw.web.crawler.urlopen")
+    @patch("researchpipeline.web.search.urlopen")
+    @patch("researchpipeline.web.scholar.scholarly")
+    @patch("researchpipeline.web.crawler.urlopen")
     def test_search_and_extract_with_crawling(self, mock_crawl_urlopen, mock_scholarly, mock_search_urlopen):
         """Test with crawling enabled."""
         mock_search_resp = MagicMock()
@@ -211,14 +211,14 @@ class TestWebSearchAgent:
 
 class TestWebSearchConfig:
     def test_default_config(self):
-        from researchclaw.config import WebSearchConfig
+        from researchpipeline.config import WebSearchConfig
         cfg = WebSearchConfig()
         assert cfg.enabled is True
         assert cfg.max_web_results == 10
         assert cfg.enable_scholar is True
 
     def test_config_in_rcconfig(self):
-        from researchclaw.config import RCConfig
+        from researchpipeline.config import RCConfig
         import dataclasses
         field_names = [f.name for f in dataclasses.fields(RCConfig)]
         assert "web_search" in field_names

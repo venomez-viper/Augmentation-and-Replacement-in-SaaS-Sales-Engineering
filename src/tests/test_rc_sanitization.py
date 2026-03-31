@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from researchclaw.pipeline.executor import _sanitize_fabricated_data
-from researchclaw.pipeline.stage_impls._code_generation import _check_rl_compatibility
+from researchpipeline.pipeline.executor import _sanitize_fabricated_data
+from researchpipeline.pipeline.stage_impls._code_generation import _check_rl_compatibility
 
 
 @pytest.fixture()

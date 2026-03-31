@@ -1,4 +1,4 @@
-"""Tests for researchclaw.literature.novelty — novelty detection module."""
+"""Tests for researchpipeline.literature.novelty — novelty detection module."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.literature.novelty import (
+from researchpipeline.literature.novelty import (
     _assess_novelty,
     _build_novelty_queries,
     _compute_similarity,
@@ -216,7 +216,7 @@ class TestAssessNovelty:
 class TestCheckNovelty:
     """Integration tests for check_novelty — mocks the real API calls."""
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_basic_flow(self, mock_search: MagicMock) -> None:
         """Smoke test: no similar papers found → high novelty."""
         mock_search.return_value = []
@@ -231,7 +231,7 @@ class TestCheckNovelty:
         assert result["topic"] == "Novel quantum-inspired optimization"
         assert "generated" in result
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_with_similar_papers(self, mock_search: MagicMock) -> None:
         """Papers with keyword overlap → lower novelty."""
         # Create a mock paper with overlapping keywords
@@ -256,7 +256,7 @@ class TestCheckNovelty:
         assert result["similar_papers_found"] >= 0
         assert 0.0 <= result["novelty_score"] <= 1.0
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_with_pipeline_papers(self, mock_search: MagicMock) -> None:
         """Papers from candidates.jsonl also checked for overlap."""
         mock_search.return_value = []
@@ -280,7 +280,7 @@ class TestCheckNovelty:
         assert isinstance(result, dict)
         assert "similar_papers" in result
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_search_failure_graceful(self, mock_search: MagicMock) -> None:
         """API failure should not crash — falls back to pipeline papers."""
         mock_search.side_effect = RuntimeError("API down")
@@ -291,7 +291,7 @@ class TestCheckNovelty:
         assert isinstance(result, dict)
         assert "novelty_score" in result
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_output_keys_complete(self, mock_search: MagicMock) -> None:
         """All expected keys present in output."""
         mock_search.return_value = []
@@ -315,7 +315,7 @@ class TestCheckNovelty:
         }
         assert expected_keys == set(result.keys())
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_recommendation_values(self, mock_search: MagicMock) -> None:
         """Recommendation must be one of proceed/differentiate/abort."""
         mock_search.return_value = []
@@ -325,7 +325,7 @@ class TestCheckNovelty:
         )
         assert result["recommendation"] in ("proceed", "differentiate", "abort", "proceed_with_caution")
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_json_serializable(self, mock_search: MagicMock) -> None:
         """Output must be JSON-serializable for writing to novelty_report.json."""
         mock_search.return_value = []
@@ -336,7 +336,7 @@ class TestCheckNovelty:
         serialized = json.dumps(result)
         assert isinstance(serialized, str)
 
-    @patch("researchclaw.literature.search.search_papers_multi_query")
+    @patch("researchpipeline.literature.search.search_papers_multi_query")
     def test_similar_papers_capped_at_20(self, mock_search: MagicMock) -> None:
         """Output similar_papers list capped at 20."""
         # Create many mock papers
@@ -371,9 +371,9 @@ class TestHypothesisGenNoveltyIntegration:
 
     def test_novelty_report_written_when_available(self, tmp_path: Path) -> None:
         """Hypothesis gen should write novelty_report.json when check succeeds."""
-        from researchclaw.pipeline.executor import _execute_hypothesis_gen
-        from researchclaw.adapters import AdapterBundle
-        from researchclaw.config import RCConfig
+        from researchpipeline.pipeline.executor import _execute_hypothesis_gen
+        from researchpipeline.adapters import AdapterBundle
+        from researchpipeline.config import RCConfig
 
         # Set up minimal run directory
         run_dir = tmp_path / "run"
@@ -404,7 +404,7 @@ class TestHypothesisGenNoveltyIntegration:
         adapters = AdapterBundle()
 
         with patch(
-            "researchclaw.literature.search.search_papers_multi_query"
+            "researchpipeline.literature.search.search_papers_multi_query"
         ) as mock_search:
             mock_search.return_value = []
             result = _execute_hypothesis_gen(stage_dir, run_dir, config, adapters)
@@ -421,9 +421,9 @@ class TestHypothesisGenNoveltyIntegration:
 
     def test_novelty_failure_does_not_block(self, tmp_path: Path) -> None:
         """If novelty check crashes, hypothesis gen still succeeds."""
-        from researchclaw.pipeline.executor import _execute_hypothesis_gen
-        from researchclaw.adapters import AdapterBundle
-        from researchclaw.config import RCConfig
+        from researchpipeline.pipeline.executor import _execute_hypothesis_gen
+        from researchpipeline.adapters import AdapterBundle
+        from researchpipeline.config import RCConfig
 
         run_dir = tmp_path / "run"
         run_dir.mkdir()
@@ -452,7 +452,7 @@ class TestHypothesisGenNoveltyIntegration:
         adapters = AdapterBundle()
 
         with patch(
-            "researchclaw.literature.novelty.check_novelty",
+            "researchpipeline.literature.novelty.check_novelty",
             side_effect=RuntimeError("Novelty check exploded"),
         ):
             result = _execute_hypothesis_gen(stage_dir, run_dir, config, adapters)

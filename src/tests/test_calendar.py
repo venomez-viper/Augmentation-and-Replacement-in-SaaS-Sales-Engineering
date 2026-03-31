@@ -1,4 +1,4 @@
-"""Tests for researchclaw.calendar — Conference Deadline Calendar (Agent D4).
+"""Tests for researchpipeline.calendar — Conference Deadline Calendar (Agent D4).
 
 15+ tests covering deadlines, planner, and reminder modules.
 """
@@ -11,9 +11,9 @@ from pathlib import Path
 import pytest
 import yaml
 
-from researchclaw.calendar.deadlines import Conference, ConferenceCalendar
-from researchclaw.calendar.planner import SubmissionPlanner
-from researchclaw.calendar.reminder import Reminder, ReminderCalculator
+from researchpipeline.calendar.deadlines import Conference, ConferenceCalendar
+from researchpipeline.calendar.planner import SubmissionPlanner
+from researchpipeline.calendar.reminder import Reminder, ReminderCalculator
 
 
 # ---------------------------------------------------------------------------

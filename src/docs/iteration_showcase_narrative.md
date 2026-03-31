@@ -1,4 +1,4 @@
-# AutoResearchClaw: Self-Iterating Experiment Optimization — Showcase
+# ResearchPipeline: Self-Iterating Experiment Optimization — Showcase
 
 > Figure: `docs/figures/iteration_improvement_showcase.png` / `.pdf`
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-This figure demonstrates AutoResearchClaw's core capability: **autonomous self-iteration of experimental methods**. Starting from an initial experiment design, the pipeline automatically:
+This figure demonstrates ResearchPipeline's core capability: **autonomous self-iteration of experimental methods**. Starting from an initial experiment design, the pipeline automatically:
 
 1. Runs the experiment in a sandboxed environment
 2. Analyzes the results and identifies weaknesses

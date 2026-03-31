@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../image/logo.png" width="500" alt="AutoResearchClaw Logo">
+  <img src="../image/logo.png" width="500" alt="ResearchPipeline Logo">
 </p>
 
 <h2 align="center">🧪 Community Testing Guide</h2>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/aiming-lab/AutoResearchClaw">⭐ Star the Repo</a> ·
+  <a href="https://github.com/aiming-lab/ResearchPipeline">⭐ Star the Repo</a> ·
   <a href="#-quick-start">🚀 Quick Start</a> ·
   <a href="#-feedback-template">📋 Feedback Template</a> ·
   <a href="TESTER_GUIDE_CN.md">🇨🇳 中文测试指南</a> ·
@@ -20,7 +20,7 @@
 
 ## 👋 Welcome, Tester!
 
-**AutoResearchClaw** is a fully autonomous academic paper generation pipeline. You give it a research idea — it handles everything else: literature search, experiment design, code generation, experiment execution, paper writing, peer review, and final delivery. **23 stages, zero human intervention.**
+**ResearchPipeline** is a fully autonomous academic paper generation pipeline. You give it a research idea — it handles everything else: literature search, experiment design, code generation, experiment execution, paper writing, peer review, and final delivery. **23 stages, zero human intervention.**
 
 We're looking for testers from **all disciplines and backgrounds** — machine learning, NLP, computer vision, reinforcement learning, bioinformatics, physics, social sciences, and beyond. The more diverse the testing, the better the pipeline becomes.
 
@@ -76,7 +76,7 @@ The pipeline calls a large language model (LLM) at every stage — writing, codi
 > **Before every test run, always pull the latest code:**
 >
 > ```bash
-> cd AutoResearchClaw
+> cd ResearchPipeline
 > git pull origin main
 > pip install -e .    # Re-install to pick up changes
 > ```
@@ -93,8 +93,8 @@ The pipeline calls a large language model (LLM) at every stage — writing, codi
 If you have [Claude Code](https://claude.ai/claude-code) (Anthropic's CLI tool), just paste this:
 
 ```
-Please clone and install AutoResearchClaw:
-https://github.com/aiming-lab/AutoResearchClaw.git
+Please clone and install ResearchPipeline:
+https://github.com/aiming-lab/ResearchPipeline.git
 
 If already cloned, run git pull origin main to update to the latest version first.
 
@@ -113,8 +113,8 @@ Claude Code will handle cloning, dependencies, configuration, and execution auto
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/aiming-lab/AutoResearchClaw.git
-cd AutoResearchClaw
+git clone https://github.com/aiming-lab/ResearchPipeline.git
+cd ResearchPipeline
 
 # 2. Create a virtual environment
 python3 -m venv .venv
@@ -125,13 +125,13 @@ source .venv/bin/activate       # macOS / Linux
 pip install -e .
 
 # 4. Verify
-researchclaw --help
+researchpipeline --help
 ```
 
 ### ⚙️ Configuration
 
 ```bash
-cp config.researchclaw.example.yaml config.yaml
+cp config.researchpipeline.example.yaml config.yaml
 ```
 
 Edit `config.yaml` — here are the key fields:
@@ -203,13 +203,13 @@ export S2_API_KEY="your-s2-key"
 source .venv/bin/activate
 export OPENAI_API_KEY="sk-xxxx"       # or ANTHROPIC_API_KEY
 
-researchclaw run --config config.yaml --auto-approve
+researchpipeline run --config config.yaml --auto-approve
 ```
 
 ### With a Specific Topic
 
 ```bash
-researchclaw run \
+researchpipeline run \
   --config config.yaml \
   --topic "Investigating the effect of curriculum learning on image classification with adaptive difficulty scheduling" \
   --auto-approve
@@ -238,7 +238,7 @@ Pipeline complete — deliverables at: artifacts/rc-20260315-XXXXXX-YYYY/deliver
 The pipeline supports checkpointing — just resume:
 
 ```bash
-researchclaw run --config config.yaml --resume
+researchpipeline run --config config.yaml --resume
 ```
 
 ---
@@ -352,7 +352,7 @@ Please report any issues you find, as specifically as possible:
 Copy the template below, fill it out, and save as `feedback_<your-name>.md`:
 
 ````markdown
-# AutoResearchClaw — Test Feedback Report
+# ResearchPipeline — Test Feedback Report
 
 ## Basic Information
 
@@ -493,7 +493,7 @@ A full pipeline run costs roughly **$5–15** in API fees, depending on the mode
 Resume from the checkpoint:
 
 ```bash
-researchclaw run --config config.yaml --resume
+researchpipeline run --config config.yaml --resume
 ```
 
 ### Q4: Can I use a non-English research topic?
@@ -514,7 +514,7 @@ If you have an NVIDIA GPU with Docker + NVIDIA Container Toolkit:
 
 ```bash
 # 1. Build the experiment image
-docker build -t researchclaw/experiment:latest researchclaw/docker/
+docker build -t researchpipeline/experiment:latest researchpipeline/docker/
 
 # 2. Update config.yaml:
 #   experiment:
@@ -525,7 +525,7 @@ docker build -t researchclaw/experiment:latest researchclaw/docker/
 #       network_policy: "setup_only"  # recommended default
 
 # 3. Run
-researchclaw run --config config.yaml --auto-approve
+researchpipeline run --config config.yaml --auto-approve
 ```
 
 Docker mode uses a three-phase execution model: pip install (network on) → setup.py (network on) → experiment (network off). The image includes pre-cached datasets (CIFAR-10/100, MNIST, FashionMNIST, STL-10, SVHN) so standard benchmarks work without network access.
@@ -535,7 +535,7 @@ Docker mode uses a three-phase execution model: pip install (network on) → set
 **Always pull the latest code** before each test:
 
 ```bash
-cd AutoResearchClaw
+cd ResearchPipeline
 git pull origin main
 pip install -e .
 ```
@@ -552,7 +552,7 @@ Different versions can produce very different results. Always note the commit ha
 
 Submit your feedback report and attachments through one of these channels:
 
-- **GitHub Issues:** [Open an issue](https://github.com/aiming-lab/AutoResearchClaw/issues) with the label `feedback`
+- **GitHub Issues:** [Open an issue](https://github.com/aiming-lab/ResearchPipeline/issues) with the label `feedback`
 - **Pull Request:** Submit your `feedback_<name>.md` to the `community-feedback/` directory
 - **Email:** Contact the project maintainers (see repo for details)
 
@@ -580,8 +580,8 @@ The pipeline has been tested primarily on ML topics so far. We especially welcom
 
 ## 🙏 Thank You
 
-Every piece of feedback — big or small — directly improves AutoResearchClaw. Thank you for being part of this journey.
+Every piece of feedback — big or small — directly improves ResearchPipeline. Thank you for being part of this journey.
 
 <p align="center">
-  <b>⭐ If you find this project interesting, please give us a star on <a href="https://github.com/aiming-lab/AutoResearchClaw">GitHub</a>!</b>
+  <b>⭐ If you find this project interesting, please give us a star on <a href="https://github.com/aiming-lab/ResearchPipeline">GitHub</a>!</b>
 </p>

@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-from researchclaw.templates.compiler import compile_latex
+from researchpipeline.templates.compiler import compile_latex
 
 out_dir = Path("artifacts/rc-20260330-061112-a2ffee/deliverables")
 tex_path = out_dir / "paper.tex"

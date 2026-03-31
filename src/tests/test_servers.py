@@ -7,12 +7,12 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from researchclaw.servers.registry import ServerEntry, ServerRegistry
-from researchclaw.servers.monitor import ServerMonitor, _parse_status_output
-from researchclaw.servers.dispatcher import TaskDispatcher
-from researchclaw.servers.ssh_executor import SSHExecutor
-from researchclaw.servers.slurm_executor import SlurmExecutor
-from researchclaw.servers.cloud_executor import CloudExecutor
+from researchpipeline.servers.registry import ServerEntry, ServerRegistry
+from researchpipeline.servers.monitor import ServerMonitor, _parse_status_output
+from researchpipeline.servers.dispatcher import TaskDispatcher
+from researchpipeline.servers.ssh_executor import SSHExecutor
+from researchpipeline.servers.slurm_executor import SlurmExecutor
+from researchpipeline.servers.cloud_executor import CloudExecutor
 
 
 # ── fixtures ──────────────────────────────────────────────────────
@@ -167,13 +167,13 @@ class TestServerMonitor:
 
     def test_check_status_unreachable(self, registry: ServerRegistry) -> None:
         monitor = ServerMonitor(registry)
-        with patch("researchclaw.servers.monitor._ssh_command", side_effect=RuntimeError("unreachable")):
+        with patch("researchpipeline.servers.monitor._ssh_command", side_effect=RuntimeError("unreachable")):
             status = asyncio.run(monitor.check_status(_make_server()))
         assert status["reachable"] is False
 
     def test_check_all(self, registry: ServerRegistry) -> None:
         monitor = ServerMonitor(registry)
-        with patch("researchclaw.servers.monitor._ssh_command", side_effect=RuntimeError("unreachable")):
+        with patch("researchpipeline.servers.monitor._ssh_command", side_effect=RuntimeError("unreachable")):
             results = asyncio.run(monitor.check_all())
         assert len(results) == 3
         for name, status in results.items():

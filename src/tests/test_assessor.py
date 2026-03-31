@@ -1,4 +1,4 @@
-"""Tests for researchclaw.assessor — Paper Quality Assessor (Agent D3).
+"""Tests for researchpipeline.assessor — Paper Quality Assessor (Agent D3).
 
 20+ tests covering rubrics, scorer, venue_recommender, and comparator.
 """
@@ -13,10 +13,10 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from researchclaw.assessor.rubrics import RUBRICS, Rubric
-from researchclaw.assessor.scorer import PaperScorer
-from researchclaw.assessor.venue_recommender import VenueRecommender
-from researchclaw.assessor.comparator import HistoryComparator
+from researchpipeline.assessor.rubrics import RUBRICS, Rubric
+from researchpipeline.assessor.scorer import PaperScorer
+from researchpipeline.assessor.venue_recommender import VenueRecommender
+from researchpipeline.assessor.comparator import HistoryComparator
 
 
 # ---------------------------------------------------------------------------

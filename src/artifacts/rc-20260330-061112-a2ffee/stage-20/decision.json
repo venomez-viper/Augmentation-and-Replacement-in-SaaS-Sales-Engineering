@@ -5,7 +5,7 @@
   "decision": "retry",
   "output_artifacts": [],
   "evidence_refs": [],
-  "error": "ACP prompt failed (exit 1): [acpx] session researchclaw (5f4bdc6a-516e-41c2-bb97-8a284a79337e) \u00b7 C:\\Users\\akash\\Desktop\\Research\\AutoResearchClaw \u00b7 agent needs reconnect",
+  "error": "ACP prompt failed (exit 1): [acpx] session researchpipeline (5f4bdc6a-516e-41c2-bb97-8a284a79337e) \u00b7 C:\\Users\\akash\\Desktop\\Research\\ResearchPipeline \u00b7 agent needs reconnect",
   "ts": "2026-03-31T00:00:52+00:00",
   "next_stage": 21
 }

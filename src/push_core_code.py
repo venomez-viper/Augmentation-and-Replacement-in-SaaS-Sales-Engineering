@@ -2,8 +2,8 @@ import shutil
 from pathlib import Path
 import subprocess
 
-src = Path("C:/Users/akash/Desktop/Research/AutoResearchClaw")
-dst = Path("C:/Users/akash/Desktop/Research/Augmentation-and-Replacement-in-SaaS-Sales-Engineering/AutoResearchClaw")
+src = Path("C:/Users/akash/Desktop/Research/ResearchPipeline")
+dst = Path("C:/Users/akash/Desktop/Research/Augmentation-and-Replacement-in-SaaS-Sales-Engineering/ResearchPipeline")
 
 dst.mkdir(parents=True, exist_ok=True)
 
@@ -14,6 +14,6 @@ def ignore_func(dir_path, contents):
 shutil.copytree(src, dst, ignore=ignore_func, dirs_exist_ok=True)
 
 subprocess.run(["git", "add", "."], cwd=str(dst.parent))
-subprocess.run(["git", "commit", "-m", "Upload complete AutoResearchClaw experiment pipeline and raw artifacts"], cwd=str(dst.parent))
+subprocess.run(["git", "commit", "-m", "Upload complete ResearchPipeline experiment pipeline and raw artifacts"], cwd=str(dst.parent))
 subprocess.run(["git", "push", "origin", "main"], cwd=str(dst.parent))
 print("Successfully pushed the core research code to Github!")

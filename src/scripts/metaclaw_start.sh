@@ -1,5 +1,5 @@
 #!/bin/bash
-# Start MetaClaw proxy for AutoResearchClaw integration.
+# Start MetaClaw proxy for ResearchPipeline integration.
 #
 # Usage:
 #   ./scripts/metaclaw_start.sh              # skills_only mode (default)

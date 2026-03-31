@@ -1,5 +1,5 @@
 # pyright: reportPrivateUsage=false, reportUnknownParameterType=false
-"""Unit tests for researchclaw.literature module.
+"""Unit tests for researchpipeline.literature module.
 
 All network-dependent tests mock HTTP responses via monkeypatch.
 """
@@ -13,16 +13,16 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.literature.models import Author, Paper
-from researchclaw.literature.semantic_scholar import (
+from researchpipeline.literature.models import Author, Paper
+from researchpipeline.literature.semantic_scholar import (
     _parse_s2_paper,
     search_semantic_scholar,
 )
-from researchclaw.literature.arxiv_client import (
+from researchpipeline.literature.arxiv_client import (
     _convert_result,
     search_arxiv,
 )
-from researchclaw.literature.search import (
+from researchpipeline.literature.search import (
     _deduplicate,
     _normalise_title,
     papers_to_bibtex,
@@ -209,7 +209,7 @@ class TestSemanticScholar:
     ) -> None:
         """Mock urllib to return sample S2 response."""
         # Reset S2 circuit breaker (may be tripped from prior test API calls)
-        from researchclaw.literature.semantic_scholar import _reset_circuit_breaker
+        from researchpipeline.literature.semantic_scholar import _reset_circuit_breaker
         _reset_circuit_breaker()
 
         response_bytes = json.dumps(SAMPLE_S2_RESPONSE).encode("utf-8")
@@ -220,7 +220,7 @@ class TestSemanticScholar:
         mock_resp.__exit__ = MagicMock(return_value=False)
 
         monkeypatch.setattr(
-            "researchclaw.literature.semantic_scholar.urllib.request.urlopen",
+            "researchpipeline.literature.semantic_scholar.urllib.request.urlopen",
             lambda *a, **kw: mock_resp,
         )
 
@@ -232,18 +232,18 @@ class TestSemanticScholar:
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         """Should return empty list on network error."""
-        from researchclaw.literature.semantic_scholar import _reset_circuit_breaker
+        from researchpipeline.literature.semantic_scholar import _reset_circuit_breaker
         _reset_circuit_breaker()
 
         import urllib.error
 
         monkeypatch.setattr(
-            "researchclaw.literature.semantic_scholar.urllib.request.urlopen",
+            "researchpipeline.literature.semantic_scholar.urllib.request.urlopen",
             lambda *a, **kw: (_ for _ in ()).throw(urllib.error.URLError("timeout")),
         )
         # Patch sleep to speed up test
         monkeypatch.setattr(
-            "researchclaw.literature.semantic_scholar.time.sleep", lambda _: None
+            "researchpipeline.literature.semantic_scholar.time.sleep", lambda _: None
         )
         papers = search_semantic_scholar("test", limit=5)
         assert papers == []
@@ -309,13 +309,13 @@ class TestArxiv:
         # Use MagicMock so all attributes (Search, SortOrder, etc.) auto-resolve.
         _fake_arxiv = MagicMock()
         monkeypatch.setattr(
-            "researchclaw.literature.arxiv_client.arxiv", _fake_arxiv,
+            "researchpipeline.literature.arxiv_client.arxiv", _fake_arxiv,
         )
         monkeypatch.setattr(
-            "researchclaw.literature.arxiv_client._get_client",
+            "researchpipeline.literature.arxiv_client._get_client",
             lambda: mock_client,
         )
-        from researchclaw.literature.arxiv_client import _reset_circuit_breaker
+        from researchpipeline.literature.arxiv_client import _reset_circuit_breaker
         _reset_circuit_breaker()
 
         papers = search_arxiv("test", limit=10)
@@ -344,17 +344,17 @@ class TestArxiv:
         _fake_arxiv.SortOrder = MagicMock()
         _fake_arxiv.Search = MagicMock()
         monkeypatch.setattr(
-            "researchclaw.literature.arxiv_client.arxiv", _fake_arxiv,
+            "researchpipeline.literature.arxiv_client.arxiv", _fake_arxiv,
         )
 
         mock_client = MagicMock()
         mock_client.results.side_effect = _FakeHTTPError("Simulated arXiv HTTP error")
 
         monkeypatch.setattr(
-            "researchclaw.literature.arxiv_client._get_client",
+            "researchpipeline.literature.arxiv_client._get_client",
             lambda: mock_client,
         )
-        from researchclaw.literature.arxiv_client import _reset_circuit_breaker
+        from researchpipeline.literature.arxiv_client import _reset_circuit_breaker
         _reset_circuit_breaker()
 
         papers = search_arxiv("test", limit=10)
@@ -448,14 +448,14 @@ class TestSearchPapers:
             citation_count=50,
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_semantic_scholar",
+            "researchpipeline.literature.search.search_semantic_scholar",
             lambda *a, **kw: [s2_paper],
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_arxiv",
+            "researchpipeline.literature.search.search_arxiv",
             lambda *a, **kw: [arxiv_paper],
         )
-        monkeypatch.setattr("researchclaw.literature.search.time.sleep", lambda _: None)
+        monkeypatch.setattr("researchpipeline.literature.search.time.sleep", lambda _: None)
 
         papers = search_papers("test", sources=["semantic_scholar", "arxiv"])
         assert len(papers) == 2
@@ -464,7 +464,7 @@ class TestSearchPapers:
 
     def test_default_sources_openalex_first(self) -> None:
         """OpenAlex should be the primary (first) source — least restrictive limits."""
-        from researchclaw.literature.search import _DEFAULT_SOURCES
+        from researchpipeline.literature.search import _DEFAULT_SOURCES
         assert _DEFAULT_SOURCES[0] == "openalex"
         assert "semantic_scholar" in _DEFAULT_SOURCES
         assert "arxiv" in _DEFAULT_SOURCES
@@ -478,18 +478,18 @@ class TestSearchPapers:
             doi="10.1/ax", arxiv_id="2401.99991",
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_openalex",
+            "researchpipeline.literature.search.search_openalex",
             lambda *a, **kw: [],
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_semantic_scholar",
+            "researchpipeline.literature.search.search_semantic_scholar",
             lambda *a, **kw: (_ for _ in ()).throw(RuntimeError("S2 down")),
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_arxiv",
+            "researchpipeline.literature.search.search_arxiv",
             lambda *a, **kw: [arxiv_paper],
         )
-        monkeypatch.setattr("researchclaw.literature.search.time.sleep", lambda _: None)
+        monkeypatch.setattr("researchpipeline.literature.search.time.sleep", lambda _: None)
 
         papers = search_papers("test")
         assert len(papers) >= 1
@@ -498,7 +498,7 @@ class TestSearchPapers:
     def test_search_papers_unknown_source(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        monkeypatch.setattr("researchclaw.literature.search.time.sleep", lambda _: None)
+        monkeypatch.setattr("researchpipeline.literature.search.time.sleep", lambda _: None)
         papers = search_papers("test", sources=["unknown_source"])
         assert papers == []
 
@@ -518,10 +518,10 @@ class TestSearchPapers:
             ]
 
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_papers",
+            "researchpipeline.literature.search.search_papers",
             mock_search,
         )
-        monkeypatch.setattr("researchclaw.literature.search.time.sleep", lambda _: None)
+        monkeypatch.setattr("researchpipeline.literature.search.time.sleep", lambda _: None)
 
         papers = search_papers_multi_query(["q1", "q2", "q3"])
         assert call_count == 3
@@ -568,12 +568,12 @@ class TestEdgeCases:
 
 class TestArxivCircuitBreaker:
     def setup_method(self) -> None:
-        from researchclaw.literature.arxiv_client import _reset_circuit_breaker
+        from researchpipeline.literature.arxiv_client import _reset_circuit_breaker
         _reset_circuit_breaker()
 
     def test_failure_triggers_circuit_breaker(self) -> None:
         """Three consecutive failures should trip the circuit breaker."""
-        from researchclaw.literature import arxiv_client
+        from researchpipeline.literature import arxiv_client
 
         # Simulate 3 consecutive failures
         for _ in range(3):
@@ -585,7 +585,7 @@ class TestArxivCircuitBreaker:
     def test_breaker_open_skips_requests(self) -> None:
         """When breaker is OPEN, requests should be skipped."""
         import time as time_mod
-        from researchclaw.literature import arxiv_client
+        from researchpipeline.literature import arxiv_client
 
         arxiv_client._cb_state = arxiv_client._CB_OPEN
         arxiv_client._cb_open_since = time_mod.monotonic()
@@ -595,7 +595,7 @@ class TestArxivCircuitBreaker:
 
     def test_success_resets_breaker(self) -> None:
         """A successful request should reset the circuit breaker."""
-        from researchclaw.literature import arxiv_client
+        from researchpipeline.literature import arxiv_client
 
         arxiv_client._cb_state = arxiv_client._CB_HALF_OPEN
         arxiv_client._cb_consecutive_429s = 2
@@ -606,7 +606,7 @@ class TestArxivCircuitBreaker:
 
     def test_half_open_probe_failure_doubles_cooldown(self) -> None:
         """Probe failure in HALF_OPEN should double the cooldown."""
-        from researchclaw.literature import arxiv_client
+        from researchpipeline.literature import arxiv_client
 
         arxiv_client._cb_state = arxiv_client._CB_HALF_OPEN
         initial_cooldown = arxiv_client._cb_cooldown_sec
@@ -633,17 +633,17 @@ class TestArxivCircuitBreaker:
         _fake_arxiv.SortOrder = MagicMock()
         _fake_arxiv.Search = MagicMock()
         monkeypatch.setattr(
-            "researchclaw.literature.arxiv_client.arxiv", _fake_arxiv,
+            "researchpipeline.literature.arxiv_client.arxiv", _fake_arxiv,
         )
 
         mock_client = MagicMock()
         mock_client.results.side_effect = _FakeHTTPError("Simulated 429")
 
         monkeypatch.setattr(
-            "researchclaw.literature.arxiv_client._get_client",
+            "researchpipeline.literature.arxiv_client._get_client",
             lambda: mock_client,
         )
-        from researchclaw.literature.arxiv_client import _reset_circuit_breaker
+        from researchpipeline.literature.arxiv_client import _reset_circuit_breaker
         _reset_circuit_breaker()
 
         papers = search_arxiv("test", limit=5)
@@ -692,7 +692,7 @@ SAMPLE_OPENALEX_RESPONSE = {
 class TestOpenAlex:
     def test_parse_openalex_response(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Mock urllib to return sample OpenAlex response."""
-        from researchclaw.literature.openalex_client import search_openalex
+        from researchpipeline.literature.openalex_client import search_openalex
 
         response_bytes = json.dumps(SAMPLE_OPENALEX_RESPONSE).encode("utf-8")
         mock_resp = MagicMock()
@@ -701,7 +701,7 @@ class TestOpenAlex:
         mock_resp.__exit__ = MagicMock(return_value=False)
 
         monkeypatch.setattr(
-            "researchclaw.literature.openalex_client.urllib.request.urlopen",
+            "researchpipeline.literature.openalex_client.urllib.request.urlopen",
             lambda *a, **kw: mock_resp,
         )
 
@@ -717,27 +717,27 @@ class TestOpenAlex:
         assert p.authors[0].name == "Ashish Vaswani"
 
     def test_abstract_reconstruction(self) -> None:
-        from researchclaw.literature.openalex_client import _reconstruct_abstract
+        from researchpipeline.literature.openalex_client import _reconstruct_abstract
 
         inv_idx = {"Hello": [0], "world": [1], "foo": [3], "bar": [2]}
         result = _reconstruct_abstract(inv_idx)
         assert result == "Hello world bar foo"
 
     def test_abstract_empty(self) -> None:
-        from researchclaw.literature.openalex_client import _reconstruct_abstract
+        from researchpipeline.literature.openalex_client import _reconstruct_abstract
         assert _reconstruct_abstract(None) == ""
         assert _reconstruct_abstract({}) == ""
 
     def test_openalex_network_error(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Should return empty list on network error."""
-        from researchclaw.literature.openalex_client import search_openalex
+        from researchpipeline.literature.openalex_client import search_openalex
 
         monkeypatch.setattr(
-            "researchclaw.literature.openalex_client.urllib.request.urlopen",
+            "researchpipeline.literature.openalex_client.urllib.request.urlopen",
             lambda *a, **kw: (_ for _ in ()).throw(urllib.error.URLError("timeout")),
         )
         monkeypatch.setattr(
-            "researchclaw.literature.openalex_client.time.sleep", lambda _: None,
+            "researchpipeline.literature.openalex_client.time.sleep", lambda _: None,
         )
 
         papers = search_openalex("test", limit=5)
@@ -764,18 +764,18 @@ class TestMultiSourceFallback:
         )
 
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_openalex",
+            "researchpipeline.literature.search.search_openalex",
             lambda *a, **kw: (_ for _ in ()).throw(RuntimeError("OpenAlex down")),
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_semantic_scholar",
+            "researchpipeline.literature.search.search_semantic_scholar",
             lambda *a, **kw: [s2_paper],
         )
         monkeypatch.setattr(
-            "researchclaw.literature.search.search_arxiv",
+            "researchpipeline.literature.search.search_arxiv",
             lambda *a, **kw: [arxiv_paper],
         )
-        monkeypatch.setattr("researchclaw.literature.search.time.sleep", lambda _: None)
+        monkeypatch.setattr("researchpipeline.literature.search.time.sleep", lambda _: None)
 
         papers = search_papers("test")
         assert len(papers) >= 1
@@ -791,7 +791,7 @@ class TestMultiSourceFallback:
 class TestCacheTTL:
     def test_source_specific_ttl(self, tmp_path: Any) -> None:
         """arXiv cache should expire after 24h, not 7 days."""
-        from researchclaw.literature.cache import get_cached, put_cache, _SOURCE_TTL
+        from researchpipeline.literature.cache import get_cached, put_cache, _SOURCE_TTL
 
         assert _SOURCE_TTL["arxiv"] == 86400  # 24h
         assert _SOURCE_TTL["semantic_scholar"] == 86400 * 3
@@ -803,7 +803,7 @@ class TestCacheTTL:
         assert len(result) == 1
 
     def test_citation_verify_ttl_is_permanent(self) -> None:
-        from researchclaw.literature.cache import _SOURCE_TTL
+        from researchpipeline.literature.cache import _SOURCE_TTL
         assert _SOURCE_TTL["citation_verify"] >= 86400 * 365
 
 

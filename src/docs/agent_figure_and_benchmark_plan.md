@@ -3,7 +3,7 @@
 > **Created**: 2026-03-15
 > **Updated**: 2026-03-15
 > **Status**: BenchmarkAgent IMPLEMENTED, FigureAgent IMPLEMENTED
-> **Scope**: Two new multi-agent subsystems for AutoResearchClaw pipeline
+> **Scope**: Two new multi-agent subsystems for ResearchPipeline pipeline
 >
 > **Implementation Progress**:
 > - [x] Part B: BenchmarkAgent — fully implemented (4 agents + orchestrator + config + pipeline integration + 43 tests)
@@ -194,7 +194,7 @@ STYLE_CONFIG = {
 #### 文件结构
 
 ```
-researchclaw/
+researchpipeline/
 ├── agents/
 │   └── figure_agent/
 │       ├── __init__.py
@@ -377,7 +377,7 @@ Stage 22: Paper Export
 BenchmarkAgent 需要一个结构化知识库来支持决策：
 
 ```yaml
-# researchclaw/data/benchmark_knowledge.yaml
+# researchpipeline/data/benchmark_knowledge.yaml
 
 domains:
   image_classification:
@@ -421,7 +421,7 @@ domains:
 #### 文件结构
 
 ```
-researchclaw/
+researchpipeline/
 ├── agents/
 │   └── benchmark_agent/
 │       ├── __init__.py
@@ -495,7 +495,7 @@ Stage 14: Result Analysis
 两个多 Agent 系统共享同一套基础设施：
 
 ```python
-# researchclaw/agents/base.py
+# researchpipeline/agents/base.py
 
 class BaseAgent:
     """所有子 Agent 的基类"""
@@ -526,7 +526,7 @@ class AgentOrchestrator:
 
 ### C.2 与现有 LLM Client 的集成
 
-两个系统都通过现有的 `researchclaw/llm/client.py` 调用 LLM：
+两个系统都通过现有的 `researchpipeline/llm/client.py` 调用 LLM：
 - Planner / Selector / Critic 等决策类 Agent → 使用 `gpt-4.1` 或 `gpt-4o`
 - CodeGen 类 Agent → 使用 `gpt-4.1`（代码生成能力最强）
 - VLM Critic → 使用 `gpt-4o`（支持 vision）

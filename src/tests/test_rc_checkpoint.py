@@ -7,15 +7,15 @@ import json
 from pathlib import Path
 from typing import cast
 
-from researchclaw.pipeline.executor import StageResult
-from researchclaw.pipeline.runner import (
+from researchpipeline.pipeline.executor import StageResult
+from researchpipeline.pipeline.runner import (
     _build_pipeline_summary,
     _collect_content_metrics,
     _write_checkpoint,
     read_checkpoint,
     resume_from_checkpoint,
 )
-from researchclaw.pipeline.stages import (
+from researchpipeline.pipeline.stages import (
     NONCRITICAL_STAGES,
     STAGE_SEQUENCE,
     Stage,

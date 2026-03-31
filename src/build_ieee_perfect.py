@@ -2,9 +2,9 @@ import sys
 import re
 import subprocess
 from pathlib import Path
-from researchclaw.templates import get_template, markdown_to_latex
-from researchclaw.experiment.visualize import generate_all_charts
-from researchclaw.templates.compiler import remove_missing_figures
+from researchpipeline.templates import get_template, markdown_to_latex
+from researchpipeline.experiment.visualize import generate_all_charts
+from researchpipeline.templates.compiler import remove_missing_figures
 
 run_dir = Path("artifacts/rc-20260330-061112-a2ffee")
 stage19_dir = run_dir / "stage-19"

@@ -1,8 +1,8 @@
-# MetaClaw × AutoResearchClaw 集成方案
+# MetaClaw × ResearchPipeline 集成方案
 
 > **Status**: ✅ **Implemented & Merged to main** (v0.3.0, 2026-03-16)
 >
-> **目标**: 将 MetaClaw 的持续学习能力（技能注入、技能进化、PRM 评分、RL 训练）接入 AutoResearchClaw 的 23 阶段研究流水线，提升端到端论文生成质量。
+> **目标**: 将 MetaClaw 的持续学习能力（技能注入、技能进化、PRM 评分、RL 训练）接入 ResearchPipeline 的 23 阶段研究流水线，提升端到端论文生成质量。
 
 ---
 
@@ -10,10 +10,10 @@
 
 | 项目 | 定位 | 核心能力 |
 |------|------|----------|
-| **AutoResearchClaw** | 全自主研究流水线（Idea → Paper） | 23 阶段 Pipeline、文献检索、实验执行、论文写作、引用验证 |
+| **ResearchPipeline** | 全自主研究流水线（Idea → Paper） | 23 阶段 Pipeline、文献检索、实验执行、论文写作、引用验证 |
 | **MetaClaw** | Agent 持续进化平台 | 技能注入（Skill Injection）、技能进化（Skill Evolution）、PRM 奖励评分、RL 微调、空闲调度器 |
 
-**集成核心思路**: MetaClaw 作为 AutoResearchClaw 的 **LLM 增强层**，通过多层次赋能提升每个阶段的 LLM 输出质量，并建立从研究失败中持续学习的闭环。
+**集成核心思路**: MetaClaw 作为 ResearchPipeline 的 **LLM 增强层**，通过多层次赋能提升每个阶段的 LLM 输出质量，并建立从研究失败中持续学习的闭环。
 
 ---
 
@@ -23,7 +23,7 @@
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│              AutoResearchClaw Pipeline                │
+│              ResearchPipeline Pipeline                │
 │  Stage 1 → 2 → ... → 23                             │
 │                                                      │
 │  ┌─────────────┐    ┌──────────────────────────────┐ │
@@ -70,9 +70,9 @@
 
 | 层次 | 名称 | 改动范围 | 效果 |
 |------|------|----------|------|
-| **L1** | Proxy 透传 | 仅改配置 | AutoResearchClaw → MetaClaw Proxy → LLM，自动获得通用技能注入 |
+| **L1** | Proxy 透传 | 仅改配置 | ResearchPipeline → MetaClaw Proxy → LLM，自动获得通用技能注入 |
 | **L2** | 阶段感知技能 | 新增研究技能库 + 阶段映射 | 每个 Pipeline 阶段注入最相关的研究技能 |
-| **L3** | Evolution 桥接 | 新增 bridge 模块 | AutoResearchClaw 失败教训 → MetaClaw 技能；双向学习闭环 |
+| **L3** | Evolution 桥接 | 新增 bridge 模块 | ResearchPipeline 失败教训 → MetaClaw 技能；双向学习闭环 |
 | **L4** | PRM 质量门控 | 集成 PRMScorer | 在质量门控阶段（5/9/15/20）使用 PRM 提供客观评分 |
 | **L5** | RL 持续训练 | MetaClaw RL 模式 | 从研究对话中持续微调模型（可选，需 GPU） |
 
@@ -84,7 +84,7 @@
 
 #### Task 0.1: 创建集成分支
 ```bash
-cd /home/jqliu/projects/AutoResearchClaw
+cd /home/jqliu/projects/ResearchPipeline
 git checkout -b feat/metaclaw-integration
 ```
 - 所有开发工作在此分支进行
@@ -107,7 +107,7 @@ mode: skills_only
 
 llm:
   provider: custom
-  model_id: <与 AutoResearchClaw 相同的模型>
+  model_id: <与 ResearchPipeline 相同的模型>
   api_base: <上游 LLM API 地址>
   api_key: <API Key>
 
@@ -139,11 +139,11 @@ curl -X POST http://localhost:30000/v1/chat/completions \
 
 ### Phase 1: L1 — Proxy 透传接入（最小改动）
 
-**目标**: 零代码改动，仅通过配置让 AutoResearchClaw 经由 MetaClaw 代理调用 LLM。
+**目标**: 零代码改动，仅通过配置让 ResearchPipeline 经由 MetaClaw 代理调用 LLM。
 
-#### Task 1.1: 修改 AutoResearchClaw 配置
+#### Task 1.1: 修改 ResearchPipeline 配置
 
-修改 `config.researchclaw.yaml`:
+修改 `config.researchpipeline.yaml`:
 ```yaml
 llm:
   provider: "openai-compatible"
@@ -156,9 +156,9 @@ llm:
 
 #### Task 1.2: 兼容性适配
 
-在 `researchclaw/llm/client.py` 中处理 MetaClaw 可能返回的 503 状态码（权重更新中）：
+在 `researchpipeline/llm/client.py` 中处理 MetaClaw 可能返回的 503 状态码（权重更新中）：
 
-**文件**: `researchclaw/llm/client.py`
+**文件**: `researchpipeline/llm/client.py`
 **改动**: 将 503 加入可重试状态码列表
 
 ```python
@@ -174,22 +174,22 @@ _RETRYABLE_STATUS = {429, 500, 502, 503, 504}
 # 1. 启动 MetaClaw
 metaclaw start --mode skills_only
 
-# 2. 运行 AutoResearchClaw 短流程
-researchclaw run --topic "test topic" --config config.yaml
+# 2. 运行 ResearchPipeline 短流程
+researchpipeline run --topic "test topic" --config config.yaml
 ```
 
 **验证点**:
-- [x] AutoResearchClaw 能正常调用 LLM
+- [x] ResearchPipeline 能正常调用 LLM
 - [x] MetaClaw 日志显示技能注入
 - [x] 输出质量与直连 LLM 相当或更好
 
-**预期交付**: AutoResearchClaw 透过 MetaClaw 运行，自动获得通用技能加持。
+**预期交付**: ResearchPipeline 透过 MetaClaw 运行，自动获得通用技能加持。
 
 ---
 
 ### Phase 2: L2 — 研究专属技能库 + 阶段映射
 
-**目标**: 为 AutoResearchClaw 的 23 个阶段创建专属技能，并实现精准注入。
+**目标**: 为 ResearchPipeline 的 23 个阶段创建专属技能，并实现精准注入。
 
 #### Task 2.1: 创建研究专属技能
 
@@ -238,10 +238,10 @@ When designing search queries for arXiv, Semantic Scholar, or other academic dat
 
 #### Task 2.2: 阶段-技能映射模块
 
-**新增文件**: `researchclaw/metaclaw_bridge/stage_skill_map.py`
+**新增文件**: `researchpipeline/metaclaw_bridge/stage_skill_map.py`
 
 ```python
-"""Maps AutoResearchClaw pipeline stages to MetaClaw skill categories."""
+"""Maps ResearchPipeline pipeline stages to MetaClaw skill categories."""
 
 # 每个阶段对应的 MetaClaw 任务类型 + 推荐注入的研究专属技能
 STAGE_SKILL_MAP: dict[str, dict] = {
@@ -365,7 +365,7 @@ STAGE_SKILL_MAP: dict[str, dict] = {
 
 #### Task 2.3: 阶段感知 HTTP Header 注入
 
-修改 `researchclaw/llm/client.py`，在发送请求时附带阶段上下文 Header：
+修改 `researchpipeline/llm/client.py`，在发送请求时附带阶段上下文 Header：
 
 ```python
 # 在 _request() 方法中新增
@@ -384,11 +384,11 @@ headers["X-Turn-Type"] = "main"           # 确保触发技能注入
 
 ### Phase 3: L3 — Evolution ↔ Skill 双向桥接
 
-**目标**: 让 AutoResearchClaw 的失败教训自动转化为 MetaClaw 技能，形成学习闭环。
+**目标**: 让 ResearchPipeline 的失败教训自动转化为 MetaClaw 技能，形成学习闭环。
 
 #### Task 3.1: Lesson → Skill 转化器
 
-**新增文件**: `researchclaw/metaclaw_bridge/lesson_to_skill.py`
+**新增文件**: `researchpipeline/metaclaw_bridge/lesson_to_skill.py`
 
 **功能**:
 1. 从 `evolution/lessons.jsonl` 读取高严重性教训（severity = "error"）
@@ -424,7 +424,7 @@ LESSON_CATEGORY_TO_SKILL_CATEGORY = {
 
 #### Task 3.2: Skill 效果回馈
 
-**新增文件**: `researchclaw/metaclaw_bridge/skill_feedback.py`
+**新增文件**: `researchpipeline/metaclaw_bridge/skill_feedback.py`
 
 **功能**:
 1. 在每次 Pipeline 运行结束后，统计各阶段成功/失败
@@ -447,7 +447,7 @@ class SkillEffectivenessRecord:
 
 #### Task 3.3: 自动进化触发
 
-在 `researchclaw/pipeline/executor.py` 的运行结束钩子中，添加:
+在 `researchpipeline/pipeline/executor.py` 的运行结束钩子中，添加:
 
 ```python
 # Pipeline 完成后触发
@@ -458,7 +458,7 @@ async def _post_pipeline_hook(self, run_results: list[StageResult]):
 
     # 2. 将高严重性教训转化为技能 (如果 MetaClaw bridge 启用)
     if self.config.metaclaw_bridge.enabled:
-        from researchclaw.metaclaw_bridge.lesson_to_skill import convert_lessons_to_skills
+        from researchpipeline.metaclaw_bridge.lesson_to_skill import convert_lessons_to_skills
         new_skills = await convert_lessons_to_skills(
             lessons=[l for l in lessons if l.severity == "error"],
             llm=self.llm,
@@ -477,9 +477,9 @@ async def _post_pipeline_hook(self, run_results: list[StageResult]):
 
 #### Task 4.1: PRM 评分器集成
 
-**新增文件**: `researchclaw/metaclaw_bridge/prm_gate.py`
+**新增文件**: `researchpipeline/metaclaw_bridge/prm_gate.py`
 
-**功能**: 封装 MetaClaw PRMScorer，为 AutoResearchClaw 的质量门控提供评分。
+**功能**: 封装 MetaClaw PRMScorer，为 ResearchPipeline 的质量门控提供评分。
 
 ```python
 class ResearchPRMGate:
@@ -535,7 +535,7 @@ elif prm_score == -1.0:
 
 #### Task 4.3: 配置项扩展
 
-在 `config.researchclaw.yaml` 中新增:
+在 `config.researchpipeline.yaml` 中新增:
 
 ```yaml
 metaclaw_bridge:
@@ -590,7 +590,7 @@ scheduler:
 
 #### Task 5.2: 会话生命周期管理
 
-在 AutoResearchClaw 的 Pipeline runner 中管理 MetaClaw 会话:
+在 ResearchPipeline 的 Pipeline runner 中管理 MetaClaw 会话:
 
 ```python
 # Pipeline 开始时
@@ -639,8 +639,8 @@ headers["X-Session-Done"] = "true"  # 通知 MetaClaw 一次研究会话结束
 ## 五、新增文件清单
 
 ```
-AutoResearchClaw/
-├── researchclaw/
+ResearchPipeline/
+├── researchpipeline/
 │   └── metaclaw_bridge/           # 新增模块
 │       ├── __init__.py
 │       ├── config.py              # MetaClaw 集成配置
@@ -662,10 +662,10 @@ AutoResearchClaw/
 **需修改的现有文件**:
 | 文件 | 改动内容 |
 |------|----------|
-| `researchclaw/llm/client.py` | 添加 503 重试 + X-Session-Id/X-Turn-Type header |
-| `researchclaw/config.py` | 新增 `metaclaw_bridge` 配置段 |
-| `researchclaw/pipeline/executor.py` | 添加 post-pipeline hook 调用 lesson_to_skill |
-| `config.researchclaw.example.yaml` | 添加 metaclaw_bridge 配置示例 |
+| `researchpipeline/llm/client.py` | 添加 503 重试 + X-Session-Id/X-Turn-Type header |
+| `researchpipeline/config.py` | 新增 `metaclaw_bridge` 配置段 |
+| `researchpipeline/pipeline/executor.py` | 添加 post-pipeline hook 调用 lesson_to_skill |
+| `config.researchpipeline.example.yaml` | 添加 metaclaw_bridge 配置示例 |
 
 ---
 
@@ -710,7 +710,7 @@ Week 4: Phase 4 (PRM 门控) + 收尾
 
 ### 关键缓解：Fallback 机制
 
-在 `researchclaw/llm/client.py` 中实现:
+在 `researchpipeline/llm/client.py` 中实现:
 
 ```python
 async def _request(self, ...):
@@ -745,11 +745,11 @@ async def _request(self, ...):
 
 | API | 用途 | 是否必需 |
 |-----|------|----------|
-| OpenAI-compatible LLM API | AutoResearchClaw + MetaClaw 共用 | **必需** |
+| OpenAI-compatible LLM API | ResearchPipeline + MetaClaw 共用 | **必需** |
 | PRM 评分用 LLM API | Phase 4 质量门控（可与上述相同） | Phase 4 需要 |
 | Tinker/MinT API | Phase 5 RL 训练 | **可选** |
-| arXiv API | AutoResearchClaw 文献检索（已有） | 已配置 |
-| Semantic Scholar API | AutoResearchClaw 文献检索（已有） | 已配置 |
+| arXiv API | ResearchPipeline 文献检索（已有） | 已配置 |
+| Semantic Scholar API | ResearchPipeline 文献检索（已有） | 已配置 |
 
 ---
 
@@ -763,12 +763,12 @@ cd /home/jqliu/projects/MetaClaw
 source .venv/bin/activate
 metaclaw start --mode skills_only --port 30000
 
-# 2. 运行增强版 AutoResearchClaw
-cd /home/jqliu/projects/AutoResearchClaw
+# 2. 运行增强版 ResearchPipeline
+cd /home/jqliu/projects/ResearchPipeline
 git checkout feat/metaclaw-integration
-researchclaw run \
+researchpipeline run \
   --topic "Your research idea" \
-  --config config.researchclaw.yaml
+  --config config.researchpipeline.yaml
 
 # 3. 查看 MetaClaw 技能注入日志
 metaclaw status

@@ -1,4 +1,4 @@
-"""Tests for researchclaw.templates.compiler — BUG-197 and general compilation.
+"""Tests for researchpipeline.templates.compiler — BUG-197 and general compilation.
 
 BUG-197: pdflatex stdout containing broken UTF-8 (from U+202F error messages)
 caused UnicodeDecodeError that killed the compilation pipeline, preventing
@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.templates.compiler import (
+from researchpipeline.templates.compiler import (
     CompileResult,
     _is_fatal_error,
     _sanitize_tex_unicode,
@@ -154,7 +154,7 @@ class TestSanitizeBibFile:
 
     def test_cyrillic_author_transliterated(self, tmp_path: Path):
         """BUG-201: Cyrillic in bib author names should be transliterated."""
-        from researchclaw.templates.compiler import _sanitize_bib_file
+        from researchpipeline.templates.compiler import _sanitize_bib_file
 
         bib = tmp_path / "references.bib"
         bib.write_text(
@@ -218,10 +218,10 @@ class TestFixUnicodeErrors:
 class TestRunPdflatexByteMode:
     """Test that _run_pdflatex handles broken UTF-8 in stdout."""
 
-    @patch("researchclaw.templates.compiler.subprocess.run")
+    @patch("researchpipeline.templates.compiler.subprocess.run")
     def test_broken_utf8_in_stdout_does_not_crash(self, mock_run):
         """BUG-197: Broken UTF-8 bytes should be decoded with replacement."""
-        from researchclaw.templates.compiler import _run_pdflatex
+        from researchpipeline.templates.compiler import _run_pdflatex
 
         # Simulate pdflatex returning broken UTF-8 in stdout
         mock_proc = MagicMock()
@@ -236,10 +236,10 @@ class TestRunPdflatexByteMode:
         assert "Normal output" in log_text
         assert not success
 
-    @patch("researchclaw.templates.compiler.subprocess.run")
+    @patch("researchpipeline.templates.compiler.subprocess.run")
     def test_valid_utf8_works(self, mock_run):
         """Normal UTF-8 output should work fine."""
-        from researchclaw.templates.compiler import _run_pdflatex
+        from researchpipeline.templates.compiler import _run_pdflatex
 
         mock_proc = MagicMock()
         mock_proc.stdout = b"Output written on test.pdf (1 page)"
@@ -261,11 +261,11 @@ class TestRunPdflatexByteMode:
 class TestRunBibtex:
     """Test that _run_bibtex handles errors and logs properly."""
 
-    @patch("researchclaw.templates.compiler.shutil.which", return_value="/usr/bin/bibtex")
-    @patch("researchclaw.templates.compiler.subprocess.run")
+    @patch("researchpipeline.templates.compiler.shutil.which", return_value="/usr/bin/bibtex")
+    @patch("researchpipeline.templates.compiler.subprocess.run")
     def test_bibtex_failure_logged(self, mock_run, mock_which, tmp_path):
         """Failed bibtex should log warning and return False."""
-        from researchclaw.templates.compiler import _run_bibtex
+        from researchpipeline.templates.compiler import _run_bibtex
 
         mock_proc = MagicMock()
         mock_proc.stdout = b"I couldn't open file name.aux"
@@ -276,11 +276,11 @@ class TestRunBibtex:
         result = _run_bibtex(tmp_path, "paper", timeout=60)
         assert result is False
 
-    @patch("researchclaw.templates.compiler.shutil.which", return_value="/usr/bin/bibtex")
-    @patch("researchclaw.templates.compiler.subprocess.run")
+    @patch("researchpipeline.templates.compiler.shutil.which", return_value="/usr/bin/bibtex")
+    @patch("researchpipeline.templates.compiler.subprocess.run")
     def test_bibtex_success_with_bbl(self, mock_run, mock_which, tmp_path):
         """Successful bibtex with .bbl creation should return True."""
-        from researchclaw.templates.compiler import _run_bibtex
+        from researchpipeline.templates.compiler import _run_bibtex
 
         # Create fake .bbl so the check passes
         (tmp_path / "paper.bbl").write_text("\\begin{thebibliography}{}")
@@ -294,19 +294,19 @@ class TestRunBibtex:
         result = _run_bibtex(tmp_path, "paper", timeout=60)
         assert result is True
 
-    @patch("researchclaw.templates.compiler.shutil.which", return_value=None)
+    @patch("researchpipeline.templates.compiler.shutil.which", return_value=None)
     def test_bibtex_not_found(self, mock_which, tmp_path):
         """Missing bibtex binary should return False."""
-        from researchclaw.templates.compiler import _run_bibtex
+        from researchpipeline.templates.compiler import _run_bibtex
 
         result = _run_bibtex(tmp_path, "paper", timeout=60)
         assert result is False
 
-    @patch("researchclaw.templates.compiler.shutil.which", return_value="/usr/bin/bibtex")
-    @patch("researchclaw.templates.compiler.subprocess.run")
+    @patch("researchpipeline.templates.compiler.shutil.which", return_value="/usr/bin/bibtex")
+    @patch("researchpipeline.templates.compiler.subprocess.run")
     def test_bibtex_broken_utf8(self, mock_run, mock_which, tmp_path):
         """BUG-197: Broken UTF-8 in bibtex output should not crash."""
-        from researchclaw.templates.compiler import _run_bibtex
+        from researchpipeline.templates.compiler import _run_bibtex
 
         (tmp_path / "paper.bbl").write_text("\\begin{thebibliography}{}")
 

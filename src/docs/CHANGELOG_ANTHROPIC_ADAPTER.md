@@ -1,6 +1,6 @@
 # Anthropic Messages API Adapter — 改动说明
 
-> 本文档详细描述了为 ResearchClaw LLM 模块引入 Anthropic Messages API 原生支持的改动内容，
+> 本文档详细描述了为 ResearchPipeline LLM 模块引入 Anthropic Messages API 原生支持的改动内容，
 > 并通过架构图说明本次改动 **不影响现有 OpenAI / OpenRouter / DeepSeek 等 provider 的任何行为**。
 
 ---
@@ -21,7 +21,7 @@
 
 ## 1. 改动背景
 
-ResearchClaw 的 LLM 模块原先仅支持 **OpenAI Chat Completions API 格式**（含兼容此格式的 OpenRouter、DeepSeek 等）。
+ResearchPipeline 的 LLM 模块原先仅支持 **OpenAI Chat Completions API 格式**（含兼容此格式的 OpenRouter、DeepSeek 等）。
 Anthropic 的 Claude 系列模型使用独立的 **Messages API**，其请求/响应结构与 OpenAI 格式存在显著差异：
 
 | 差异点 | OpenAI 格式 | Anthropic 格式 |
@@ -241,9 +241,9 @@ graph TD
 
 | 文件路径 | 变更类型 | 改动说明 |
 |---|---|---|
-| `researchclaw/llm/__init__.py` | 修改 | 添加 `"anthropic"` preset；简化工厂函数委托给 `from_rc_config()` |
-| `researchclaw/llm/client.py` | 修改 | `from_rc_config()` 恢复 PRESETS 逻辑 + 条件挂载适配器；`_raw_call()` 添加 if/else 分支 |
-| `researchclaw/llm/anthropic_adapter.py` | **新增** | `AnthropicAdapter` 类 — Anthropic Messages API → OpenAI 兼容格式转换 |
+| `researchpipeline/llm/__init__.py` | 修改 | 添加 `"anthropic"` preset；简化工厂函数委托给 `from_rc_config()` |
+| `researchpipeline/llm/client.py` | 修改 | `from_rc_config()` 恢复 PRESETS 逻辑 + 条件挂载适配器；`_raw_call()` 添加 if/else 分支 |
+| `researchpipeline/llm/anthropic_adapter.py` | **新增** | `AnthropicAdapter` 类 — Anthropic Messages API → OpenAI 兼容格式转换 |
 | `tests/test_anthropic.py` | **新增** | Anthropic API 连通性测试脚本 |
 | `pyproject.toml` | 修改 | 添加 `httpx` 为 optional dependency (`[anthropic]` extra) |
 | `.gitignore` | 修改 | 添加 `run.log` |
@@ -321,9 +321,9 @@ llm:
 
 | 依赖 | 版本要求 | 安装方式 | 说明 |
 |---|---|---|---|
-| `httpx` | `>=0.24` | `pip install researchclaw[anthropic]` | **可选依赖**，仅 Anthropic provider 需要 |
+| `httpx` | `>=0.24` | `pip install researchpipeline[anthropic]` | **可选依赖**，仅 Anthropic provider 需要 |
 
-不使用 Anthropic provider 的用户 **无需安装 httpx**，`pip install researchclaw` 的行为完全不变。
+不使用 Anthropic provider 的用户 **无需安装 httpx**，`pip install researchpipeline` 的行为完全不变。
 
 ---
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from researchclaw.adapters import (
+from researchpipeline.adapters import (
     AdapterBundle,
     BrowserPage,
     FetchResponse,

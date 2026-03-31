@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../image/logo.png" width="500" alt="AutoResearchClaw Logo">
+  <img src="../image/logo.png" width="500" alt="ResearchPipeline Logo">
 </p>
 
 <h2 align="center">🧪 コミュニティテストガイド</h2>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/aiming-lab/AutoResearchClaw">⭐ リポジトリにスターを付ける</a> ·
+  <a href="https://github.com/aiming-lab/ResearchPipeline">⭐ リポジトリにスターを付ける</a> ·
   <a href="#-クイックスタート">🚀 クイックスタート</a> ·
   <a href="#-フィードバックテンプレート">📋 フィードバックテンプレート</a> ·
   <a href="TESTER_GUIDE.md">🇺🇸 English Testing Guide</a> ·
@@ -20,7 +20,7 @@
 
 ## 👋 テスターの皆さんへ
 
-**AutoResearchClaw** は、完全自律型の学術論文生成パイプラインです。研究アイデアを入力するだけで、文献検索、実験設計、コード生成、実験実行、論文執筆、査読、最終成果物の作成まで、すべてを自動で処理します。**23ステージ、人手介入ゼロ。**
+**ResearchPipeline** は、完全自律型の学術論文生成パイプラインです。研究アイデアを入力するだけで、文献検索、実験設計、コード生成、実験実行、論文執筆、査読、最終成果物の作成まで、すべてを自動で処理します。**23ステージ、人手介入ゼロ。**
 
 **あらゆる分野・バックグラウンド**のテスターを募集しています — 機械学習、NLP、コンピュータビジョン、強化学習、バイオインフォマティクス、物理学、社会科学など。テストが多様であるほど、パイプラインの改善に繋がります。
 
@@ -76,7 +76,7 @@
 > **テスト実行の前に、必ず最新のコードをプルしてください：**
 >
 > ```bash
-> cd AutoResearchClaw
+> cd ResearchPipeline
 > git pull origin main
 > pip install -e .    # 変更を反映するために再インストール
 > ```
@@ -93,8 +93,8 @@
 [Claude Code](https://claude.ai/claude-code)（AnthropicのCLIツール）をお持ちの場合、以下を貼り付けるだけです：
 
 ```
-Please clone and install AutoResearchClaw:
-https://github.com/aiming-lab/AutoResearchClaw.git
+Please clone and install ResearchPipeline:
+https://github.com/aiming-lab/ResearchPipeline.git
 
 If already cloned, run git pull origin main to update to the latest version first.
 
@@ -113,8 +113,8 @@ Claude Codeがクローン、依存関係、設定、実行をすべて自動で
 
 ```bash
 # 1. リポジトリをクローン
-git clone https://github.com/aiming-lab/AutoResearchClaw.git
-cd AutoResearchClaw
+git clone https://github.com/aiming-lab/ResearchPipeline.git
+cd ResearchPipeline
 
 # 2. 仮想環境を作成
 python3 -m venv .venv
@@ -125,13 +125,13 @@ source .venv/bin/activate       # macOS / Linux
 pip install -e .
 
 # 4. 動作確認
-researchclaw --help
+researchpipeline --help
 ```
 
 ### ⚙️ 設定
 
 ```bash
-cp config.researchclaw.example.yaml config.yaml
+cp config.researchpipeline.example.yaml config.yaml
 ```
 
 `config.yaml` を編集してください — 主要なフィールドは以下の通りです：
@@ -203,13 +203,13 @@ export S2_API_KEY="your-s2-key"
 source .venv/bin/activate
 export OPENAI_API_KEY="sk-xxxx"       # または ANTHROPIC_API_KEY
 
-researchclaw run --config config.yaml --auto-approve
+researchpipeline run --config config.yaml --auto-approve
 ```
 
 ### 特定のトピックを指定する場合
 
 ```bash
-researchclaw run \
+researchpipeline run \
   --config config.yaml \
   --topic "Investigating the effect of curriculum learning on image classification with adaptive difficulty scheduling" \
   --auto-approve
@@ -238,7 +238,7 @@ Pipeline complete — deliverables at: artifacts/rc-20260315-XXXXXX-YYYY/deliver
 パイプラインはチェックポイントをサポートしています — 再開するだけです：
 
 ```bash
-researchclaw run --config config.yaml --resume
+researchpipeline run --config config.yaml --resume
 ```
 
 ---
@@ -352,7 +352,7 @@ researchclaw run --config config.yaml --resume
 以下のテンプレートをコピーし、記入して `feedback_<your-name>.md` として保存してください：
 
 ````markdown
-# AutoResearchClaw — テストフィードバックレポート
+# ResearchPipeline — テストフィードバックレポート
 
 ## 基本情報
 
@@ -493,7 +493,7 @@ researchclaw run --config config.yaml --resume
 チェックポイントから再開してください：
 
 ```bash
-researchclaw run --config config.yaml --resume
+researchpipeline run --config config.yaml --resume
 ```
 
 ### Q4: 英語以外の研究トピックを使用できますか？
@@ -514,7 +514,7 @@ NVIDIA GPUとDocker + NVIDIA Container Toolkitがある場合：
 
 ```bash
 # 1. 実験用イメージをビルド
-docker build -t researchclaw/experiment:latest researchclaw/docker/
+docker build -t researchpipeline/experiment:latest researchpipeline/docker/
 
 # 2. config.yamlを更新：
 #   experiment:
@@ -525,7 +525,7 @@ docker build -t researchclaw/experiment:latest researchclaw/docker/
 #       network_policy: "setup_only"  # 推奨デフォルト
 
 # 3. 実行
-researchclaw run --config config.yaml --auto-approve
+researchpipeline run --config config.yaml --auto-approve
 ```
 
 Dockerモードは3フェーズの実行モデルを使用します：pip install（ネットワーク有効）→ setup.py（ネットワーク有効）→ 実験（ネットワーク無効）。イメージにはプリキャッシュされたデータセット（CIFAR-10/100、MNIST、FashionMNIST、STL-10、SVHN）が含まれているため、標準的なベンチマークはネットワークアクセスなしで動作します。
@@ -535,7 +535,7 @@ Dockerモードは3フェーズの実行モデルを使用します：pip instal
 テストの前に**必ず最新のコードをプル**してください：
 
 ```bash
-cd AutoResearchClaw
+cd ResearchPipeline
 git pull origin main
 pip install -e .
 ```
@@ -552,7 +552,7 @@ git log --oneline -1
 
 フィードバックレポートと添付ファイルは、以下のいずれかの方法で提出してください：
 
-- **GitHub Issues：** [Issueを作成](https://github.com/aiming-lab/AutoResearchClaw/issues)し、`feedback` ラベルを付ける
+- **GitHub Issues：** [Issueを作成](https://github.com/aiming-lab/ResearchPipeline/issues)し、`feedback` ラベルを付ける
 - **Pull Request：** `feedback_<name>.md` を `community-feedback/` ディレクトリに提出
 - **メール：** プロジェクトのメンテナーに連絡（詳細はリポジトリを参照）
 
@@ -580,8 +580,8 @@ git log --oneline -1
 
 ## 🙏 ありがとうございます
 
-大小問わず、すべてのフィードバックがAutoResearchClawの改善に直接つながります。この取り組みに参加していただき、ありがとうございます。
+大小問わず、すべてのフィードバックがResearchPipelineの改善に直接つながります。この取り組みに参加していただき、ありがとうございます。
 
 <p align="center">
-  <b>⭐ このプロジェクトに興味を持たれたら、<a href="https://github.com/aiming-lab/AutoResearchClaw">GitHub</a>でスターをお願いします！</b>
+  <b>⭐ このプロジェクトに興味を持たれたら、<a href="https://github.com/aiming-lab/ResearchPipeline">GitHub</a>でスターをお願いします！</b>
 </p>

@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.literature.verify import (
+from researchpipeline.literature.verify import (
     CitationResult,
     VerificationReport,
     VerifyStatus,
@@ -21,7 +21,7 @@ from researchclaw.literature.verify import (
     verify_by_title_search,
     verify_citations,
 )
-from researchclaw.literature.models import Author, Paper
+from researchpipeline.literature.models import Author, Paper
 
 
 SAMPLE_BIB = textwrap.dedent("""\
@@ -269,7 +269,7 @@ class TestVerifyByTitleSearch:
             source="semantic_scholar",
         )
         with patch(
-            "researchclaw.literature.search.search_papers",
+            "researchpipeline.literature.search.search_papers",
             return_value=[mock_paper],
         ):
             result = verify_by_title_search("Attention Is All You Need")
@@ -279,7 +279,7 @@ class TestVerifyByTitleSearch:
         assert result.matched_paper is not None
 
     def test_no_results_hallucinated(self) -> None:
-        with patch("researchclaw.literature.search.search_papers", return_value=[]):
+        with patch("researchpipeline.literature.search.search_papers", return_value=[]):
             result = verify_by_title_search("A Completely Made Up Paper")
 
         assert result is not None
@@ -293,7 +293,7 @@ class TestVerifyByTitleSearch:
             source="arxiv",
         )
         with patch(
-            "researchclaw.literature.search.search_papers",
+            "researchpipeline.literature.search.search_papers",
             return_value=[mock_paper],
         ):
             result = verify_by_title_search("A Completely Made Up Paper About Nothing")
@@ -309,7 +309,7 @@ class TestVerifyByTitleSearch:
             source="semantic_scholar",
         )
         with patch(
-            "researchclaw.literature.search.search_papers",
+            "researchpipeline.literature.search.search_papers",
             return_value=[mock_paper],
         ):
             result = verify_by_title_search("Attention Neural Networks Survey Overview")
@@ -319,7 +319,7 @@ class TestVerifyByTitleSearch:
 
     def test_network_failure_returns_none(self) -> None:
         with patch(
-            "researchclaw.literature.search.search_papers",
+            "researchpipeline.literature.search.search_papers",
             side_effect=OSError("network down"),
         ):
             result = verify_by_title_search("Any Paper")
@@ -352,9 +352,9 @@ class TestVerifyCitations:
             raise OSError("unexpected URL")
 
         with (
-            patch("researchclaw.literature.verify.time.sleep"),
+            patch("researchpipeline.literature.verify.time.sleep"),
             patch("urllib.request.urlopen", side_effect=mock_urlopen),
-            patch("researchclaw.literature.search.search_papers", return_value=[]),
+            patch("researchpipeline.literature.search.search_papers", return_value=[]),
         ):
             report = verify_citations(SAMPLE_BIB, inter_verify_delay=0)
 
@@ -584,21 +584,21 @@ class TestCitationResultSerialization:
 
 class TestStage23Integration:
     def test_stage_exists_in_enum(self) -> None:
-        from researchclaw.pipeline.stages import Stage
+        from researchpipeline.pipeline.stages import Stage
 
         assert hasattr(Stage, "CITATION_VERIFY")
         assert Stage.CITATION_VERIFY == 23
 
     def test_stage_in_sequence(self) -> None:
-        from researchclaw.pipeline.stages import Stage, STAGE_SEQUENCE, NEXT_STAGE
+        from researchpipeline.pipeline.stages import Stage, STAGE_SEQUENCE, NEXT_STAGE
 
         assert Stage.CITATION_VERIFY in STAGE_SEQUENCE
         assert NEXT_STAGE[Stage.EXPORT_PUBLISH] == Stage.CITATION_VERIFY
         assert NEXT_STAGE[Stage.CITATION_VERIFY] is None
 
     def test_contract_exists(self) -> None:
-        from researchclaw.pipeline.contracts import CONTRACTS
-        from researchclaw.pipeline.stages import Stage
+        from researchpipeline.pipeline.contracts import CONTRACTS
+        from researchpipeline.pipeline.stages import Stage
 
         assert Stage.CITATION_VERIFY in CONTRACTS
         contract = CONTRACTS[Stage.CITATION_VERIFY]
@@ -606,18 +606,18 @@ class TestStage23Integration:
         assert "references_verified.bib" in contract.output_files
 
     def test_executor_registered(self) -> None:
-        from researchclaw.pipeline.executor import _STAGE_EXECUTORS
-        from researchclaw.pipeline.stages import Stage
+        from researchpipeline.pipeline.executor import _STAGE_EXECUTORS
+        from researchpipeline.pipeline.stages import Stage
 
         assert Stage.CITATION_VERIFY in _STAGE_EXECUTORS
 
     def test_phase_map(self) -> None:
-        from researchclaw.pipeline.stages import PHASE_MAP, Stage
+        from researchpipeline.pipeline.stages import PHASE_MAP, Stage
 
         finalization_stages = PHASE_MAP["H: Finalization"]
         assert Stage.CITATION_VERIFY in finalization_stages
 
     def test_total_stages_is_23(self) -> None:
-        from researchclaw.pipeline.stages import STAGE_SEQUENCE
+        from researchpipeline.pipeline.stages import STAGE_SEQUENCE
 
         assert len(STAGE_SEQUENCE) == 23

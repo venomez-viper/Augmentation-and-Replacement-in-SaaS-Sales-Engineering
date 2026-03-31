@@ -1,4 +1,4 @@
-# AutoResearchClaw — Phase 5: Showcase Website & Sample Papers
+# ResearchPipeline — Phase 5: Showcase Website & Sample Papers
 
 > Created: 2026-03-15
 > Status: **Website Built** — static site deployed, showcase papers pending generation
@@ -9,7 +9,7 @@
 ## 1. Goals
 
 1. **Generate representative showcase papers** across diverse research domains to demonstrate pipeline capabilities
-2. **Build a static website** to publicly present AutoResearchClaw's pipeline, features, and sample outputs
+2. **Build a static website** to publicly present ResearchPipeline's pipeline, features, and sample outputs
 3. **Establish a paper gallery** with downloadable PDFs and code for each showcase paper
 
 ---
@@ -74,7 +74,7 @@ pipeline:
 | Styling | **Tailwind CSS** | Utility-first, rapid prototyping |
 | Hosting | **GitHub Pages** or **Vercel** | Free, auto-deploy from repo |
 | PDF Rendering | **PDF.js** embedded viewer | In-browser paper viewing |
-| Domain | `autoresearchclaw.github.io` or custom | GitHub Pages default |
+| Domain | `researchpipeline.github.io` or custom | GitHub Pages default |
 
 **Alternative (simpler):** Pure HTML/CSS/JS with no build step — suitable if we want zero dependencies and maximum portability.
 
@@ -237,7 +237,7 @@ Each showcase paper includes a `metadata.json`:
 ## 7. Deployment Options
 
 ### Option A: GitHub Pages (Recommended)
-- Free hosting on `autoresearchclaw.github.io`
+- Free hosting on `researchpipeline.github.io`
 - Auto-deploy via GitHub Actions on push to `website` branch or `docs/` folder
 - No server costs, CDN included
 
@@ -273,7 +273,7 @@ Each showcase paper includes a `metadata.json`:
 
 ## 9. Open Questions
 
-1. **Custom domain?** — Do we want a custom domain (e.g., `autoresearchclaw.com`) or is `github.io` sufficient?
+1. **Custom domain?** — Do we want a custom domain (e.g., `researchpipeline.com`) or is `github.io` sufficient?
 2. **Video demo?** — Should we include a screen recording of a full pipeline run, or is a GIF of key stages enough?
 3. **Interactive pipeline?** — Full interactive SVG/Canvas pipeline diagram vs. static image with tooltips?
 4. **Paper format** — Show papers as embedded PDFs, or convert to HTML for better web rendering?

@@ -17,12 +17,12 @@ import yaml
 # Ensure project root is on path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from researchclaw.config import RCConfig
-from researchclaw.adapters import AdapterBundle
-from researchclaw.llm.client import LLMClient
-from researchclaw.pipeline.stages import Stage, STAGE_SEQUENCE
-from researchclaw.pipeline.executor import execute_stage, StageResult
-from researchclaw.pipeline.runner import execute_pipeline
+from researchpipeline.config import RCConfig
+from researchpipeline.adapters import AdapterBundle
+from researchpipeline.llm.client import LLMClient
+from researchpipeline.pipeline.stages import Stage, STAGE_SEQUENCE
+from researchpipeline.pipeline.executor import execute_stage, StageResult
+from researchpipeline.pipeline.runner import execute_pipeline
 
 
 def main() -> None:
@@ -52,7 +52,7 @@ def main() -> None:
     run_id = f"e2e-real-{int(time.time())}"
 
     print(f"=" * 70)
-    print(f"ResearchClaw E2E Test — Real LLM API")
+    print(f"ResearchPipeline E2E Test — Real LLM API")
     print(f"Topic: {config.research.topic}")
     print(f"Run ID: {run_id}")
     print(f"Output: {run_dir}")

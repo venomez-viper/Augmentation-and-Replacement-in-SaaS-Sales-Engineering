@@ -1,4 +1,4 @@
-"""Tests for researchclaw.prompts — PromptManager and template rendering."""
+"""Tests for researchpipeline.prompts — PromptManager and template rendering."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from researchclaw.prompts import (
+from researchpipeline.prompts import (
     PromptManager,
     RenderedPrompt,
     _render,

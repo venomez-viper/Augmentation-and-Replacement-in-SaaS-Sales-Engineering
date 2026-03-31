@@ -8,13 +8,13 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.pipeline.experiment_diagnosis import (
+from researchpipeline.pipeline.experiment_diagnosis import (
     DeficiencyType,
     Deficiency,
     ExperimentDiagnosis,
     PaperMode,
 )
-from researchclaw.pipeline.experiment_repair import (
+from researchpipeline.pipeline.experiment_repair import (
     ExperimentRepairResult,
     RepairCycleResult,
     build_repair_prompt,
@@ -387,7 +387,7 @@ class TestRunRepairLoop:
         }
         (s14 / "experiment_summary.json").write_text(json.dumps(summary))
 
-        from researchclaw.config import ExperimentConfig, ExperimentRepairConfig
+        from researchpipeline.config import ExperimentConfig, ExperimentRepairConfig
 
         class FakeConfig:
             class experiment:
@@ -411,7 +411,7 @@ class TestRunRepairLoop:
             "best_run": {"metrics": {}},
         }))
 
-        from researchclaw.config import ExperimentRepairConfig
+        from researchpipeline.config import ExperimentRepairConfig
 
         class FakeConfig:
             class experiment:
@@ -429,7 +429,7 @@ class TestRunRepairLoop:
         """Test full repair loop with mocked LLM and sandbox."""
         run_dir = self._make_run_dir(tmp_path, n_conditions=1)
 
-        from researchclaw.config import ExperimentRepairConfig, ExperimentConfig, OpenCodeConfig
+        from researchpipeline.config import ExperimentRepairConfig, ExperimentConfig, OpenCodeConfig
 
         class FakeConfig:
             class experiment:
@@ -480,8 +480,8 @@ print("condition=Ablation metric=85.0")
         mock_sandbox = MagicMock()
         mock_sandbox.run_project.return_value = mock_sandbox_result
 
-        with patch("researchclaw.llm.create_llm_client") as mock_create_llm, \
-             patch("researchclaw.experiment.factory.create_sandbox") as mock_create_sb:
+        with patch("researchpipeline.llm.create_llm_client") as mock_create_llm, \
+             patch("researchpipeline.experiment.factory.create_sandbox") as mock_create_sb:
             mock_create_llm.return_value = mock_llm
             mock_create_sb.return_value = mock_sandbox
 

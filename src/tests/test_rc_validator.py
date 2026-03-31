@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from researchclaw.experiment.validator import (
+from researchpipeline.experiment.validator import (
     BANNED_MODULES,
     DANGEROUS_BUILTINS,
     DANGEROUS_CALLS,

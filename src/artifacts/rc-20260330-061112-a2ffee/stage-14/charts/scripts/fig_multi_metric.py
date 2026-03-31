@@ -59,6 +59,6 @@ ax.set_xticklabels([c.replace("_", " ") for c in conditions], rotation=25, ha="r
 ax.legend(loc="upper left", bbox_to_anchor=(0, 1), framealpha=0.9, edgecolor="gray")
 ax.grid(True, axis="y", alpha=0.3)
 ax.set_axisbelow(True)
-fig.savefig("C:\Users\akash\Desktop\Research\AutoResearchClaw\artifacts\rc-20260330-061112-a2ffee\stage-14\charts\fig_multi_metric.png")
+fig.savefig("C:\Users\akash\Desktop\Research\ResearchPipeline\artifacts\rc-20260330-061112-a2ffee\stage-14\charts\fig_multi_metric.png")
 plt.close(fig)
-print(f"Saved: C:\Users\akash\Desktop\Research\AutoResearchClaw\artifacts\rc-20260330-061112-a2ffee\stage-14\charts\fig_multi_metric.png")
+print(f"Saved: C:\Users\akash\Desktop\Research\ResearchPipeline\artifacts\rc-20260330-061112-a2ffee\stage-14\charts\fig_multi_metric.png")

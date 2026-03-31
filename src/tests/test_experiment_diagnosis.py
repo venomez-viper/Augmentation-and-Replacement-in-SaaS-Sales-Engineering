@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from researchclaw.pipeline.experiment_diagnosis import (
+from researchpipeline.pipeline.experiment_diagnosis import (
     DeficiencyType,
     ExperimentDiagnosis,
     ExperimentQualityAssessment,

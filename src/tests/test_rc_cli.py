@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from researchclaw import cli as rc_cli
-from researchclaw.config import resolve_config_path
+from researchpipeline import cli as rc_cli
+from researchpipeline.config import resolve_config_path
 
 
 def _write_valid_config(path: Path) -> None:
@@ -43,7 +43,7 @@ def test_main_with_no_args_returns_zero_and_prints_help(
     code = rc_cli.main([])
     assert code == 0
     captured = capsys.readouterr()
-    assert "ResearchClaw" in captured.out
+    assert "ResearchPipeline" in captured.out
     assert "usage:" in captured.out
 
 
@@ -230,7 +230,7 @@ def test_cmd_init_creates_config(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     monkeypatch.chdir(tmp_path)
-    _write_example_config(tmp_path / "config.researchclaw.example.yaml")
+    _write_example_config(tmp_path / "config.researchpipeline.example.yaml")
     # Simulate non-TTY (stdin not a tty) → defaults to openai
     monkeypatch.setattr("sys.stdin", type("FakeStdin", (), {"isatty": lambda self: False})())
     args = argparse.Namespace(force=False)
@@ -247,7 +247,7 @@ def test_cmd_init_refuses_overwrite(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     monkeypatch.chdir(tmp_path)
-    _write_example_config(tmp_path / "config.researchclaw.example.yaml")
+    _write_example_config(tmp_path / "config.researchpipeline.example.yaml")
     (tmp_path / "config.arc.yaml").write_text("existing\n")
     args = argparse.Namespace(force=False)
     code = rc_cli.cmd_init(args)
@@ -260,7 +260,7 @@ def test_cmd_init_force_overwrites(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.chdir(tmp_path)
-    _write_example_config(tmp_path / "config.researchclaw.example.yaml")
+    _write_example_config(tmp_path / "config.researchpipeline.example.yaml")
     (tmp_path / "config.arc.yaml").write_text("old\n")
     monkeypatch.setattr("sys.stdin", type("FakeStdin", (), {"isatty": lambda self: False})())
     args = argparse.Namespace(force=True)
@@ -285,7 +285,7 @@ def test_cmd_run_missing_config_shows_init_hint(
     )
     code = rc_cli.cmd_run(args)
     assert code == 1
-    assert "researchclaw init" in capsys.readouterr().err
+    assert "researchpipeline init" in capsys.readouterr().err
 
 
 def test_resume_finds_existing_checkpoint_dir(
@@ -312,14 +312,14 @@ def test_resume_finds_existing_checkpoint_dir(
     )
 
     # Mock execute_pipeline so we don't actually run
-    import researchclaw.pipeline.runner as runner_mod
+    import researchpipeline.pipeline.runner as runner_mod
     monkeypatch.setattr(runner_mod, "execute_pipeline", lambda **kw: [])
 
     # Also mock preflight
     from unittest.mock import MagicMock
     mock_client = MagicMock()
     mock_client.preflight.return_value = (True, "OK")
-    import researchclaw.llm as llm_mod
+    import researchpipeline.llm as llm_mod
     monkeypatch.setattr(llm_mod, "create_llm_client", lambda cfg: mock_client)
 
     args = argparse.Namespace(
@@ -351,13 +351,13 @@ def test_resume_no_checkpoint_warns(
     # Create empty artifacts dir (no checkpoints)
     (tmp_path / "artifacts").mkdir()
 
-    import researchclaw.pipeline.runner as runner_mod
+    import researchpipeline.pipeline.runner as runner_mod
     monkeypatch.setattr(runner_mod, "execute_pipeline", lambda **kw: [])
 
     from unittest.mock import MagicMock
     mock_client = MagicMock()
     mock_client.preflight.return_value = (True, "OK")
-    import researchclaw.llm as llm_mod
+    import researchpipeline.llm as llm_mod
     monkeypatch.setattr(llm_mod, "create_llm_client", lambda cfg: mock_client)
 
     args = argparse.Namespace(

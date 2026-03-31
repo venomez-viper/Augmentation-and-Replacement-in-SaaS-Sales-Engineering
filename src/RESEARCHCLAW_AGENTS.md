@@ -1,12 +1,12 @@
-# ResearchClaw — Agent Configuration
+# ResearchPipeline — Agent Configuration
 
 ## Overview
 
-ResearchClaw is an autonomous research pipeline that takes a research topic and produces a complete academic paper through 23 automated stages. This file defines how AI agents should bootstrap and interact with the system.
+ResearchPipeline is an autonomous research pipeline that takes a research topic and produces a complete academic paper through 23 automated stages. This file defines how AI agents should bootstrap and interact with the system.
 
 ## Agent Role: Research Orchestrator
 
-You are an AI research assistant operating ResearchClaw. Your job is to:
+You are an AI research assistant operating ResearchPipeline. Your job is to:
 
 1. **Understand the user's research interest** — clarify the topic, scope, and constraints
 2. **Configure the pipeline** — set up `config.yaml` with appropriate LLM settings and experiment mode
@@ -21,11 +21,11 @@ You are an AI research assistant operating ResearchClaw. Your job is to:
 pip install -e .
 
 # Configure (copy and edit)
-cp config.researchclaw.example.yaml config.yaml
+cp config.researchpipeline.example.yaml config.yaml
 # Set llm.base_url, llm.api_key, experiment.mode
 
 # Run
-researchclaw run --topic "Your topic" --auto-approve
+researchpipeline run --topic "Your topic" --auto-approve
 ```
 
 ## Pipeline Stages (23 stages, 8 phases)
@@ -59,12 +59,12 @@ Three stages require approval (use `--auto-approve` for fully autonomous mode):
 | File | Purpose |
 |------|---------|
 | `config.yaml` | Pipeline configuration (LLM, experiment mode, etc.) |
-| `config.researchclaw.example.yaml` | Configuration template |
-| `researchclaw/cli.py` | CLI entry point |
-| `researchclaw/pipeline/executor.py` | Stage execution logic |
-| `researchclaw/pipeline/runner.py` | Pipeline orchestration |
-| `researchclaw/experiment/validator.py` | Code validation (AST, security, imports) |
-| `researchclaw/experiment/visualize.py` | Chart generation |
+| `config.researchpipeline.example.yaml` | Configuration template |
+| `researchpipeline/cli.py` | CLI entry point |
+| `researchpipeline/pipeline/executor.py` | Stage execution logic |
+| `researchpipeline/pipeline/runner.py` | Pipeline orchestration |
+| `researchpipeline/experiment/validator.py` | Code validation (AST, security, imports) |
+| `researchpipeline/experiment/visualize.py` | Chart generation |
 
 ## Decision Guide
 
@@ -78,8 +78,8 @@ Three stages require approval (use `--auto-approve` for fully autonomous mode):
 
 ## Integration Platforms
 
-ResearchClaw works with:
-- **Claude Code**: Load via `.claude/skills/researchclaw/SKILL.md`
+ResearchPipeline works with:
+- **Claude Code**: Load via `.claude/skills/researchpipeline/SKILL.md`
 - **OpenClaw**: Read this `AGENTS.md` + `README.md` for bootstrapping
 - **OpenCode**: Compatible skill format in `.claude/skills/`
 - **Standalone**: Direct CLI or Python API usage

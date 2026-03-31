@@ -1,29 +1,29 @@
-# ResearchClaw
+# ResearchPipeline
 
 ## What This Is
 
-ResearchClaw is a **fully autonomous academic research pipeline**. Given a research topic, it automatically completes literature review, hypothesis generation, experiment design, code generation & execution, result analysis, paper writing, peer review simulation, and final export — all through a 23-stage state machine driven by LLM calls.
+ResearchPipeline is a **fully autonomous academic research pipeline**. Given a research topic, it automatically completes literature review, hypothesis generation, experiment design, code generation & execution, result analysis, paper writing, peer review simulation, and final export — all through a 23-stage state machine driven by LLM calls.
 
 ## Quick Start
 
 ```bash
 # 1. Copy and edit config
-cp config.researchclaw.example.yaml config.yaml
+cp config.researchpipeline.example.yaml config.yaml
 # Fill in your LLM API key and base URL
 
 # 2. Install
 pip install -e .
 
 # 3. Run
-researchclaw run --topic "Your research topic" --auto-approve
+researchpipeline run --topic "Your research topic" --auto-approve
 ```
 
 Or programmatically:
 
 ```python
-from researchclaw.pipeline.runner import execute_pipeline
-from researchclaw.config import RCConfig
-from researchclaw.adapters import AdapterBundle
+from researchpipeline.pipeline.runner import execute_pipeline
+from researchpipeline.config import RCConfig
+from researchpipeline.adapters import AdapterBundle
 from pathlib import Path
 
 config = RCConfig.load("config.yaml", check_paths=False)
@@ -39,11 +39,11 @@ results = execute_pipeline(
 ## Project Structure
 
 ```
-researchclaw/
+researchpipeline/
 ├── __init__.py              # Version (0.3.2)
 ├── config.py                # RCConfig dataclass, validation, YAML loading
 ├── adapters.py              # AdapterBundle (recording stubs for notifications, OpenClaw bridge)
-├── cli.py                   # CLI: `researchclaw run` and `researchclaw validate`
+├── cli.py                   # CLI: `researchpipeline run` and `researchpipeline validate`
 ├── pipeline/
 │   ├── stages.py            # 23-stage IntEnum, transitions, gate logic, rollback rules
 │   ├── contracts.py         # StageContract for each stage (required_keys, produced_keys, gate flag)
@@ -113,7 +113,7 @@ Stages 5, 9, and 20 are **gate stages** requiring approval (or `--auto-approve`)
 
 ## Configuration
 
-Config file: `config.yaml` (or `config.researchclaw.example.yaml` as template).
+Config file: `config.yaml` (or `config.researchpipeline.example.yaml` as template).
 
 Key sections:
 - `project.name` / `project.mode` — Project identity
@@ -142,24 +142,24 @@ python -m pytest tests/test_rc_*.py -q --tb=short
 python tests/e2e_real_llm.py
 
 # Validate config
-researchclaw validate --config config.yaml
+researchpipeline validate --config config.yaml
 ```
 
 ## Key APIs
 
 ```python
 # Main pipeline entry
-from researchclaw.pipeline.runner import execute_pipeline, execute_iterative_pipeline
+from researchpipeline.pipeline.runner import execute_pipeline, execute_iterative_pipeline
 
 # Single stage execution
-from researchclaw.pipeline.executor import execute_stage
+from researchpipeline.pipeline.executor import execute_stage
 
 # Code validation
-from researchclaw.experiment.validator import validate_code, security_scan, check_imports
+from researchpipeline.experiment.validator import validate_code, security_scan, check_imports
 
 # Chart generation
-from researchclaw.experiment.visualize import generate_all_charts
+from researchpipeline.experiment.visualize import generate_all_charts
 
 # Config loading
-from researchclaw.config import RCConfig, load_config
+from researchpipeline.config import RCConfig, load_config
 ```

@@ -1,4 +1,4 @@
-"""Tests for researchclaw.copilot — Interactive Co-Pilot Mode (Agent D2).
+"""Tests for researchpipeline.copilot — Interactive Co-Pilot Mode (Agent D2).
 
 30+ tests covering modes, feedback, branching, and controller.
 """
@@ -15,15 +15,15 @@ from unittest.mock import patch
 
 import pytest
 
-from researchclaw.copilot.modes import ResearchMode
-from researchclaw.copilot.feedback import (
+from researchpipeline.copilot.modes import ResearchMode
+from researchpipeline.copilot.feedback import (
     FEEDBACK_ACTIONS,
     Feedback,
     FeedbackHandler,
 )
-from researchclaw.copilot.branching import BranchManager
-from researchclaw.copilot.controller import CoPilotController
-from researchclaw.config import CoPilotConfig
+from researchpipeline.copilot.branching import BranchManager
+from researchpipeline.copilot.controller import CoPilotController
+from researchpipeline.config import CoPilotConfig
 
 
 # ===================================================================

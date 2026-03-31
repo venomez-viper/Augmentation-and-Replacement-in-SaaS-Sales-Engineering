@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from researchclaw.report import generate_report
+from researchpipeline.report import generate_report
 
 
 class TestReport:
@@ -33,7 +33,7 @@ class TestReport:
             )
         )
         report = generate_report(tmp_path)
-        assert "# ResearchClaw Run Report" in report
+        assert "# ResearchPipeline Run Report" in report
         assert "rc-test-123" in report
         assert "✅" in report
 

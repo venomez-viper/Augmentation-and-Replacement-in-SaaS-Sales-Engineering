@@ -8,10 +8,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from researchclaw.overleaf.sync import OverleafSync
-from researchclaw.overleaf.conflict import ConflictResolver, _extract_conflicts, _resolve_content
-from researchclaw.overleaf.watcher import FileWatcher
-from researchclaw.overleaf.formatter import LatexFormatter
+from researchpipeline.overleaf.sync import OverleafSync
+from researchpipeline.overleaf.conflict import ConflictResolver, _extract_conflicts, _resolve_content
+from researchpipeline.overleaf.watcher import FileWatcher
+from researchpipeline.overleaf.formatter import LatexFormatter
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -252,7 +252,7 @@ class TestOverleafSync:
         with pytest.raises(RuntimeError, match="setup"):
             sync.resolve_conflicts()
 
-    @patch("researchclaw.overleaf.sync.subprocess.run")
+    @patch("researchpipeline.overleaf.sync.subprocess.run")
     def test_setup_clones(self, mock_run: MagicMock, tmp_path: Path) -> None:
         mock_run.return_value = MagicMock(returncode=0, stdout="", stderr="")
         sync = OverleafSync(git_url="https://git.overleaf.com/abc123")

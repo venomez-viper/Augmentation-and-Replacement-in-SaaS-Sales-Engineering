@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
-from researchclaw.templates import get_template, markdown_to_latex
-from researchclaw.templates.compiler import compile_latex
+from researchpipeline.templates import get_template, markdown_to_latex
+from researchpipeline.templates.compiler import compile_latex
 
 run_dir = Path("artifacts/rc-20260330-061112-a2ffee")
 stage19_dir = run_dir / "stage-19"
@@ -37,7 +37,7 @@ else:
 
 # Optional: strip missing charts
 try:
-    from researchclaw.templates.compiler import remove_missing_figures
+    from researchpipeline.templates.compiler import remove_missing_figures
     _fixed_tex, _removed_figs = remove_missing_figures(tex_content, out_dir)
     if _removed_figs:
         tex_path.write_text(_fixed_tex, encoding="utf-8")

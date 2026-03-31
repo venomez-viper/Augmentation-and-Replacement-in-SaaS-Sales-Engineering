@@ -1,4 +1,4 @@
-# Contributing to AutoResearchClaw
+# Contributing to ResearchPipeline
 
 ## Setup
 
@@ -10,14 +10,14 @@
    ```
 3. Generate your local config:
    ```
-   researchclaw init
+   researchpipeline init
    ```
 4. Edit `config.arc.yaml` with your LLM settings
 
 ## Config Convention
 
-- `config.researchclaw.example.yaml` — tracked template (do not add secrets)
-- `config.arc.yaml` — your local config (gitignored, created by `researchclaw init`)
+- `config.researchpipeline.example.yaml` — tracked template (do not add secrets)
+- `config.arc.yaml` — your local config (gitignored, created by `researchpipeline init`)
 - `config.yaml` — also gitignored, supported as fallback
 
 ## Running Tests
@@ -29,7 +29,7 @@ pytest tests/
 ## Checking Your Environment
 
 ```
-researchclaw doctor
+researchpipeline doctor
 ```
 
 ## PR Guidelines
